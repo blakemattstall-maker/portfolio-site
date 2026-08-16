@@ -59,6 +59,32 @@ body::before {
   color: #2e3e40;
 }
 
+/* Custom cursor — native CSS cursor images: zero added latency, zero JS.
+   SVG first (crisp), PNG fallback (Safari skips SVG cursors), system last.
+   The .cursor-pointer line outranks Tailwind's utility so buttons comply. */
+@media (pointer: fine) {
+  body {
+    cursor:
+      url("/cursors/arrow.svg") 4 2,
+      url("/cursors/arrow.png") 4 2,
+      auto;
+  }
+  a,
+  button,
+  [role="switch"],
+  summary,
+  .cursor-pointer {
+    cursor:
+      url("/cursors/point.svg") 4 2,
+      url("/cursors/point.png") 4 2,
+      pointer;
+  }
+  input,
+  textarea {
+    cursor: text;
+  }
+}
+
 .display {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
