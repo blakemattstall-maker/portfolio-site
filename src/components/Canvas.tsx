@@ -50,12 +50,18 @@ function ArrowLoop({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 90 60" fill="none" className={className} aria-hidden>
       <path
-        d="M6 50 C 18 14, 58 6, 74 22 C 84 33 74 44 62 40"
+        d="M8 46 C 22 16, 54 8, 72 24"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
       />
-      <path d="M68 48 L61 39 L73 36" stroke="#F9A66C" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M62 18 L72 24 L64 32"
+        stroke="#F9A66C"
+        strokeWidth="4.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -271,9 +277,9 @@ export function Canvas() {
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     [
-                      "-left-6 top-[20%] -rotate-6",
-                      "-right-8 top-[40%] rotate-3",
-                      "-left-4 bottom-[26%] -rotate-3",
+                      "-left-5 top-[14%] -rotate-6",
+                      "-left-8 top-[42%] rotate-2",
+                      "-left-3 bottom-[22%] -rotate-3",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
