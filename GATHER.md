@@ -46,10 +46,15 @@ The Vision-framework cutout pipeline is one command away (see BRAND.md).
 - One honest "what I'd change" paragraph.
 - 2 photos if any survive: campaign creative + the product. (If no media exists,
   typographic card is fine.)
-- **Succession plan:** when Redbird Barbell (ISU weightlifting club) marketing-chair
-  work produces real campaigns + event photos + numbers, it REPLACES this card as
-  the current-tense campaign story. Start collecting from day one: every flyer,
-  post, event shot, and follower/attendance number.
+- **Succession plan:** Blake IS marketing chair of Redbird Barbell (official per
+  club page; meetings not yet started). When the work produces real campaigns +
+  event photos + numbers, it REPLACES this card as the current-tense campaign
+  story. Receipts pipeline from meeting #1: baseline follower/member counts THE
+  DAY the role starts (before = the comparison number), every flyer/post/design
+  saved at full res, event photos (wide + candid), IG/analytics screenshots
+  monthly, attendance counts per event.
+- **Targeting note (Blake, Aug 16):** Chicago is the geography — agencies and
+  brand/content teams. Site carries "Open to work — Chicago, Summer 2027."
 
 **Reel:**
 - Confirm the 6 videos and their one-liners; retitle or swap any.

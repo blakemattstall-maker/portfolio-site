@@ -22,14 +22,15 @@ export const site = {
     "two years behind the camera — 20+ projects",
     "ships his own ai tools — daily drivers",
   ],
-  status: "Open to work — internships, freelance, collabs",
+  status: "Open to work — Chicago, Summer 2027",
   orbitLabels: [
     { text: "MARKETING", accent: "peach" as Accent },
     { text: "MEDIA PRODUCTION", accent: "sun" as Accent },
     { text: "AI BUILDER", accent: "coral" as Accent },
   ],
   ticker: [
-    "Open to work — internships, freelance, collabs",
+    "Open to work — Chicago, Summer 2027",
+    "Marketing chair — Redbird Barbell @ ISU",
     "GA4 certified",
     "HubSpot Content Marketing certified",
     "Adobe Student Ambassador",
@@ -42,9 +43,9 @@ export const site = {
     body: [
       "I fell for videography in 2017 — a cheap camera and the first editor I could find. Since then: 20+ client projects, an agency run at Love Local Media, and a summer at Trifilm working enterprise productions for clients like Microsoft and Amazon.",
       "Now I study marketing at Illinois State, because making things people watch stopped being enough — I want to know why they watch, and what it moves. GA4 and HubSpot certified, Adobe Student Ambassador.",
-      "Off the clock: heavy barbells, a hand-built mechanical keyboard, and AI side projects that keep shipping.",
+      "Off the clock: heavy barbells — I'm the marketing chair of Redbird Barbell, ISU's weightlifting club — a hand-built mechanical keyboard, and AI side projects that keep shipping.",
     ],
-    stamps: ["EST. 2017", "20+ PROJECTS", "CLASS OF 2029", "NORMAL, IL"],
+    stamps: ["EST. 2017", "20+ PROJECTS", "CLASS OF 2029", "CHICAGO ⇄ NORMAL, IL"],
     photos: [{ label: "on set — pick a favorite BTS shot" }, { label: "the keyboard build" }],
     lab: [
       { title: "Resume Engine", status: "IN BUILD", blurb: "Re-aims my real experience at each job description. Never fabricates." },
