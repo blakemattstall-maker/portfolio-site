@@ -18,14 +18,14 @@ export const site = {
   ],
   oneLiner: "I make things people watch — and study why they work.",
   descriptor: ["marketing @ illinois state", "two years behind the camera", "builds AI things on the side"],
-  status: "Open to Summer 2027 marketing internships",
+  status: "Open to work — internships, freelance, collabs",
   orbitLabels: [
     { text: "MARKETING", accent: "peach" as Accent },
     { text: "MEDIA PRODUCTION", accent: "sun" as Accent },
     { text: "AI BUILDER", accent: "coral" as Accent },
   ],
   ticker: [
-    "Open to Summer 2027 marketing internships",
+    "Open to work — internships, freelance, collabs",
     "GA4 certified",
     "HubSpot Content Marketing certified",
     "Adobe Student Ambassador",
@@ -51,7 +51,7 @@ export const site = {
   },
   contact: {
     heading: "Let's make something people watch.",
-    sub: "If you need a marketing intern who can shoot the thing, cut the thing, and read the dashboard after it ships — say hi.",
+    sub: "If you need someone who can shoot the thing, cut the thing, build the thing — and read the dashboard after it ships — say hi.",
   },
 };
 

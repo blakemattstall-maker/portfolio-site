@@ -32,7 +32,7 @@ const jbmono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Blake Stall — Marketing × Media Production",
   description:
-    "Marketing student at Illinois State with two years behind the camera. I make things people watch — and study why they work. Open to Summer 2027 marketing internships.",
+    "Marketing student at Illinois State with two years behind the camera. I make things people watch — and study why they work.",
   metadataBase: new URL("https://blakestall.com"),
   openGraph: {
     title: "Blake Stall — Marketing × Media Production",

@@ -23,8 +23,10 @@ const memory = (g.__twScores ??= []);
 export const emitter = (g.__twEmitter ??= new EventEmitter());
 emitter.setMaxListeners(100);
 
-const url = process.env.UPSTASH_REDIS_REST_URL;
-const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+// Vercel's Upstash marketplace integration injects KV_-prefixed names;
+// plain Upstash uses UPSTASH_-prefixed. Accept either.
+const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
 export const usingRedis = Boolean(url && token);
 const redis = usingRedis ? new Redis({ url: url!, token: token! }) : null;
 
