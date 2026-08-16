@@ -17,7 +17,11 @@ export const site = {
     { label: "YouTube", href: "https://www.youtube.com/@BlakeMatt" },
   ],
   oneLiner: "I make things people watch — and study why they work.",
-  descriptor: ["marketing @ illinois state", "two years behind the camera", "builds AI things on the side"],
+  descriptor: [
+    "marketing @ illinois state — ga4 certified",
+    "two years behind the camera — 20+ projects",
+    "ships his own ai tools — daily drivers",
+  ],
   status: "Open to work — internships, freelance, collabs",
   orbitLabels: [
     { text: "MARKETING", accent: "peach" as Accent },
@@ -29,7 +33,6 @@ export const site = {
     "GA4 certified",
     "HubSpot Content Marketing certified",
     "Adobe Student Ambassador",
-    "2× international entrepreneurship winner",
     "Jesse W. Fell Scholar",
     "Dean's List ×2",
   ],
@@ -38,7 +41,7 @@ export const site = {
     heading: "Two years making the thing. Four more learning why it works.",
     body: [
       "I fell for videography in 2017 — a cheap camera and the first editor I could find. Since then: 20+ client projects, an agency run at Love Local Media, and a summer at Trifilm working enterprise productions for clients like Microsoft and Amazon.",
-      "Now I study marketing at Illinois State, because making things people watch stopped being enough — I want to know why they watch, and what it moves. GA4 and HubSpot certified, Adobe Student Ambassador, two-time international entrepreneurship competition winner.",
+      "Now I study marketing at Illinois State, because making things people watch stopped being enough — I want to know why they watch, and what it moves. GA4 and HubSpot certified, Adobe Student Ambassador.",
       "Off the clock: heavy barbells, a hand-built mechanical keyboard, and AI side projects that keep shipping.",
     ],
     stamps: ["EST. 2017", "20+ PROJECTS", "CLASS OF 2029", "NORMAL, IL"],

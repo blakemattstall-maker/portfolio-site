@@ -36,13 +36,20 @@ The Vision-framework cutout pipeline is one command away (see BRAND.md).
 
 ## 3. Case studies — per case
 
-**Merch Line (the flagship — needs the most):**
-- The numbers: revenue and/or units, the 50%-of-student-body claim confirmed,
-  anything on repeat buyers. (Replaces 2 TK chips.)
-- What the campaigns actually were: channels, creative, drop mechanics, anything
-  you tested. (1 TK chip.)
-- One honest "what I'd change" paragraph. (1 TK chip.)
-- 2 photos: campaign creative (poster/story/post) + the product.
+**Merch Line (the campaign card — honest HS framing):**
+- Framing rule (Blake's call, Aug 16): no E-League / "international entrepreneurship
+  winner" references anywhere — unverifiable claims that can't survive a "tell me
+  more" are red flags. The case stands on the funnel story alone, labeled plainly
+  as a high-school venture.
+- The numbers: revenue and/or units, the 50%-of-student-body claim confirmed.
+- What the campaigns actually were: channels, creative, drop mechanics.
+- One honest "what I'd change" paragraph.
+- 2 photos if any survive: campaign creative + the product. (If no media exists,
+  typographic card is fine.)
+- **Succession plan:** when Redbird Barbell (ISU weightlifting club) marketing-chair
+  work produces real campaigns + event photos + numbers, it REPLACES this card as
+  the current-tense campaign story. Start collecting from day one: every flyer,
+  post, event shot, and follower/attendance number.
 
 **Reel:**
 - Confirm the 6 videos and their one-liners; retitle or swap any.
