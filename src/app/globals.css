@@ -27,6 +27,27 @@ body {
   overflow: hidden; /* the canvas is the viewport — no page scroll on desktop */
 }
 
+/* Background layer: sparse hand-drawn doodle texture on the field.
+   Counter-moves against the pointer (negative parallax) so back/mid/front
+   layers read as one deep scene. Sits above body bg, below all content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -40px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cg fill='none' stroke='%23F9FAF4' stroke-opacity='0.07' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M30 44h16M38 36v16'/%3E%3Cpath d='M258 96h12M264 90v12'/%3E%3Cpath d='M120 300h14M127 293v14'/%3E%3Ccircle cx='196' cy='38' r='5'/%3E%3Ccircle cx='60' cy='210' r='7'/%3E%3Ccircle cx='308' cy='250' r='4'/%3E%3Cpath d='M150 150c8-10 16 10 24 0s16 10 24 0'/%3E%3Cpath d='M40 120l6 14 14 6-14 6-6 14-6-14-14-6 14-6z'/%3E%3Cpath d='M282 176l4 9 9 4-9 4-4 9-4-9-9-4 9-4z'/%3E%3C/g%3E%3Cg fill='%23F9FAF4' fill-opacity='0.055'%3E%3Ccircle cx='104' cy='84' r='2.5'/%3E%3Ccircle cx='230' cy='210' r='2.5'/%3E%3Ccircle cx='170' cy='260' r='2'/%3E%3Ccircle cx='300' cy='140' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 340px 340px;
+  transform: translate3d(calc(var(--mx, 0) * -7px), calc(var(--my, 0) * -5px), 0);
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  body::before {
+    transform: none;
+  }
+}
+
 @media (max-width: 767px) {
   body {
     overflow-y: auto; /* small screens may breathe if the canvas can't fit */
@@ -151,6 +172,32 @@ body {
   * {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Hover bursts — tiny objects that pop out of buttons */
+@keyframes burst-pop {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--bx, 0px), var(--by, -40px)) scale(1) rotate(var(--br, 0deg));
+  }
+}
+.burst-p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -0.5em;
+  pointer-events: none;
+  z-index: 40;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  animation: burst-pop 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Availability dot */

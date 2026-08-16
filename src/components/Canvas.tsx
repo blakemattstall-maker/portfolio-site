@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
-import { StaggerHeadline } from "./ui";
+import { Burst, StaggerHeadline } from "./ui";
 import { ThumbWar } from "./ThumbWar";
 
 type OverlayKey = "about" | "contact" | "game" | (typeof work)[number]["slug"] | null;
@@ -142,12 +142,12 @@ export function Canvas() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Subtle whole-scene 3D: normalized pointer position drives CSS vars; layers
-  // pick their own depth. rAF-throttled, fine-pointer only, reduced-motion off.
+  // pick their own depth (the body::before texture counter-moves for real depth).
+  // Vars live on <html> so every layer — including pseudo-elements — inherits.
   useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = document.documentElement;
     let raf = 0;
     const onMove = (e: PointerEvent) => {
       cancelAnimationFrame(raf);
@@ -184,14 +184,18 @@ export function Canvas() {
   return (
     <div ref={rootRef} className="relative flex min-h-dvh flex-col md:h-dvh">
       {/* availability pill, top right */}
-      <button
-        type="button"
-        onClick={() => open("contact")}
-        className="absolute right-4 top-3 z-10 hidden cursor-pointer items-center gap-2 rounded-full bg-paper px-3.5 py-1.5 transition-transform hover:-translate-y-0.5 md:flex"
-      >
-        <span className="live-dot" aria-hidden />
-        <span className="eyebrow text-ink">{site.status}</span>
-      </button>
+      <div className="absolute right-4 top-3 z-10 hidden md:block">
+      <Burst>
+        <button
+          type="button"
+          onClick={() => open("contact")}
+          className="flex cursor-pointer items-center gap-2 rounded-full bg-paper px-3.5 py-1.5 transition-transform hover:-translate-y-0.5"
+        >
+          <span className="live-dot" aria-hidden />
+          <span className="eyebrow text-ink">{site.status}</span>
+        </button>
+      </Burst>
+      </div>
 
       <main className="relative mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-start gap-6 px-5 pb-4 pt-6 md:grid-cols-12 md:items-center md:gap-4 md:px-10 md:py-4">
         {/* LEFT — name, one-liner, descriptor, status, socials */}
@@ -223,13 +227,15 @@ export function Canvas() {
               <span className="live-dot" aria-hidden />
               <span className="eyebrow">{site.status}</span>
             </div>
-            <button
-              type="button"
-              onClick={() => open("contact")}
-              className="mt-5 cursor-pointer rounded-full bg-coral px-6 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-            >
-              Hire me →
-            </button>
+            <Burst className="mt-5">
+              <button
+                type="button"
+                onClick={() => open("contact")}
+                className="cursor-pointer rounded-full bg-coral px-6 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
+              >
+                Hire me →
+              </button>
+            </Burst>
             <div className="mt-4 flex flex-wrap gap-2.5">
               <a
                 href={`mailto:${site.email}`}
@@ -329,27 +335,33 @@ export function Canvas() {
               ))}
             </div>
             <div className="mt-1 flex gap-2 border-t-2 border-ink/10 px-1 pt-3 pb-1">
-              <button
-                type="button"
-                onClick={() => open("about")}
-                className="eyebrow cursor-pointer bg-sun px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
-              >
-                About
-              </button>
-              <button
-                type="button"
-                onClick={() => open("contact")}
-                className="eyebrow cursor-pointer bg-coral px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
-              >
-                Contact
-              </button>
-              <button
-                type="button"
-                onClick={() => open("game")}
-                className="eyebrow cursor-pointer bg-peach px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
-              >
-                Play ▸
-              </button>
+              <Burst>
+                <button
+                  type="button"
+                  onClick={() => open("about")}
+                  className="eyebrow cursor-pointer bg-sun px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
+                >
+                  About
+                </button>
+              </Burst>
+              <Burst>
+                <button
+                  type="button"
+                  onClick={() => open("contact")}
+                  className="eyebrow cursor-pointer bg-coral px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
+                >
+                  Contact
+                </button>
+              </Burst>
+              <Burst>
+                <button
+                  type="button"
+                  onClick={() => open("game")}
+                  className="eyebrow cursor-pointer bg-peach px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
+                >
+                  Play ▸
+                </button>
+              </Burst>
               <span className="eyebrow ml-auto hidden self-center text-ink/50 sm:block">
                 4 cases · click any
               </span>

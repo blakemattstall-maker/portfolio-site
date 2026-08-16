@@ -1,7 +1,7 @@
 "use client";
 
 import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
-import { Copy } from "./ui";
+import { Burst, Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 
 export const ACCENT_BG: Record<Accent, string> = {
@@ -139,12 +139,14 @@ export function ContactBody() {
       <h2 className="display mt-4 text-3xl font-bold sm:text-4xl">{site.contact.heading}</h2>
       <p className="mt-4 max-w-md leading-relaxed opacity-85">{site.contact.sub}</p>
       <div className="mt-7 flex flex-wrap items-center gap-4">
-        <a
-          href={`mailto:${site.email}`}
-          className="bg-coral px-6 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-        >
-          {site.email}
-        </a>
+        <Burst>
+          <a
+            href={`mailto:${site.email}`}
+            className="inline-block bg-coral px-6 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
+          >
+            {site.email}
+          </a>
+        </Burst>
       </div>
       <div className="mt-6 flex flex-wrap gap-5">
         {site.socials.map((social) => (

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GAME, pairs, type ThumbPair, type ThumbSide } from "@/content/thumbwar";
 import type { ScoreEntry } from "@/lib/scores";
+import { Burst } from "./ui";
 
 type Phase = "idle" | "play" | "enter" | "done";
 
@@ -190,13 +191,15 @@ export function ThumbWar() {
           <p className="eyebrow mt-2 opacity-50">
             Right answers score by speed · streaks multiply · wrong picks cost 100
           </p>
-          <button
-            type="button"
-            onClick={start}
-            className="mt-5 cursor-pointer rounded-full bg-coral px-7 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-          >
-            Start →
-          </button>
+          <Burst className="mt-5">
+            <button
+              type="button"
+              onClick={start}
+              className="cursor-pointer rounded-full bg-coral px-7 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
+            >
+              Start →
+            </button>
+          </Burst>
           <h3 className="eyebrow mt-8 opacity-60">{GAME.board}</h3>
           <Board scores={scores} />
         </>
