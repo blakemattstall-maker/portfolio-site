@@ -5,8 +5,9 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Reac
 import { site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { StaggerHeadline } from "./ui";
+import { ThumbWar } from "./ThumbWar";
 
-type OverlayKey = "about" | "contact" | (typeof work)[number]["slug"] | null;
+type OverlayKey = "about" | "contact" | "game" | (typeof work)[number]["slug"] | null;
 
 const ACCENT_TEXT: Record<string, string> = {
   peach: "text-peach",
@@ -113,7 +114,15 @@ function Overlay({ overlay, onClose }: { overlay: OverlayKey; onClose: () => voi
         >
           ESC ✕
         </button>
-        {item ? <CaseBody item={item} /> : overlay === "about" ? <AboutBody /> : <ContactBody />}
+        {item ? (
+          <CaseBody item={item} />
+        ) : overlay === "about" ? (
+          <AboutBody />
+        ) : overlay === "game" ? (
+          <ThumbWar />
+        ) : (
+          <ContactBody />
+        )}
       </motion.div>
     </motion.div>
   );
@@ -167,7 +176,7 @@ export function Canvas() {
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get("open");
     if (!wanted) return;
-    if (wanted === "about" || wanted === "contact" || work.some((w) => w.slug === wanted)) {
+    if (wanted === "about" || wanted === "contact" || wanted === "game" || work.some((w) => w.slug === wanted)) {
       setOverlay(wanted as Exclude<OverlayKey, null>);
     }
   }, []);
@@ -333,6 +342,13 @@ export function Canvas() {
                 className="eyebrow cursor-pointer bg-coral px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
               >
                 Contact
+              </button>
+              <button
+                type="button"
+                onClick={() => open("game")}
+                className="eyebrow cursor-pointer bg-peach px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
+              >
+                Play ▸
               </button>
               <span className="eyebrow ml-auto hidden self-center text-ink/50 sm:block">
                 4 cases · click any

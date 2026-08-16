@@ -23,14 +23,20 @@ walk(ROOT);
 
 if (hits.length) {
   const isDeploy = !!process.env.VERCEL;
-  console[isDeploy ? "error" : "warn"](
+  const allowed = process.env.ALLOW_TK === "1";
+  console[isDeploy && !allowed ? "error" : "warn"](
     `\n[check-tk] ${hits.length} unresolved {{TK}} placeholder(s):\n  ` + hits.join("\n  ")
   );
-  if (isDeploy) {
-    console.error("\n[check-tk] Refusing to deploy with placeholder metrics. Fill them in first.\n");
+  if (isDeploy && !allowed) {
+    console.error(
+      "\n[check-tk] Refusing to deploy with placeholder metrics." +
+        "\n[check-tk] Fill them in — or set ALLOW_TK=1 on the project to ship visible TK chips on purpose.\n"
+    );
     process.exit(1);
+  } else if (isDeploy) {
+    console.warn("[check-tk] ALLOW_TK=1 — shipping WITH visible placeholder chips. Remove the env var once filled.\n");
   } else {
-    console.warn("[check-tk] OK locally — but deploys will be blocked until these are resolved.\n");
+    console.warn("[check-tk] OK locally — production deploys need these resolved (or ALLOW_TK=1).\n");
   }
 } else {
   console.log("[check-tk] Clean — no placeholders.");

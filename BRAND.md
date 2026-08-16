@@ -61,6 +61,29 @@ next/font). Unchanged from v1 — carried across the pivot.
   respected everywhere (entrances, floats, ticker, blink).
 - Overlays: ESC + backdrop click close; internal scroll allowed inside the sheet.
 
+## v2.1 additions (2026-08-16, after Blake's hero/3D/minigame direction)
+
+- **Hero, Jitu-Raiyan-style:** cutout enlarged to a true hero figure (54–66dvh),
+  left-leaning into the composition; labels overhang the silhouette as stickers
+  (center column carries `z-20` so they ride over neighbors). Availability pill
+  top-right; coral **Hire me →** pill in the left column; credit line moved into
+  the ticker.
+- **Subtle 3D:** pointer-parallax via CSS vars `--mx/--my` set rAF-throttled on the
+  canvas root; layers opt in with `.plx` + `--px/--py` depth (name 5px, cutout 14px,
+  doodles 22px); the sheet gets `.plx-tilt` (≤2.4° perspective tilt). Fine pointers
+  only; reduced-motion and touch get none. Full WebGL scenes (Kage/Towers-style)
+  deliberately deferred.
+- **THUMB WAR minigame + realtime leaderboard:** 30-second A/B thumbnail speedrun —
+  every pair encodes a real thumbnail principle and flashes the "why" after each
+  pick. Scores post with 3-letter arcade initials to `/api/scores` (validation,
+  tiny blocklist, per-IP rate limit) and every open viewer's board updates live
+  over SSE (`/api/scores/stream`). Store is adapter-based: in-memory in dev,
+  **Upstash Redis via Vercel Marketplace at deploy** (Blake's pick) — wire
+  `UPSTASH_REDIS_REST_URL/TOKEN` and it switches automatically. Game opens from
+  the sheet's **Play ▸** chip or `?open=game`.
+- **Mobile stance (Blake's call):** desktop strictly no-scroll; phones keep the
+  compact ~1.5-screen stack.
+
 ## File map
 
 `src/components/Canvas.tsx` (the screen) · `CaseContent.tsx` (overlay bodies) ·
