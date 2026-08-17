@@ -20,7 +20,7 @@ const ACCENT_TEXT: Record<string, string> = {
 /* Dark ink, not accent — blends with About's backdrop instead of flashing */
 const INK_COLORS = ["#2E3E40"];
 
-type Splat = { x: number; y: number; color: string; out: boolean; id: number };
+type Splat = { x: number; y: number; scale: number; color: string; out: boolean; id: number };
 
 function InkSplat({ splat, onEnd }: { splat: Splat | null; onEnd: (animationName: string) => void }) {
   if (!splat) return null;
@@ -28,7 +28,7 @@ function InkSplat({ splat, onEnd }: { splat: Splat | null; onEnd: (animationName
     <div
       key={splat.id}
       className="pointer-events-none fixed z-[95]"
-      style={{ left: splat.x, top: splat.y }}
+      style={{ left: splat.x, top: splat.y, ["--ink-scale" as string]: splat.scale }}
       aria-hidden
     >
       <svg
@@ -235,8 +235,16 @@ export function Canvas() {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
+      // Distance from origin to the farthest viewport corner, divided by the
+      // splat blob's tightest radius (~46px at base size) = the exact scale
+      // at which the screen is just covered.
+      const dist = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+      const scale = Math.ceil(dist / 46);
       const color = INK_COLORS[Math.floor(Math.random() * INK_COLORS.length)];
-      setSplat({ x, y, color, out: false, id: Date.now() });
+      setSplat({ x, y, scale, color, out: false, id: Date.now() });
     },
     [open]
   );
@@ -245,8 +253,10 @@ export function Canvas() {
     (animationName: string) => {
       if (animationName === "ink-in") {
         open("about");
-        // one short beat at full cover, then retract
-        setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 80);
+        // two frames: let React commit About beneath the ink, then retract
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => setSplat((s) => (s ? { ...s, out: true } : s)))
+        );
       } else if (animationName === "ink-out") {
         setSplat(null);
       }
