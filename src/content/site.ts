@@ -13,23 +13,22 @@ export const site = {
   email: "blake@blakestall.com",
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/blakestall" },
-    { label: "Instagram", href: "https://www.instagram.com/blakemattbts/" },
-    { label: "YouTube", href: "https://www.youtube.com/@BlakeMatt" },
+    { label: "Instagram", href: "https://www.instagram.com/blakes.tall/" },
   ],
-  oneLiner: "I make things people watch — and study why they work.",
+  oneLiner: "A curious student creative, becoming a strategist.",
   descriptor: [
     "marketing @ illinois state — ga4 certified",
     "two years behind the camera — 20+ projects",
     "ships his own ai tools — daily drivers",
   ],
-  status: "Open to work — Chicago, Summer 2027",
+  status: "Open to work — Summer 2027",
   orbitLabels: [
     { text: "MARKETING", accent: "peach" as Accent },
     { text: "MEDIA PRODUCTION", accent: "sun" as Accent },
     { text: "AI BUILDER", accent: "coral" as Accent },
   ],
   ticker: [
-    "Open to work — Chicago, Summer 2027",
+    "Open to work — Summer 2027",
     "Marketing chair — Redbird Barbell @ ISU",
     "GA4 certified",
     "HubSpot Content Marketing certified",
@@ -45,7 +44,7 @@ export const site = {
       "Now I study marketing at Illinois State, because making things people watch stopped being enough — I want to know why they watch, and what it moves. GA4 and HubSpot certified, Adobe Student Ambassador.",
       "Off the clock: heavy barbells — I'm the marketing chair of Redbird Barbell, ISU's weightlifting club — a hand-built mechanical keyboard, and AI side projects that keep shipping.",
     ],
-    stamps: ["EST. 2017", "20+ PROJECTS", "CLASS OF 2029", "CHICAGO ⇄ NORMAL, IL"],
+    stamps: ["EST. 2017", "20+ PROJECTS", "CLASS OF 2029"],
     photos: [{ label: "on set — pick a favorite BTS shot" }, { label: "the keyboard build" }],
     lab: [
       { title: "Resume Engine", status: "IN BUILD", blurb: "Re-aims my real experience at each job description. Never fabricates." },
@@ -91,45 +90,29 @@ export type WorkItem = {
 
 export const work: WorkItem[] = [
   {
-    slug: "merch-line",
+    slug: "redbird-creative",
     index: "01",
-    kind: "Campaign",
-    title: "The Merch Line",
-    tileHint: "product / table shot",
+    kind: "Campus",
+    title: "Redbird Creative",
+    tileHint: "first shipped piece / team shot",
     accent: "coral",
-    outcome: "Ran marketing + web for a student merch brand — sales reached 50%+ of the student body.",
-    meta: { role: "Marketing Lead & Web Designer", timeline: "2024–2025", status: "Shipped" },
+    outcome: "Media intern on ISU's in-house creative team — campus-brand work, shipping all year.",
+    meta: { role: "Media Intern", timeline: "2026–27 · Illinois State", status: "In progress" },
     trailer: {
-      outcome: "Half the school wearing the product. Small market, real funnel: audience → campaign → conversion → repeat.",
+      outcome: "Making content for a real brand with a captive audience of 20,000 students — and receipts landing here as the year runs.",
       moves: [
-        "Led the marketing campaigns end to end — creative, messaging, and timing around school moments.",
-        "Designed and ran the web storefront; owned inventory and customer interactions.",
-        "Coordinated the team so drops actually landed on schedule.",
+        "Producing media for Illinois State's own creative team — campus campaigns, events, and stories.",
+        "Bringing two years of client production speed to an in-house brand cadence.",
+        "Collecting the numbers as they happen: this card grows all year.",
       ],
     },
-    photos: [{ label: "campaign creative / posters" }, { label: "the merch itself" }],
+    photos: [{ label: "first shipped piece" }, { label: "on the job / team" }],
     sections: [
       {
-        heading: "The problem",
+        heading: "The plan",
         paragraphs: [
-          "A school merchandise line has the hardest audience there is: people who see the seller in the hallway every day. No paid reach, no novelty, no anonymity. Every sale has to come from the product and the campaign actually being good.",
+          "This one is live. As pieces ship, they land here with their numbers — the whole point of an in-house media role is that every post has an audience and every audience has a dashboard. {{TK: first shipped piece + what it did — fill in as the year runs}}",
         ],
-      },
-      {
-        heading: "What I did",
-        paragraphs: [
-          "I ran marketing and built the web presence for the line — campaign creative, the storefront, inventory, and the customer side. {{TK: what the campaigns actually were — channels, creative, drop mechanics, anything you tested}}",
-        ],
-      },
-      {
-        heading: "Outcome",
-        paragraphs: [
-          "Sales reached more than 50% of the student body. {{TK: revenue / units / repeat-buyer numbers if you have them}}",
-        ],
-      },
-      {
-        heading: "What I'd do differently",
-        paragraphs: ["{{TK: one honest paragraph — what you'd change if you ran it again}}"],
       },
     ],
   },

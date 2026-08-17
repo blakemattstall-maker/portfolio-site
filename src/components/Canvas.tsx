@@ -15,6 +15,39 @@ const ACCENT_TEXT: Record<string, string> = {
   coral: "text-coral",
 };
 
+/* Splatoon-style ink transition: splat covers the screen from the click
+   point, About opens beneath it, ink fades. Skipped under reduced motion. */
+const INK_COLORS = ["#F17A7E", "#FFC94B", "#F9A66C"];
+
+type Splat = { x: number; y: number; color: string; out: boolean; id: number };
+
+function InkSplat({ splat }: { splat: Splat | null }) {
+  if (!splat) return null;
+  return (
+    <div
+      key={splat.id}
+      className="pointer-events-none fixed z-[95]"
+      style={{ left: splat.x, top: splat.y }}
+      aria-hidden
+    >
+      <svg
+        viewBox="0 0 100 100"
+        className={`ink-splat ${splat.out ? "ink-splat--out" : ""}`}
+        style={{ color: splat.color }}
+      >
+        <path
+          fill="currentColor"
+          d="M50 6 C58 8 61 15 66 13 C75 8 87 12 86 23 C85 31 92 33 94 43 C96 55 85 57 83 65 C81 75 89 83 77 89 C67 94 60 85 52 89 C42 94 34 91 30 83 C26 75 15 78 11 68 C7 58 17 52 15 44 C13 34 5 30 11 22 C17 14 28 18 34 12 C40 6 44 4 50 6 Z"
+        />
+        <circle cx="12" cy="10" r="4" fill="currentColor" />
+        <circle cx="93" cy="55" r="3" fill="currentColor" />
+        <circle cx="72" cy="97" r="3.5" fill="currentColor" />
+        <circle cx="6" cy="52" r="2.5" fill="currentColor" />
+      </svg>
+    </div>
+  );
+}
+
 /* CSS-driven entrance — completes even in throttled/background tabs. */
 function Enter({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   return (
@@ -46,21 +79,28 @@ function Star({ className }: { className?: string }) {
   );
 }
 
+/* Hand-drawn arrow, matched to Blake's reference: arc sweeping from upper
+   right down to the lower left, with a full two-barb head at the tip. */
 function ArrowLoop({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 90 60" fill="none" className={className} aria-hidden>
       <path
-        d="M8 46 C 22 16, 54 8, 72 24"
+        d="M84 14 C 64 2, 32 8, 16 40"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
       />
       <path
-        d="M62 18 L72 24 L64 32"
+        d="M16 40 L13.5 27"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
+      />
+      <path
+        d="M16 40 L29 38.5"
+        stroke="#F9A66C"
+        strokeWidth="4.5"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -145,6 +185,7 @@ function Depth({ px, py, children, className }: { px: number; py: number; childr
 
 export function Canvas() {
   const [overlay, setOverlay] = useState<OverlayKey>(null);
+  const [splat, setSplat] = useState<Splat | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Subtle whole-scene 3D: normalized pointer position drives CSS vars; layers
@@ -178,6 +219,21 @@ export function Canvas() {
     setOverlay(key);
     window.history.replaceState(null, "", `?open=${key}`);
   }, []);
+
+  const splatToAbout = useCallback(
+    (e: React.MouseEvent) => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        open("about");
+        return;
+      }
+      const color = INK_COLORS[Math.floor(Math.random() * INK_COLORS.length)];
+      setSplat({ x: e.clientX, y: e.clientY, color, out: false, id: Date.now() });
+      setTimeout(() => open("about"), 380);
+      setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 560);
+      setTimeout(() => setSplat(null), 1050);
+    },
+    [open]
+  );
 
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get("open");
@@ -239,7 +295,7 @@ export function Canvas() {
                 onClick={() => open("contact")}
                 className="cursor-pointer rounded-full bg-coral px-6 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
               >
-                Hire me →
+                Contact me →
               </button>
             </Burst>
             <div className="mt-4 flex flex-wrap gap-2.5">
@@ -269,7 +325,7 @@ export function Canvas() {
         <div className="relative z-20 flex items-end justify-center md:col-span-3 md:h-full md:self-end lg:-mx-10">
           <Enter delay={0.2} className="relative flex items-end">
             <Depth px={14} py={9} className="relative flex items-end">
-              <ArrowLoop className="absolute -left-14 top-2 hidden w-16 rotate-[15deg] lg:block" />
+              <ArrowLoop className="absolute -left-14 top-2 hidden w-16 rotate-[8deg] lg:block" />
               {site.orbitLabels.map((label, i) => (
                 <span
                   key={label.text}
@@ -277,9 +333,9 @@ export function Canvas() {
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     [
-                      "-left-5 top-[14%] -rotate-6",
-                      "-left-8 top-[42%] rotate-2",
-                      "-left-3 bottom-[22%] -rotate-3",
+                      "-left-3 top-[16%] -rotate-6",
+                      "right-0 bottom-[26%] rotate-2",
+                      "-left-2 bottom-[6%] -rotate-3",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
@@ -287,13 +343,20 @@ export function Canvas() {
                   {label.text}
                 </span>
               ))}
-              <motion.img
-                src="/images/cutout-web.png"
-                alt="Blake Stall, cut out and smiling"
-                className="relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
-                whileHover={{ rotate: 1.5, scale: 1.015 }}
-                transition={{ duration: 0.3 }}
-              />
+              <button
+                type="button"
+                onClick={splatToAbout}
+                aria-label="About Blake — with a splat"
+                className="cursor-pointer border-0 bg-transparent p-0"
+              >
+                <motion.img
+                  src="/images/cutout-web.png"
+                  alt="Blake Stall, cut out and smiling"
+                  className="relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
+                  whileHover={{ rotate: 1.5, scale: 1.015 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </button>
             </Depth>
           </Enter>
           <Depth px={22} py={15} className="absolute -right-2 top-6 md:right-0">
@@ -379,6 +442,7 @@ export function Canvas() {
 
       <Ticker />
       <Overlay overlay={overlay} onClose={close} />
+      <InkSplat splat={splat} />
     </div>
   );
 }

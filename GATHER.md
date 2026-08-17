@@ -36,7 +36,14 @@ The Vision-framework cutout pipeline is one command away (see BRAND.md).
 
 ## 3. Case studies — per case
 
-**Merch Line (the campaign card — honest HS framing):**
+**Redbird Creative (card 01 — replaced the merch line, Blake's call Aug 16):**
+- Media intern on ISU's in-house creative team, 2026–27. The card is live with
+  "in progress" framing; it grows as pieces ship.
+- Collect from day one: every shipped piece (full res), its numbers (views,
+  engagement — in-house work always has a dashboard), one team/on-the-job photo.
+- 1 TK chip: first shipped piece + what it did.
+
+**Merch Line (ARCHIVED — cut from the site entirely):**
 - Framing rule (Blake's call, Aug 16): no E-League / "international entrepreneurship
   winner" references anywhere — unverifiable claims that can't survive a "tell me
   more" are red flags. The case stands on the funnel story alone, labeled plainly
