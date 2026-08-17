@@ -85,19 +85,19 @@ function ArrowLoop({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 90 60" fill="none" className={className} aria-hidden>
       <path
-        d="M84 14 C 64 2, 32 8, 16 40"
+        d="M6 46 C 26 58, 58 52, 74 20"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
       />
       <path
-        d="M16 40 L13.5 27"
+        d="M74 20 L76.5 33"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
       />
       <path
-        d="M16 40 L29 38.5"
+        d="M74 20 L61 21.5"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
