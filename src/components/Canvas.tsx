@@ -233,9 +233,9 @@ export function Canvas() {
       const y = rect.top + rect.height / 2;
       const color = INK_COLORS[Math.floor(Math.random() * INK_COLORS.length)];
       setSplat({ x, y, color, out: false, id: Date.now() });
-      setTimeout(() => open("about"), 380);
-      setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 620);
-      setTimeout(() => setSplat(null), 1180);
+      setTimeout(() => open("about"), 560);
+      setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 800);
+      setTimeout(() => setSplat(null), 1600);
     },
     [open]
   );

@@ -206,10 +206,12 @@ body::before {
   height: 120px;
   margin-left: -60px;
   margin-top: -60px;
-  animation: ink-in 0.5s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
+  animation: ink-in 0.75s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
 }
+/* Retraction = the entry animation played backward. `reverse` also mirrors
+   the easing, so the ink leaves exactly the way it came. */
 .ink-splat--out {
-  animation: ink-out 0.5s cubic-bezier(0.65, 0.1, 0.8, 0.4) forwards;
+  animation: ink-in 0.75s cubic-bezier(0.2, 0.85, 0.3, 1) reverse forwards;
 }
 @keyframes ink-in {
   from {
@@ -217,15 +219,6 @@ body::before {
   }
   to {
     transform: scale(52) rotate(6deg);
-  }
-}
-/* Retract, don't fade — the mask travels back out through its origin */
-@keyframes ink-out {
-  from {
-    transform: scale(52) rotate(6deg);
-  }
-  to {
-    transform: scale(0.04) rotate(-16deg);
   }
 }
 
