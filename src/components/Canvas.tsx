@@ -85,19 +85,19 @@ function ArrowLoop({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 90 60" fill="none" className={className} aria-hidden>
       <path
-        d="M6 46 C 26 58, 58 52, 74 20"
+        d="M6 14 C 26 2, 58 8, 74 40"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
       />
       <path
-        d="M74 20 L76.5 33"
+        d="M74 40 L76.5 27"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
       />
       <path
-        d="M74 20 L61 21.5"
+        d="M74 40 L61 38.5"
         stroke="#F9A66C"
         strokeWidth="4.5"
         strokeLinecap="round"
@@ -226,11 +226,16 @@ export function Canvas() {
         open("about");
         return;
       }
+      // Mask transition: ink grows from the photo's center, About swaps in
+      // underneath, then the ink retracts to the same point — no fade.
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
       const color = INK_COLORS[Math.floor(Math.random() * INK_COLORS.length)];
-      setSplat({ x: e.clientX, y: e.clientY, color, out: false, id: Date.now() });
+      setSplat({ x, y, color, out: false, id: Date.now() });
       setTimeout(() => open("about"), 380);
-      setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 560);
-      setTimeout(() => setSplat(null), 1050);
+      setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 620);
+      setTimeout(() => setSplat(null), 1180);
     },
     [open]
   );
