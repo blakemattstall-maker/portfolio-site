@@ -17,11 +17,12 @@ const ACCENT_TEXT: Record<string, string> = {
 
 /* Splatoon-style ink transition: splat covers the screen from the click
    point, About opens beneath it, ink fades. Skipped under reduced motion. */
-const INK_COLORS = ["#F17A7E", "#FFC94B", "#F9A66C"];
+/* Dark ink, not accent — blends with About's backdrop instead of flashing */
+const INK_COLORS = ["#2E3E40"];
 
 type Splat = { x: number; y: number; color: string; out: boolean; id: number };
 
-function InkSplat({ splat }: { splat: Splat | null }) {
+function InkSplat({ splat, onEnd }: { splat: Splat | null; onEnd: (animationName: string) => void }) {
   if (!splat) return null;
   return (
     <div
@@ -34,6 +35,7 @@ function InkSplat({ splat }: { splat: Splat | null }) {
         viewBox="0 0 100 100"
         className={`ink-splat ${splat.out ? "ink-splat--out" : ""}`}
         style={{ color: splat.color }}
+        onAnimationEnd={(e) => onEnd(e.animationName)}
       >
         <path
           fill="currentColor"
@@ -228,14 +230,26 @@ export function Canvas() {
       }
       // Mask transition: ink grows from the photo's center, About swaps in
       // underneath, then the ink retracts to the same point — no fade.
+      // Phases are driven by animationend events, not timers, so the
+      // sequence can never desync (throttled tabs, slow devices).
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
       const color = INK_COLORS[Math.floor(Math.random() * INK_COLORS.length)];
       setSplat({ x, y, color, out: false, id: Date.now() });
-      setTimeout(() => open("about"), 560);
-      setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 800);
-      setTimeout(() => setSplat(null), 1600);
+    },
+    [open]
+  );
+
+  const onInkEnd = useCallback(
+    (animationName: string) => {
+      if (animationName === "ink-in") {
+        open("about");
+        // one short beat at full cover, then retract
+        setTimeout(() => setSplat((s) => (s ? { ...s, out: true } : s)), 80);
+      } else if (animationName === "ink-out") {
+        setSplat(null);
+      }
     },
     [open]
   );
@@ -447,7 +461,7 @@ export function Canvas() {
 
       <Ticker />
       <Overlay overlay={overlay} onClose={close} />
-      <InkSplat splat={splat} />
+      <InkSplat splat={splat} onEnd={onInkEnd} />
     </div>
   );
 }
