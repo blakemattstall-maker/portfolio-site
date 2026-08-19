@@ -32,6 +32,16 @@ export function CaseBody({ item }: { item: WorkItem }) {
         <span className="eyebrow opacity-60">{item.meta.status}</span>
       </div>
       <h2 className="display mt-4 text-4xl font-bold sm:text-5xl">{item.title}</h2>
+      {item.link && (
+        <a
+          href={item.link.href}
+          target="_blank"
+          rel="noreferrer"
+          className="eyebrow mt-4 inline-block border-2 border-ink/20 px-3 py-1.5 transition-colors hover:bg-ink hover:text-paper"
+        >
+          {item.link.label} ↗
+        </a>
+      )}
       <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 border-y-2 border-ink/10 py-4 sm:grid-cols-3">
         {(
           [
@@ -142,6 +152,8 @@ export function ContactBody() {
         <Burst>
           <a
             href={`mailto:${site.email}`}
+            target="_blank"
+            rel="noreferrer"
             className="inline-block bg-coral px-6 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
           >
             {site.email}

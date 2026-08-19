@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { site, work } from "@/content/site";
+import { comingSoon, site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { Burst, StaggerHeadline } from "./ui";
 import { ThumbWar } from "./ThumbWar";
@@ -222,10 +222,10 @@ export function Canvas() {
     window.history.replaceState(null, "", `?open=${key}`);
   }, []);
 
-  const splatToAbout = useCallback(
+  const splatToGame = useCallback(
     (e: React.MouseEvent) => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        open("about");
+        open("game");
         return;
       }
       // Mask transition: ink grows from the photo's center, About swaps in
@@ -252,7 +252,7 @@ export function Canvas() {
   const onInkEnd = useCallback(
     (animationName: string) => {
       if (animationName === "ink-in") {
-        open("about");
+        open("game");
         // two frames: let React commit About beneath the ink, then retract
         requestAnimationFrame(() =>
           requestAnimationFrame(() => setSplat((s) => (s ? { ...s, out: true } : s)))
@@ -330,6 +330,8 @@ export function Canvas() {
             <div className="mt-4 flex flex-wrap gap-2.5">
               <a
                 href={`mailto:${site.email}`}
+                target="_blank"
+                rel="noreferrer"
                 className="eyebrow border-2 border-paper/40 px-3 py-1.5 transition-colors hover:bg-paper hover:text-ink"
               >
                 Email
@@ -358,7 +360,7 @@ export function Canvas() {
               {site.orbitLabels.map((label, i) => (
                 <span
                   key={label.text}
-                  className={`eyebrow absolute z-10 px-2.5 py-1.5 text-ink ${ACCENT_BG[label.accent]} ${
+                  className={`eyebrow pointer-events-none absolute z-10 px-2.5 py-1.5 text-ink ${ACCENT_BG[label.accent]} ${
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     [
@@ -374,9 +376,9 @@ export function Canvas() {
               ))}
               <button
                 type="button"
-                onClick={splatToAbout}
-                aria-label="About Blake — with a splat"
-                className="cursor-pointer border-0 bg-transparent p-0"
+                onClick={splatToGame}
+                aria-label="Click me — there's a game"
+                className="group relative cursor-pointer border-0 bg-transparent p-0"
               >
                 <motion.img
                   src="/images/cutout-web.png"
@@ -385,6 +387,9 @@ export function Canvas() {
                   whileHover={{ rotate: 1.5, scale: 1.015 }}
                   transition={{ duration: 0.3 }}
                 />
+                <span className="eyebrow float-b absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-paper/90 px-2.5 py-1 text-[0.6rem] text-ink transition-transform group-hover:scale-110">
+                  {site.clickMe}
+                </span>
               </button>
             </Depth>
           </Enter>
@@ -431,6 +436,18 @@ export function Canvas() {
                   </span>
                 </button>
               ))}
+              {/* the empty fourth frame — an honest promise, not a card */}
+              <div aria-hidden>
+                <div className="photo-slot photo-slot--dark aspect-[4/3] w-full p-2">
+                  <span className="eyebrow opacity-40">{comingSoon.note}</span>
+                </div>
+                <span className="mt-1.5 flex items-center gap-1.5 px-0.5 pb-1">
+                  <span className="inline-block h-2 w-2 rotate-45 bg-sun/60" aria-hidden />
+                  <span className="eyebrow text-ink/50">
+                    {comingSoon.index} {comingSoon.label}
+                  </span>
+                </span>
+              </div>
             </div>
             <div className="mt-1 flex gap-2 border-t-2 border-ink/10 px-1 pt-3 pb-1">
               <Burst>
@@ -451,17 +468,8 @@ export function Canvas() {
                   Contact
                 </button>
               </Burst>
-              <Burst>
-                <button
-                  type="button"
-                  onClick={() => open("game")}
-                  className="eyebrow cursor-pointer bg-peach px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
-                >
-                  Play ▸
-                </button>
-              </Burst>
               <span className="eyebrow ml-auto hidden self-center text-ink/50 sm:block">
-                4 cases · click any
+                3 cases · click around
               </span>
             </div>
           </div>
