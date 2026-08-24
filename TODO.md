@@ -17,12 +17,18 @@ GATHER.md is background reference; this file is the live list.
 
 ## Phase 2 — Media
 
-- [ ] **YOU — Almanac media set**: app photos/screens. When they exist,
-      **ME** builds the integrated photo-scroll case card you described.
-- [ ] **YOU — Photos**: BTS of you shooting + the keyboard (About slots);
-      Trifilm gear/travel shots, client-safe (its tile + 2 slots).
-- [ ] **YOU — Confirm the videography list**: the 6 videos + one-liners;
-      retitle/swap/cut. Real thumbnails when possible.
+- [x] **Seattle set placed** — Trifilm card (office tile + badge + intern week);
+      About (clapperboard BTS + finished keyboard).
+- [x] **QsCables case built** — grid slot 04, ScrollGallery of 8 product shots,
+      real Reddit receipts. The ScrollGallery is reusable for Almanac.
+- [ ] **YOU — Almanac media set**: app photos/screens. When they exist, **ME**
+      drops them into the same ScrollGallery (component already built).
+- [ ] **YOU — Confirm Microsoft-photo framing** on the Trifilm card (see below).
+- [ ] **YOU — Reconcile the camera timeline** (2017 vs 2021 vs post-cables).
+- [ ] **YOU — Correct the video titles** (you flagged some are wrong) + confirm
+      the 6-video list. Real thumbnails when possible.
+- [ ] **YOU — Unused media decision**: the Little Si video still + cliff shots
+      aren't placed yet — want them used (About hero? background?).
 
 ## Phase 3 — Facts
 
