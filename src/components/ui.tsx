@@ -2,7 +2,7 @@
 
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-/* Renders body copy, turning {{TK: ...}} markers into loud placeholder chips. */
+/* Renders body copy, turning the double-brace TK markers into loud placeholder chips. */
 export function Copy({ text }: { text: string }) {
   const parts = text.split(/(\{\{TK:[^}]*\}\})/g);
   return (

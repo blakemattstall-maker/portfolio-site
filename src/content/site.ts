@@ -2,8 +2,9 @@
  * All site copy and data lives here. Design lives in globals.css/BRAND.md.
  * VOICE RULE (Blake, permanent): everything on the site is written as if
  * Blake is saying it — first person, his register. No third-person bios.
- * `{{TK: ...}}` marks a fact only Blake can supply — rendered loud on purpose,
- * and scripts/check-tk.mjs blocks deploys while any remain.
+ * Placeholder markers (the double-brace TK syntax; see scripts/check-tk.mjs)
+ * mark a fact only Blake can supply — rendered loud, and they block deploys
+ * while any remain.
  * `photos` entries are blank slots (dashed frames) until Blake drops real media
  * into public/images/ and adds a `src` to the slot.
  */
@@ -128,15 +129,15 @@ export const work: WorkItem[] = [
     tileHint: "",
     accent: "sun",
     outcome: "Five years behind a camera, 20+ projects — shot and edited. Here are my favorites.",
-    meta: { role: "Videographer & Editor", timeline: "Love Local Media · Trifilm · freelance", status: "Ongoing" },
+    meta: { role: "Videographer & Editor", timeline: "2023 — Present", status: "Ongoing" },
     isReel: true,
-    thumb: "https://i.ytimg.com/vi/8nQZRL5_Bgk/maxresdefault.jpg",
+    thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
     trailer: {
-      outcome: "20+ video projects, shot and cut — here are the ones I'm proudest of. Press play.",
+      outcome: "20+ video projects, shot and edited — here are my favorites:",
       moves: [
-        "Concept to final cut, it's all me — I pitch it, shoot it, edit it, deliver it.",
-        "Sony, Blackmagic, and Canon in hand; Adobe and DaVinci once I'm back at the desk.",
-        "I light it, mic it, and haul the gear — the invisible 80% that decides if footage is any good.",
+        "I run the whole thing myself — from conceptualizing and pitching, to shooting, to editing, all the way to delivering the final cut.",
+        "I shoot on Sony and Blackmagic cinema systems, then bring it home in the Adobe Creative Suite.",
+        "I light the set, rig the mics, haul the gear, and handle all the media — I'm hands-on for every part of it.",
       ],
     },
     photos: [],
@@ -150,14 +151,15 @@ export const work: WorkItem[] = [
     tileHint: "set / gear shot (client-safe)",
     accent: "peach",
     thumb: "/images/proj/trifilm-office.jpg",
-    outcome: "My summer at Trifilm: executive corporate production sets for Microsoft, Amazon, and others.",
-    meta: { role: "Production Associate Intern", timeline: "May–Aug 2026 · Kirkland, WA", status: "Wrapped" },
+    outcome: "My summer at Trifilm: I moved from Chicago to Seattle to make real corporate productions for clients like Microsoft.",
+    meta: { role: "Production Intern", timeline: "Summer 2026 · Kirkland, WA", status: "Wrapped" },
+    link: { label: "Watch the Microsoft intern-week film I worked on", href: "https://www.youtube.com/watch?v=S6UxOGB41AI" },
     trailer: {
-      outcome: "What professional creative operations look like when the client is a trillion-dollar brand — and what I owned inside that machine.",
+      outcome: "A little over three months ago I packed up and moved across the country — Chicago to Seattle — for my first real look inside the production world. Over 400 hours of shooting, editing, and shadowing later, it was a damn good summer.",
       moves: [
-        "I supported executive-level corporate production sets end to end.",
-        "I owned media management: shuttling drives, ingesting footage, keeping the pipeline safe.",
-        "I ran load-ins, load-outs, and equipment coordination under real call-sheet pressure.",
+        "They trusted me with real work — 400+ hours across shooting, editing, and shadowing on live corporate productions, not coffee runs.",
+        "I worked on productions for the team's clients, including a video for Microsoft's intern week (linked above — a project I actually got to be part of).",
+        "My fellow intern and I even hosted a video-podcast episode exploring Trifilm from the inside.",
       ],
     },
     photos: [
@@ -166,10 +168,10 @@ export const work: WorkItem[] = [
     ],
     sections: [
       {
-        heading: "Why this matters for marketing",
+        heading: "What I took from it",
         paragraphs: [
-          "Enterprise production is brand communication at its most expensive and least forgiving. Watching how global companies structure a message — and what a set full of professionals does to protect it — is a masterclass you can't take at school.",
-          "{{TK: one specific story from a set — a problem you caught, a day that went sideways, a number (days on set, TB ingested) that makes it real. Keep it client-safe.}}",
+          "Three things stuck with me. Hiring for the person can matter more than the skillset. In production, being able to solve the problem beats having all the answers. And AI is a phenomenal tool — but it still needs someone with good taste to keep it from derailing.",
+          "It was my first real look into the industry, and the team trusted me with work that mattered. That's the summer that made me sure this is what I want to be around.",
         ],
       },
     ],
@@ -209,7 +211,7 @@ export const work: WorkItem[] = [
     title: "QsCables",
     tileHint: "",
     accent: "sun",
-    thumb: "/images/proj/qs-tile.jpg",
+    thumb: "/images/proj/qs-4.jpg",
     outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store — shipped worldwide.",
     meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Wound down — on purpose" },
     trailer: {

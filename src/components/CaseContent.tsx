@@ -72,7 +72,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
       </dl>
 
       <section className="mt-6 border-2 border-ink/15 p-5">
-        <h3 className="eyebrow opacity-60">The 30-second version</h3>
+        <h3 className="eyebrow opacity-60">Description</h3>
         <p className="mt-3 text-lg font-semibold leading-relaxed sm:text-xl">
           <Copy text={item.trailer.outcome} />
         </p>
@@ -141,7 +141,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
 
       {item.isReel && (
         <div className="mt-8">
-          <h3 className="eyebrow mb-5 opacity-60">The footage — press play</h3>
+          <h3 className="eyebrow mb-5 opacity-60">My picks — press play:</h3>
           <VideoGrid videos={videos} />
         </div>
       )}
