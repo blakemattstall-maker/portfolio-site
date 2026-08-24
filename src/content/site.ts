@@ -8,6 +8,8 @@
  * into public/images/ and adds a `src` to the slot.
  */
 
+import type { Block } from "@/components/RichBlocks";
+
 export type Accent = "peach" | "sun" | "coral";
 
 export const site = {
@@ -40,21 +42,38 @@ export const site = {
   ],
   credit: "hand-built · no templates · v2 · 08.2026",
   about: {
-    heading: "Two years making the thing. Four more learning why it works.",
+    heading: "About me",
     body: [
       "I fell for videography five years ago — a cheap camera and the first editor I could find. Since then: 20+ client projects, an agency run at Love Local Media, and a summer at Trifilm working enterprise productions for clients like Microsoft and Amazon.",
       "Now I study marketing at Illinois State, because making things people watch stopped being enough — I want to know why they watch, and what it moves. GA4 and HubSpot certified, Adobe Student Ambassador.",
-      "Off the clock: heavy barbells, a hand-built mechanical keyboard, and AI projects that keep shipping — right now I'm exploring hardware add-ons for Almanac.",
+      "Off the clock: heavy barbells, and I never really stop building things.",
     ],
-    stamps: ["SINCE 2021", "20+ PROJECTS", "CLASS OF 2029"],
-    photos: [
-      { label: "me on set", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
-      { label: "the keyboard build", src: "/images/proj/about-keyboard.jpg", aspect: "4/3" },
-    ],
-    lab: [
-      { title: "Resume Engine", status: "IN BUILD", blurb: "Re-aims my real experience at each job description. Never fabricates." },
-      { title: "Custom Keyboard", status: "SHIPPED", blurb: "Solder, firmware, stubbornness." },
-      { title: "Almanac", status: "RUNNING", blurb: "My AI operating system — see the work grid. Hardware add-ons in the works." },
+    stamps: ["20+ PROJECTS", "CLASS OF 2029"],
+    photo: { src: "/images/proj/about-mountains.jpg", caption: "Out west, summer 2026" },
+    desk: [
+      {
+        title: "The Keyboard",
+        status: "SHIPPED",
+        blurb: "A 60% mechanical keyboard I designed and built from nothing — layout, circuit, case, and all.",
+        blocks: [
+          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "1 — Started with the layout: a 60% with a few keys moved to where I actually reach for them." },
+          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "2 — Modeled the whole case from scratch in Fusion 360." },
+          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "3 — The board itself — hand-wired, every switch to the controller." },
+          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "4 — 3D-printed the case, iterating on fit until it was right." },
+          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "5 — A brass weight in the base to give it real heft." },
+          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6 — Finished. Purple on a celestial mat. It's the one I type on." },
+        ] as Block[],
+      },
+      {
+        title: "Almanac",
+        status: "RUNNING",
+        blurb: "My AI operating system — it runs my life daily. Full story in the work grid; hardware add-ons in the works.",
+      },
+      {
+        title: "Resume Engine",
+        status: "IN BUILD",
+        blurb: "A tool that re-aims my real experience at each job description. Never fabricates.",
+      },
     ],
   },
   contact: {
@@ -97,6 +116,7 @@ export type WorkItem = {
   links?: { label: string; href: string }[];
   gallery?: { src: string; caption?: string }[];
   stats?: { value: string; label: string; href?: string }[];
+  blocks?: Block[];
 };
 
 export const work: WorkItem[] = [
@@ -110,7 +130,7 @@ export const work: WorkItem[] = [
     outcome: "Five years behind a camera, 20+ projects — shot and edited. Here are my favorites.",
     meta: { role: "Videographer & Editor", timeline: "Love Local Media · Trifilm · freelance", status: "Ongoing" },
     isReel: true,
-    thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
+    thumb: "https://i.ytimg.com/vi/8nQZRL5_Bgk/maxresdefault.jpg",
     trailer: {
       outcome: "20+ video projects, shot and cut — here are the ones I'm proudest of. Press play.",
       moves: [
@@ -142,7 +162,7 @@ export const work: WorkItem[] = [
     },
     photos: [
       { label: "On the Trifilm crew recording Microsoft's intern week", src: "/images/proj/trifilm-intern.jpg" },
-      { label: "Kirkland, WA — home for the summer", src: "/images/proj/trifilm-kirkland.jpg" },
+      { label: "On set, slate in hand", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
     ],
     sections: [
       {
@@ -190,44 +210,76 @@ export const work: WorkItem[] = [
     tileHint: "",
     accent: "sun",
     thumb: "/images/proj/qs-tile.jpg",
-    outcome: "The business I ran in high school: hand-built custom keyboard cables I designed, shot, and marketed myself.",
-    meta: { role: "Founder / Maker / Marketer", timeline: "High school · 2021–23", status: "Wound down — on purpose" },
-    stats: [
-      { value: "408", label: "upvotes on one r/MechanicalKeyboards post", href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/" },
-      { value: "38", label: "comments on that post" },
-      { value: "giveaway", label: "campaign on r/mechmarket", href: "https://www.reddit.com/r/mechmarket/comments/u358tv/bulk_qscables_highend_customizable_cables_giveaway/" },
-    ],
-    gallery: [
-      { src: "/images/proj/qs-1.jpg", caption: "Purple build" },
-      { src: "/images/proj/qs-4.jpg", caption: "The color range" },
-      { src: "/images/proj/qs-2.jpg", caption: "Coiled, aviator connector" },
-      { src: "/images/proj/qs-3.jpg", caption: "Blackout build" },
-      { src: "/images/proj/qs-5.jpg", caption: "Connectors + detachable ends" },
-      { src: "/images/proj/qs-8.jpg", caption: "Sleeving textures" },
-      { src: "/images/proj/qs-6.jpg", caption: "The catalog, early 2022" },
-      { src: "/images/proj/qs-7.jpg", caption: "In the wild" },
-    ],
-    photos: [],
+    outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store — shipped worldwide.",
+    meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Wound down — on purpose" },
     trailer: {
-      outcome: "I designed, built, photographed, and marketed custom cables for the mechanical keyboard community — a whole small business run out of my bedroom, start to finish.",
-      moves: [
-        "I hand-built every cable — sleeving, coiling, soldering aviator connectors.",
-        "I shot all my own product photography (everything you're scrolling through).",
-        "I marketed on Reddit — organic posts and a giveaway campaign — and ran orders and customer comms myself.",
-      ],
+      outcome: "I ran a whole custom-cable business out of my bedroom — my own Shopify store, my own product photography, my own marketing, shipping orders across the US and overseas.",
+      moves: [],
     },
-    sections: [
+    photos: [],
+    sections: [],
+    blocks: [
       {
-        heading: "What it actually taught me",
-        paragraphs: [
-          "This was my first real funnel: make something good, photograph it so it sells itself, put it in front of the right community, and handle everything after the click. I learned product, brand, marketing, and fulfillment at 16 — by doing all four.",
+        kind: "text",
+        body: "QsCables started as a hobby and turned into a real store. I ran it on Shopify end to end — listings, orders, packaging, shipping — mostly across the US, with the occasional order flying overseas. Every cable was made to order, by me.",
+      },
+      {
+        kind: "duo",
+        photos: [
+          { src: "/images/proj/qs-1.jpg", caption: "A finished build" },
+          { src: "/images/proj/qs-2.jpg", caption: "Coiled, aviator connector" },
         ],
       },
       {
-        heading: "Why I wound it down",
-        paragraphs: [
-          "As bigger vendors moved into custom cables, order volume slowed. I'd learned what I set out to learn, so I pointed the same energy at videography — where the market was wide open and the craft ran deeper. Knowing when a thing has run its course is its own skill.",
+        kind: "text",
+        heading: "The build was obsessive — on purpose",
+        body: "Each coil got heat-set around a brass rod in the oven, shocked in the freezer, then re-coiled the opposite way and set again. Then hand-soldered aviator connectors, heatshrink, the works. It sounds like overkill until you pull one: most cheap cables on Amazon slacken and never recover. Mine spring right back to a tight coil. That tension was the whole point — quality you can feel in your hand.",
+      },
+      {
+        kind: "photo",
+        src: "/images/proj/qs-5.jpg",
+        caption: "Detachable ends and connectors — the parts most people never see.",
+        aspect: "16/9",
+      },
+      {
+        kind: "text",
+        heading: "It had to look as good as it worked",
+        body: "I shot all my own product photography — every image in this case is mine. If the cable was going to sell online, the photo had to do the selling.",
+      },
+      {
+        kind: "photo",
+        src: "/images/proj/qs-4.jpg",
+        caption: "The range — every color combination I offered.",
+        aspect: "16/9",
+      },
+      {
+        kind: "duo",
+        photos: [
+          { src: "/images/proj/qs-tile.jpg", caption: "A customer's board, with their cable" },
+          { src: "/images/proj/qs-7.jpg", caption: "Another customer build in the wild" },
         ],
+      },
+      {
+        kind: "reddit",
+        heading: "And I marketed the whole thing myself",
+        body: "No ad budget — just Reddit, done right. Organic posts in the keyboard communities and a giveaway campaign that put the brand in front of thousands. These both did numbers, and they drove real orders to the store.",
+        posts: [
+          {
+            stat: "408 ▲",
+            title: "\"Never thought I'd enjoy making cables…\" — r/MechanicalKeyboards (38 comments)",
+            href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/",
+          },
+          {
+            stat: "giveaway",
+            title: "Bulk QsCables giveaway campaign — r/mechmarket",
+            href: "https://www.reddit.com/r/mechmarket/comments/u358tv/bulk_qscables_highend_customizable_cables_giveaway/",
+          },
+        ],
+      },
+      {
+        kind: "text",
+        heading: "Why I wound it down",
+        body: "As bigger vendors scaled into custom cables, order volume slowed. I'd learned what I came for — product, brand, marketing, and fulfillment, all at once, before I could drive — so I pointed the same energy at videography, where the market was wide open and the craft ran deeper. Knowing when a thing has run its course is its own skill.",
       },
     ],
   },

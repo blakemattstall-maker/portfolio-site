@@ -4,6 +4,7 @@ import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/cont
 import { Burst, Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
+import { RichBlocks } from "./RichBlocks";
 
 export const ACCENT_BG: Record<Accent, string> = {
   peach: "bg-peach",
@@ -75,17 +76,25 @@ export function CaseBody({ item }: { item: WorkItem }) {
         <p className="mt-3 text-lg font-semibold leading-relaxed sm:text-xl">
           <Copy text={item.trailer.outcome} />
         </p>
-        <ul className="mt-4 space-y-2.5">
-          {item.trailer.moves.map((move, i) => (
-            <li key={i} className="flex gap-3 text-sm leading-relaxed opacity-80">
-              <span className="eyebrow mt-0.5 shrink-0">{String(i + 1).padStart(2, "0")}</span>
-              <span>
-                <Copy text={move} />
-              </span>
-            </li>
-          ))}
-        </ul>
+        {item.trailer.moves.length > 0 && (
+          <ul className="mt-4 space-y-2.5">
+            {item.trailer.moves.map((move, i) => (
+              <li key={i} className="flex gap-3 text-sm leading-relaxed opacity-80">
+                <span className="eyebrow mt-0.5 shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                <span>
+                  <Copy text={move} />
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
+
+      {item.blocks && (
+        <div className="mt-8">
+          <RichBlocks blocks={item.blocks} />
+        </div>
+      )}
 
       {item.stats && (
         <div className="mt-6 flex flex-wrap gap-3">
@@ -171,19 +180,38 @@ export function AboutBody() {
           </span>
         ))}
       </div>
-      <div className="mt-6 grid grid-cols-2 items-start gap-3">
-        {about.photos.map((slot) => (
-          <PhotoSlotEl key={slot.label} slot={slot} />
-        ))}
-      </div>
-      <h3 className="eyebrow mt-8 opacity-60">Also on the desk</h3>
-      <div className="mt-3 grid gap-3 sm:grid-cols-3">
-        {about.lab.map((item) => (
-          <div key={item.title} className="border-2 border-ink/15 p-4">
-            <span className="eyebrow opacity-50">{item.status}</span>
-            <h4 className="display mt-1.5 text-lg font-semibold">{item.title}</h4>
-            <p className="mt-1.5 text-xs leading-relaxed opacity-70">{item.blurb}</p>
-          </div>
+      {about.photo && (
+        <figure className="mt-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={about.photo.src}
+            alt={about.photo.caption}
+            loading="lazy"
+            className="w-full border-2 border-ink/15 object-cover"
+            style={{ aspectRatio: "3/2" }}
+          />
+          <figcaption className="eyebrow mt-1.5 text-[0.62rem] opacity-55">{about.photo.caption}</figcaption>
+        </figure>
+      )}
+
+      <h3 className="eyebrow mt-10 opacity-60">On the desk — things I've built</h3>
+      <div className="mt-4 space-y-8">
+        {about.desk.map((item) => (
+          <section key={item.title} className="border-t-2 border-ink/10 pt-5">
+            <div className="flex items-baseline gap-3">
+              <span className="eyebrow flex items-center gap-1.5 opacity-50">
+                {item.status === "RUNNING" && <span className="live-dot" aria-hidden />}
+                {item.status}
+              </span>
+            </div>
+            <h4 className="display mt-1.5 text-2xl font-semibold">{item.title}</h4>
+            <p className="mt-2 leading-relaxed opacity-80">{item.blurb}</p>
+            {"blocks" in item && item.blocks && (
+              <div className="mt-5">
+                <RichBlocks blocks={item.blocks} />
+              </div>
+            )}
+          </section>
         ))}
       </div>
     </div>
