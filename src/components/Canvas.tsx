@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { comingSoon, site, work } from "@/content/site";
+import { site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { Burst, StaggerHeadline } from "./ui";
 import { ThumbWar } from "./ThumbWar";
@@ -436,18 +436,6 @@ export function Canvas() {
                   </span>
                 </button>
               ))}
-              {/* the empty fourth frame — an honest promise, not a card */}
-              <div aria-hidden>
-                <div className="photo-slot photo-slot--dark aspect-[4/3] w-full p-2">
-                  <span className="eyebrow opacity-40">{comingSoon.note}</span>
-                </div>
-                <span className="mt-1.5 flex items-center gap-1.5 px-0.5 pb-1">
-                  <span className="inline-block h-2 w-2 rotate-45 bg-sun/60" aria-hidden />
-                  <span className="eyebrow text-ink/50">
-                    {comingSoon.index} {comingSoon.label}
-                  </span>
-                </span>
-              </div>
             </div>
             <div className="mt-1 flex gap-2 border-t-2 border-ink/10 px-1 pt-3 pb-1">
               <Burst>
@@ -469,7 +457,7 @@ export function Canvas() {
                 </button>
               </Burst>
               <span className="eyebrow ml-auto hidden self-center text-ink/50 sm:block">
-                3 cases · click around
+                4 cases · click around
               </span>
             </div>
           </div>

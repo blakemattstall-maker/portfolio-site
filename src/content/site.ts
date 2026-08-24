@@ -47,7 +47,10 @@ export const site = {
       "Off the clock: heavy barbells, a hand-built mechanical keyboard, and AI projects that keep shipping — right now I'm exploring hardware add-ons for Almanac.",
     ],
     stamps: ["SINCE 2021", "20+ PROJECTS", "CLASS OF 2029"],
-    photos: [{ label: "me on set — a favorite BTS shot" }, { label: "the keyboard build" }],
+    photos: [
+      { label: "me on set", src: "/images/proj/about-clapper.jpg" },
+      { label: "the keyboard build", src: "/images/proj/about-keyboard.jpg" },
+    ],
     lab: [
       { title: "Resume Engine", status: "IN BUILD", blurb: "Re-aims my real experience at each job description. Never fabricates." },
       { title: "Custom Keyboard", status: "SHIPPED", blurb: "Solder, firmware, stubbornness." },
@@ -89,6 +92,9 @@ export type WorkItem = {
   isReel?: boolean;
   thumb?: string;
   link?: { label: string; href: string };
+  links?: { label: string; href: string }[];
+  gallery?: { src: string; caption?: string }[];
+  stats?: { value: string; label: string; href?: string }[];
 };
 
 export const work: WorkItem[] = [
@@ -121,6 +127,7 @@ export const work: WorkItem[] = [
     title: "Trifilm Summer",
     tileHint: "set / gear shot (client-safe)",
     accent: "peach",
+    thumb: "/images/proj/trifilm-office.jpg",
     outcome: "My summer at Trifilm: executive corporate production sets for Microsoft, Amazon, and others.",
     meta: { role: "Production Associate Intern", timeline: "May–Aug 2026 · Kirkland, WA", status: "Wrapped" },
     trailer: {
@@ -131,7 +138,10 @@ export const work: WorkItem[] = [
         "I ran load-ins, load-outs, and equipment coordination under real call-sheet pressure.",
       ],
     },
-    photos: [{ label: "Kirkland / travel shot" }, { label: "gear or set photo (client-safe)" }],
+    photos: [
+      { label: "my badge on site", src: "/images/proj/trifilm-badge.jpg" },
+      { label: "intern week", src: "/images/proj/trifilm-intern.jpg" },
+    ],
     sections: [
       {
         heading: "Why this matters for marketing",
@@ -170,9 +180,56 @@ export const work: WorkItem[] = [
       },
     ],
   },
+  {
+    slug: "qscables",
+    index: "04",
+    kind: "Business",
+    title: "QsCables",
+    tileHint: "",
+    accent: "sun",
+    thumb: "/images/proj/qs-tile.jpg",
+    outcome: "The business I ran in high school: hand-built custom keyboard cables I designed, shot, and marketed myself.",
+    meta: { role: "Founder / Maker / Marketer", timeline: "2021–2022", status: "Wound down — on purpose" },
+    stats: [
+      { value: "408", label: "upvotes on one r/MechanicalKeyboards post", href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/" },
+      { value: "38", label: "comments on that post" },
+      { value: "giveaway", label: "campaign on r/mechmarket", href: "https://www.reddit.com/r/mechmarket/comments/u358tv/bulk_qscables_highend_customizable_cables_giveaway/" },
+    ],
+    gallery: [
+      { src: "/images/proj/qs-1.jpg", caption: "Purple build" },
+      { src: "/images/proj/qs-4.jpg", caption: "The color range" },
+      { src: "/images/proj/qs-2.jpg", caption: "Coiled, aviator connector" },
+      { src: "/images/proj/qs-3.jpg", caption: "Blackout build" },
+      { src: "/images/proj/qs-5.jpg", caption: "Connectors + detachable ends" },
+      { src: "/images/proj/qs-8.jpg", caption: "Sleeving textures" },
+      { src: "/images/proj/qs-6.jpg", caption: "The catalog, early 2022" },
+      { src: "/images/proj/qs-7.jpg", caption: "In the wild" },
+    ],
+    photos: [],
+    trailer: {
+      outcome: "I designed, built, photographed, and marketed custom cables for the mechanical keyboard community — a whole small business run out of my bedroom, start to finish.",
+      moves: [
+        "I hand-built every cable — sleeving, coiling, soldering aviator connectors.",
+        "I shot all my own product photography (everything you're scrolling through).",
+        "I marketed on Reddit — organic posts and a giveaway campaign — and ran orders and customer comms myself.",
+      ],
+    },
+    sections: [
+      {
+        heading: "What it actually taught me",
+        paragraphs: [
+          "This was my first real funnel: make something good, photograph it so it sells itself, put it in front of the right community, and handle everything after the click. I learned product, brand, marketing, and fulfillment at 16 — by doing all four.",
+        ],
+      },
+      {
+        heading: "Why I wound it down",
+        paragraphs: [
+          "As bigger vendors moved into custom cables, order volume slowed. I'd learned what I set out to learn, so I pointed the same energy at videography — where the market was wide open and the craft ran deeper. Knowing when a thing has run its course is its own skill.",
+        ],
+      },
+    ],
+  },
 ];
-
-export const comingSoon = { index: "04", label: "next project", note: "in production…" };
 
 export const notFoundCopy = {
   slate: "MISSING REEL",

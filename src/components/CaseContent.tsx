@@ -3,6 +3,7 @@
 import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
 import { Burst, Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
+import { ScrollGallery } from "./ScrollGallery";
 
 export const ACCENT_BG: Record<Accent, string> = {
   peach: "bg-peach",
@@ -73,6 +74,41 @@ export function CaseBody({ item }: { item: WorkItem }) {
           ))}
         </ul>
       </section>
+
+      {item.stats && (
+        <div className="mt-6 flex flex-wrap gap-3">
+          {item.stats.map((s) => {
+            const inner = (
+              <>
+                <span className="display block text-2xl font-bold leading-none">{s.value}</span>
+                <span className="eyebrow mt-1 block text-[0.6rem] leading-tight opacity-70">{s.label}</span>
+              </>
+            );
+            return s.href ? (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className={`min-w-[8rem] flex-1 border-2 p-3 transition-colors hover:bg-ink hover:text-paper ${ACCENT_BG[item.accent]}/15 border-ink/15`}
+              >
+                {inner}
+                <span className="eyebrow mt-1.5 block text-[0.58rem] opacity-50">see the post ↗</span>
+              </a>
+            ) : (
+              <div key={s.label} className="min-w-[8rem] flex-1 border-2 border-ink/15 p-3">
+                {inner}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {item.gallery && (
+        <div className="mt-6">
+          <ScrollGallery images={item.gallery} />
+        </div>
+      )}
 
       {item.photos.length > 0 && (
         <div className="mt-6 grid grid-cols-2 gap-3">
