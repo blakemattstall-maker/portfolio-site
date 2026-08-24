@@ -48,8 +48,8 @@ export const site = {
     ],
     stamps: ["SINCE 2021", "20+ PROJECTS", "CLASS OF 2029"],
     photos: [
-      { label: "me on set", src: "/images/proj/about-clapper.jpg" },
-      { label: "the keyboard build", src: "/images/proj/about-keyboard.jpg" },
+      { label: "me on set", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
+      { label: "the keyboard build", src: "/images/proj/about-keyboard.jpg", aspect: "4/3" },
     ],
     lab: [
       { title: "Resume Engine", status: "IN BUILD", blurb: "Re-aims my real experience at each job description. Never fabricates." },
@@ -66,16 +66,18 @@ export const site = {
 export type Video = { id: string; title: string; context: string };
 
 export const videos: Video[] = [
-  { id: "QBmQVm6qBg8", title: "Showreel — Gonzo Recap", context: "Client and personal work, cut to move." },
-  { id: "dlFG1q6c2kc", title: "Oreo — Spec Commercial", context: "Vertical 9:16 spec spot with 3D falling-cookie motion graphics." },
-  { id: "4B626q57J5c", title: "Zevia — Summer Drink Spec", context: "Product spec spot: summer light, condensation, appetite appeal." },
-  { id: "LHQpXGTwbxk", title: "Breaking Grounds — In Music", context: "Commercial for a coffee-shop music series. Real client, real deadline." },
-  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "Personal craft piece — lighting, pacing, and an excuse to be in the gym." },
-  { id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "Competition piece for Acton Academy." },
+  { id: "7n0jBKk99RI", title: "Rage in the Birdcage", context: "Hype edit for an MMA club fight night. Fast cuts, big energy." },
+  { id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Meet-day recap — the misses, the makes, the grind between." },
+  { id: "7thI9wz33cE", title: "Authava — Sizzle Reel", context: "Brand sizzle for an AI chatbot company. Polished, high-ticket feel." },
+  { id: "4B626q57J5c", title: "Zevia — Spec Commercial", context: "Product spec spot: summer light, condensation, appetite appeal." },
+  { id: "LHQpXGTwbxk", title: "Breaking Grounds Music", context: "Commercial for a local music shop's live series. Real client, real deadline." },
+  { id: "dlFG1q6c2kc", title: "Oreo — Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
+  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece — lighting and pacing, start to finish." },
+  { id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece, back when I was starting out." },
 ];
 
 export type CaseSection = { heading: string; paragraphs: string[] };
-export type PhotoSlot = { label: string; src?: string };
+export type PhotoSlot = { label: string; src?: string; aspect?: string; pos?: string };
 
 export type WorkItem = {
   slug: string;
@@ -101,20 +103,20 @@ export const work: WorkItem[] = [
   {
     slug: "videography",
     index: "01",
-    kind: "Videography",
-    title: "Videography Portfolio",
+    kind: "Video",
+    title: "Video Portfolio",
     tileHint: "",
     accent: "sun",
-    outcome: "Five years behind a camera, 20+ client projects — freelance, agency, and spec work. Press play.",
-    meta: { role: "Videographer / Editor", timeline: "2024 — present (clients)", status: "Ongoing" },
+    outcome: "Five years behind a camera, 20+ projects — shot and edited. Here are my favorites.",
+    meta: { role: "Videographer & Editor", timeline: "Love Local Media · Trifilm · freelance", status: "Ongoing" },
     isReel: true,
-    thumb: "https://i.ytimg.com/vi/QBmQVm6qBg8/maxresdefault.jpg",
+    thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
     trailer: {
-      outcome: "20+ projects for real clients through Love Local Media and freelance — plus spec spots for Oreo and Zevia to sharpen my commercial instinct.",
+      outcome: "20+ video projects, shot and cut — here are the ones I'm proudest of. Press play.",
       moves: [
-        "I own the whole pipeline: concept → client comms → shoot → edit → delivery.",
-        "Sony, Blackmagic, and Canon bodies; Adobe and DaVinci in post.",
-        "Set operations too — lighting, audio, camera. The unglamorous parts that make footage usable.",
+        "Concept to final cut, it's all me — I pitch it, shoot it, edit it, deliver it.",
+        "Sony, Blackmagic, and Canon in hand; Adobe and DaVinci once I'm back at the desk.",
+        "I light it, mic it, and haul the gear — the invisible 80% that decides if footage is any good.",
       ],
     },
     photos: [],
@@ -139,8 +141,8 @@ export const work: WorkItem[] = [
       ],
     },
     photos: [
-      { label: "my badge on site", src: "/images/proj/trifilm-badge.jpg" },
-      { label: "intern week", src: "/images/proj/trifilm-intern.jpg" },
+      { label: "On the Trifilm crew recording Microsoft's intern week", src: "/images/proj/trifilm-intern.jpg" },
+      { label: "Kirkland, WA — home for the summer", src: "/images/proj/trifilm-kirkland.jpg" },
     ],
     sections: [
       {
@@ -189,7 +191,7 @@ export const work: WorkItem[] = [
     accent: "sun",
     thumb: "/images/proj/qs-tile.jpg",
     outcome: "The business I ran in high school: hand-built custom keyboard cables I designed, shot, and marketed myself.",
-    meta: { role: "Founder / Maker / Marketer", timeline: "2021–2022", status: "Wound down — on purpose" },
+    meta: { role: "Founder / Maker / Marketer", timeline: "High school · 2021–23", status: "Wound down — on purpose" },
     stats: [
       { value: "408", label: "upvotes on one r/MechanicalKeyboards post", href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/" },
       { value: "38", label: "comments on that post" },

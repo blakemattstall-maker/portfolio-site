@@ -3,34 +3,46 @@
 import { useEffect, useState } from "react";
 import type { Video } from "@/content/site";
 
+// maxres is sharp but often missing (YouTube then serves a gray 120x90
+// placeholder with HTTP 200 — so onError never fires; we catch it by size).
+// mqdefault is low-res but always present and a clean 16:9.
+const QUALITIES = ["maxresdefault", "mqdefault", "hqdefault"];
+
 function Thumb({ video, onOpen, eager }: { video: Video; onOpen: () => void; eager?: boolean }) {
-  const [src, setSrc] = useState(`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`);
+  const [step, setStep] = useState(0);
+  const src = `https://i.ytimg.com/vi/${video.id}/${QUALITIES[step]}.jpg`;
+  const next = () => setStep((s) => Math.min(s + 1, QUALITIES.length - 1));
   return (
     <button
       type="button"
       onClick={onOpen}
-      className="group scene block w-full cursor-pointer text-left"
+      className="group flex h-full w-full cursor-pointer flex-col text-left"
       aria-label={`Play: ${video.title}`}
     >
-      <span className="relative block overflow-hidden border border-line bg-card">
+      {/* fixed 16:9 box, object-contain on ink — vertical cuts letterbox cleanly,
+          so every thumbnail is the same size and the grid rows always line up. */}
+      <span className="relative block w-full overflow-hidden border-2 border-ink/15 bg-ink">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={video.title}
           loading={eager ? "eager" : "lazy"}
-          className="media aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-          onError={() => setSrc(`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`)}
+          className="aspect-video w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          onError={next}
+          onLoad={(e) => {
+            if (e.currentTarget.naturalWidth <= 120 && step < QUALITIES.length - 1) next();
+          }}
         />
         <span className="absolute inset-0 flex items-center justify-center">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-amber text-[#161513] opacity-90 transition-transform duration-300 group-hover:scale-110">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-sun text-ink opacity-95 transition-transform duration-300 group-hover:scale-110">
             <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden>
               <path d="M0 0l14 8-14 8z" />
             </svg>
           </span>
         </span>
       </span>
-      <span className="mt-3 block font-medium">{video.title}</span>
-      <span className="mt-1 block text-sm text-muted">{video.context}</span>
+      <span className="mt-3 block font-semibold leading-snug text-ink">{video.title}</span>
+      <span className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm leading-snug text-ink/60">{video.context}</span>
     </button>
   );
 }
@@ -51,7 +63,7 @@ export function VideoGrid({ videos }: { videos: Video[] }) {
 
   return (
     <>
-      <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2">
+      <div className="grid auto-rows-fr gap-x-6 gap-y-8 sm:grid-cols-2">
         {videos.map((video, i) => (
           <Thumb key={video.id} video={video} eager={i < 2} onOpen={() => setOpen(video)} />
         ))}
@@ -67,11 +79,11 @@ export function VideoGrid({ videos }: { videos: Video[] }) {
         >
           <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-2 flex items-center justify-between">
-              <span className="eyebrow text-[#d8d2c4]">{open.title}</span>
+              <span className="eyebrow text-paper">{open.title}</span>
               <button
                 type="button"
                 onClick={() => setOpen(null)}
-                className="eyebrow cursor-pointer text-[#d8d2c4] transition-colors hover:text-amber"
+                className="eyebrow cursor-pointer text-paper transition-colors hover:text-sun"
               >
                 Close ✕
               </button>

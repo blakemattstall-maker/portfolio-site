@@ -374,23 +374,24 @@ export function Canvas() {
                   {label.text}
                 </span>
               ))}
-              <button
-                type="button"
-                onClick={splatToGame}
-                aria-label="Click me — there's a game"
-                className="group relative cursor-pointer border-0 bg-transparent p-0"
-              >
+              <div className="relative inline-block">
                 <motion.img
                   src="/images/cutout-web.png"
                   alt="Blake Stall, cut out and smiling"
-                  className="relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
-                  whileHover={{ rotate: 1.5, scale: 1.015 }}
-                  transition={{ duration: 0.3 }}
+                  className="pointer-events-none relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
                 />
-                <span className="eyebrow float-b absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-paper/90 px-2.5 py-1 text-[0.6rem] text-ink transition-transform group-hover:scale-110">
-                  {site.clickMe}
-                </span>
-              </button>
+                {/* small hitbox over the body only — won't fire near the About chip */}
+                <button
+                  type="button"
+                  onClick={splatToGame}
+                  aria-label="Click me — there's a game"
+                  className="group absolute inset-x-[26%] bottom-[3%] top-[8%] cursor-pointer"
+                >
+                  <span className="eyebrow float-b absolute left-1/2 top-[60%] -translate-x-1/2 whitespace-nowrap rounded-full bg-paper/90 px-2.5 py-1 text-[0.6rem] text-ink shadow-sm transition-transform group-hover:scale-110">
+                    {site.clickMe}
+                  </span>
+                </button>
+              </div>
             </Depth>
           </Enter>
           <Depth px={22} py={15} className="absolute -right-2 top-6 md:right-0">

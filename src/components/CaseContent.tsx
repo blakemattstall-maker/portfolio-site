@@ -12,12 +12,24 @@ export const ACCENT_BG: Record<Accent, string> = {
 };
 
 export function PhotoSlotEl({ slot, dark = true }: { slot: PhotoSlot; dark?: boolean }) {
+  const aspect = slot.aspect ?? "4/3";
   if (slot.src) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={slot.src} alt={slot.label} className="aspect-video w-full border-2 border-ink/20 object-cover" />;
+    return (
+      <figure>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={slot.src}
+          alt={slot.label}
+          loading="lazy"
+          className="w-full border-2 border-ink/20 object-cover"
+          style={{ aspectRatio: aspect, objectPosition: slot.pos ?? "center" }}
+        />
+        <figcaption className="eyebrow mt-1.5 text-[0.6rem] opacity-55">{slot.label}</figcaption>
+      </figure>
+    );
   }
   return (
-    <div className={`photo-slot ${dark ? "photo-slot--dark" : ""} aspect-video w-full p-3`}>
+    <div className={`photo-slot ${dark ? "photo-slot--dark" : ""} p-3`} style={{ aspectRatio: aspect }}>
       <span className="eyebrow opacity-60">PHOTO · {slot.label}</span>
     </div>
   );
@@ -60,7 +72,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
 
       <section className="mt-6 border-2 border-ink/15 p-5">
         <h3 className="eyebrow opacity-60">The 30-second version</h3>
-        <p className="display mt-3 text-lg font-semibold leading-snug sm:text-xl">
+        <p className="mt-3 text-lg font-semibold leading-relaxed sm:text-xl">
           <Copy text={item.trailer.outcome} />
         </p>
         <ul className="mt-4 space-y-2.5">
@@ -111,7 +123,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
       )}
 
       {item.photos.length > 0 && (
-        <div className="mt-6 grid grid-cols-2 gap-3">
+        <div className="mt-6 grid grid-cols-2 items-start gap-3">
           {item.photos.map((slot) => (
             <PhotoSlotEl key={slot.label} slot={slot} />
           ))}
@@ -159,7 +171,7 @@ export function AboutBody() {
           </span>
         ))}
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-3">
+      <div className="mt-6 grid grid-cols-2 items-start gap-3">
         {about.photos.map((slot) => (
           <PhotoSlotEl key={slot.label} slot={slot} />
         ))}
