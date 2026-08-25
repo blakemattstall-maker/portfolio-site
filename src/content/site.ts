@@ -48,8 +48,8 @@ export const site = {
   about: {
     heading: "About me",
     body: [
-      "Hi, I'm Blake! I study marketing at Illinois State University, and you can usually find me skipping sleep to work on a new project. Off the clock I lift weights (I'm the marketing chair of Redbird Barbell) and play video games (I was on my university's Valorant team, and we made it to two tournament finals in one semester).",
-      "I love pulling concepts out of the classroom and using projects as a way to learn on my own terms. This year I've gone deep on agentic workflows to build apps, pairing that with my video background to learn the whole pipeline of product development and sales. I'm aiming for marketing analytics, product marketing, and brand strategy, and I'm always up to talk with people building things that matter.",
+      "Hi, I'm Blake! I study marketing at Illinois State University, and you can usually find me skipping sleep to work on a new project! Off the clock I lift weights (I'm the marketing chair of Redbird Barbell!) and play video games (I was on my university's Valorant team, and we made it to two tournament finals in one semester!).",
+      "I love pulling concepts out of the classroom and using projects as a way to learn on my own terms! I'm aiming for marketing analytics, product marketing, and brand strategy, and I'm always up to connect & chat!",
     ],
     stamps: ["20+ PROJECTS", "CLASS OF 2029"],
     photo: { src: "/images/proj/about-mountains.jpg", caption: "Out west, summer 2026" },
