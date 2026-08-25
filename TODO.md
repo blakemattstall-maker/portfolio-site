@@ -1,74 +1,48 @@
-# TODO — ordered until launch (rev. Aug 17)
+# TODO — path to internship-application-ready (rev. Aug 24)
 
 Owners: **YOU** (Blake) · **ME** (Claude) · **US** (together).
-GATHER.md is background reference; this file is the live list.
 
-## Phase 1 — Words & feel
+## Done (as of tonight)
+- Four case studies live with real media: Video Portfolio (8 clips), Trifilm
+  (photos + the intern-week film link), Almanac (2 demo videos in phone frames,
+  2 screens, globe tile, deep tech copy, stats, live-site CTAs), QsCables
+  (scroll gallery + Reddit/Instagram marketing callout).
+- About rewritten in Blake's voice; Resume Engine removed.
+- Every user-facing em dash purged (the "sounds like AI" tell).
+- Game moved to a corner controller icon; click-me/ink-splat removed.
+- Videos autoplay silently and start from the top only when scrolled into view.
+- Full desktop + mobile audit: no horizontal overflow anywhere, overlays and
+  phone frames render clean at 375px, About head-crop fixed.
+- Live at the vercel.app URL; auto-deploys on push.
 
-- [ ] **YOU — Voice check my first-person sweep** in `src/content/site.ts` —
-      every line now speaks as you, but they're my words in your mouth. Edit
-      freely; the one-liner especially is still your draft to beat.
-- [ ] **YOU — Confirm the "five years" timeline.** Your old site said you
-      started in 2017; you said five years (2021). I harmonized everything to
-      five years / SINCE 2021 — if 2017 is the real start, say so and I'll
-      flip it back (nine years is MORE impressive).
-- [ ] **YOU — Feel-check the ink** now that it lands on the game.
-- [ ] **ME — Rebuild the OG share card** once the one-liner is final.
+## Before it's application-ready (critical path)
 
-## Phase 2 — Media
+- [ ] **YOU — read every word as if you wrote it.** About, all four case
+      studies, the descriptor bullets, the one-liner. Flag anything that isn't
+      your voice and I'll fix it. (The one-liner "A curious student creative,
+      becoming a strategist" is the one you were least sure of; a couple of
+      alternates are in tonight's report.)
+- [ ] **US — put it on blakestall.com.** This is the #1 item: applications
+      should link your domain, not a vercel.app URL. Vercel → Domains → add
+      blakestall.com; GoDaddy A/CNAME per Vercel; DO NOT touch MX (email).
+      Then cancel Framer.
+- [ ] **YOU — decide on a resume PDF.** Most applications expect one. Want a
+      "Resume" download button on the site (I'd add it to the contact area)?
+      If so, send the PDF.
+- [ ] **YOU — the game.** You want it simpler/revamped. For applications it can
+      stay as-is (tucked in the corner) or I can hide the controller until we
+      rebuild it. Your call.
 
-- [x] **Seattle set placed** — Trifilm card (office tile + badge + intern week);
-      About (clapperboard BTS + finished keyboard).
-- [x] **QsCables case built** — grid slot 04, ScrollGallery of 8 product shots,
-      real Reddit receipts. The ScrollGallery is reusable for Almanac.
-- [ ] **YOU — Almanac media set**: app photos/screens. When they exist, **ME**
-      drops them into the same ScrollGallery (component already built).
-- [ ] **YOU — Confirm Microsoft-photo framing** on the Trifilm card (see below).
-- [ ] **YOU — Reconcile the camera timeline** (2017 vs 2021 vs post-cables).
-- [ ] **YOU — Correct the video titles** (you flagged some are wrong) + confirm
-      the 6-video list. Real thumbnails when possible.
-- [ ] **YOU — Unused media decision**: the Little Si video still + cliff shots
-      aren't placed yet — want them used (About hero? background?).
+## Nice-to-have (not blocking applications)
+- [ ] **ME — Vercel Analytics** (free) so you can see who visits.
+- [ ] **ME — sitemap.ts + robots.ts** for SEO.
+- [ ] **ME — video poster frames** so there's zero flash before a clip plays.
+- [ ] **YOU — leaderboard** still has my test scores; clear the Upstash key or
+      beat them (only matters if the game stays).
+- [ ] Optional extra media: a couple more Trifilm set/gear stills if you have
+      client-safe ones.
 
-## Phase 3 — Facts
-
-- [ ] **YOU — Trifilm story**: one client-safe set anecdote + one real number.
-      This is the LAST TK chip on the site.
-
-## Phase 4 — Hardening (mostly ME)
-
-- [ ] **ME — Vercel Analytics** (you flip the dashboard toggle when I say).
-- [ ] **ME — sitemap.ts + robots.ts.**
-- [ ] **US — Real-phone pass** on your actual phone.
-- [ ] **ME — Lighthouse + accessibility sweep.**
-- [ ] **YOU — Safari spot-check** (cursor, splat, game).
-- [ ] **YOU — Leaderboard**: beat CLD 777 or clear `thumbwar:scores` in Upstash.
-
-## Phase 5 — Launch day
-
-- [ ] **ME — Arm the TK gate** (remove ALLOW_TK env) after Phase 3.
-- [ ] **YOU — Domain cutover**: Vercel → Domains → blakestall.com (+www);
-      GoDaddy A/CNAME per Vercel's values; **never touch MX** (email).
-- [ ] **US — Verify**: site loads, email still arrives, share card fresh.
-- [ ] **YOU — Cancel Framer.** 🎉
-- [ ] **YOU — Point LinkedIn / resume / IG bio at blakestall.com.**
-
-## Parked (deliberately, with return dates)
-
-- [ ] **Game revamp** (Blake's flag): emoji thumbnail cards are cute but not
-      real-world; rebuild pairs from REAL thumbnails with REAL metrics
-      (views/CTR framing) — likely alongside the videography thumbnail set.
-      Until then the game stays as the hidden click-me easter egg.
-- [ ] **Redbird Creative card** — archived (in git history at commit ce07a0c).
-      Re-add ~Nov 2026 once real shipped pieces + numbers exist.
-- [ ] **Redbird Barbell** (chair credential + future campaign card) — returns
-      to ticker/About once the club is running (~2 weeks) and to the grid once
-      there are campaigns + photos + numbers. Baseline screenshots still worth
-      taking NOW (the "before" number).
-- [ ] **E-League line on the resume** — same defensibility test, next revision.
-
-## Ongoing
-
-- [ ] **YOU — Receipts pipelines**: Redbird Creative pieces + numbers as they
-      ship; Redbird Barbell flyers/posts/event photos/attendance from meeting 1.
-- [ ] **US — Card swaps each semester** as stronger current work lands.
+## Parked
+- [ ] Game revamp (simpler concept, real thumbnails/metrics).
+- [ ] Redbird Creative + Redbird Barbell cards once they have receipts.
+- [ ] Almanac hardware add-ons, when there's media.
