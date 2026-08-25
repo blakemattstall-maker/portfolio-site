@@ -200,39 +200,6 @@ body::before {
   }
 }
 
-/* Ink splat — fullscreen splat transition from the cutout to About */
-.ink-splat {
-  width: 120px;
-  height: 120px;
-  margin-left: -60px;
-  margin-top: -60px;
-  animation: ink-in 0.6s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
-}
-/* Retraction mirrors the entry: separate keyframe name (a same-name
-   animation never restarts — it snaps), reversed path and easing. */
-.ink-splat--out {
-  animation: ink-out 0.6s cubic-bezier(0.7, 0, 0.8, 0.15) forwards;
-}
-/* --ink-scale is computed per click so the splat covers the farthest
-   viewport corner EXACTLY at 100% — animation end == screen covered,
-   so there is zero dead time at the apex. */
-@keyframes ink-in {
-  from {
-    transform: scale(0.05) rotate(-14deg);
-  }
-  to {
-    transform: scale(var(--ink-scale, 40)) rotate(6deg);
-  }
-}
-@keyframes ink-out {
-  from {
-    transform: scale(var(--ink-scale, 40)) rotate(6deg);
-  }
-  to {
-    transform: scale(0.05) rotate(-14deg);
-  }
-}
-
 /* Hover bursts — tiny objects that pop out of buttons */
 @keyframes burst-pop {
   0% {

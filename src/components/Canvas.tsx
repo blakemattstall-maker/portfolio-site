@@ -15,38 +15,28 @@ const ACCENT_TEXT: Record<string, string> = {
   coral: "text-coral",
 };
 
-/* Splatoon-style ink transition: splat covers the screen from the click
-   point, About opens beneath it, ink fades. Skipped under reduced motion. */
-/* Dark ink, not accent — blends with About's backdrop instead of flashing */
-const INK_COLORS = ["#2E3E40"];
-
-type Splat = { x: number; y: number; scale: number; color: string; out: boolean; id: number };
-
-function InkSplat({ splat, onEnd }: { splat: Splat | null; onEnd: (animationName: string) => void }) {
-  if (!splat) return null;
+/* Small game-controller icon, tucked in a corner, that opens the arcade. */
+function GameButton({ onOpen }: { onOpen: () => void }) {
   return (
-    <div
-      key={splat.id}
-      className="pointer-events-none fixed z-[95]"
-      style={{ left: splat.x, top: splat.y, ["--ink-scale" as string]: splat.scale }}
-      aria-hidden
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label="Play a quick game"
+      title="Play a quick game"
+      className="fixed bottom-14 left-4 z-40 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-line bg-paper text-ink shadow-md transition-transform hover:-translate-y-0.5 hover:border-coral sm:bottom-16 sm:left-6"
     >
-      <svg
-        viewBox="0 0 100 100"
-        className={`ink-splat ${splat.out ? "ink-splat--out" : ""}`}
-        style={{ color: splat.color }}
-        onAnimationEnd={(e) => onEnd(e.animationName)}
-      >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
         <path
-          fill="currentColor"
-          d="M50 6 C58 8 61 15 66 13 C75 8 87 12 86 23 C85 31 92 33 94 43 C96 55 85 57 83 65 C81 75 89 83 77 89 C67 94 60 85 52 89 C42 94 34 91 30 83 C26 75 15 78 11 68 C7 58 17 52 15 44 C13 34 5 30 11 22 C17 14 28 18 34 12 C40 6 44 4 50 6 Z"
+          d="M7 8.5h10a4 4 0 0 1 3.9 3.1l.8 4.2A2.4 2.4 0 0 1 19.4 18c-.9 0-1.7-.5-2.1-1.3L16.6 16H7.4l-.7.7A2.4 2.4 0 0 1 4.6 18a2.4 2.4 0 0 1-2.3-2.9l.8-4.2A4 4 0 0 1 7 8.5Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
         />
-        <circle cx="12" cy="10" r="4" fill="currentColor" />
-        <circle cx="93" cy="55" r="3" fill="currentColor" />
-        <circle cx="72" cy="97" r="3.5" fill="currentColor" />
-        <circle cx="6" cy="52" r="2.5" fill="currentColor" />
+        <path d="M6.5 12v2M5.5 13h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="15.5" cy="12" r="0.9" fill="currentColor" />
+        <circle cx="17.5" cy="13.7" r="0.9" fill="currentColor" />
       </svg>
-    </div>
+    </button>
   );
 }
 
@@ -187,7 +177,6 @@ function Depth({ px, py, children, className }: { px: number; py: number; childr
 
 export function Canvas() {
   const [overlay, setOverlay] = useState<OverlayKey>(null);
-  const [splat, setSplat] = useState<Splat | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Subtle whole-scene 3D: normalized pointer position drives CSS vars; layers
@@ -221,48 +210,6 @@ export function Canvas() {
     setOverlay(key);
     window.history.replaceState(null, "", `?open=${key}`);
   }, []);
-
-  const splatToGame = useCallback(
-    (e: React.MouseEvent) => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        open("game");
-        return;
-      }
-      // Mask transition: ink grows from the photo's center, About swaps in
-      // underneath, then the ink retracts to the same point — no fade.
-      // Phases are driven by animationend events, not timers, so the
-      // sequence can never desync (throttled tabs, slow devices).
-      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      // Distance from origin to the farthest viewport corner, divided by the
-      // splat blob's tightest radius (~46px at base size) = the exact scale
-      // at which the screen is just covered.
-      const dist = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
-      const scale = Math.ceil(dist / 46);
-      const color = INK_COLORS[Math.floor(Math.random() * INK_COLORS.length)];
-      setSplat({ x, y, scale, color, out: false, id: Date.now() });
-    },
-    [open]
-  );
-
-  const onInkEnd = useCallback(
-    (animationName: string) => {
-      if (animationName === "ink-in") {
-        open("game");
-        // two frames: let React commit About beneath the ink, then retract
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => setSplat((s) => (s ? { ...s, out: true } : s)))
-        );
-      } else if (animationName === "ink-out") {
-        setSplat(null);
-      }
-    },
-    [open]
-  );
 
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get("open");
@@ -374,24 +321,11 @@ export function Canvas() {
                   {label.text}
                 </span>
               ))}
-              <div className="relative inline-block">
-                <motion.img
-                  src="/images/cutout-web.png"
-                  alt="Blake Stall, cut out and smiling"
-                  className="pointer-events-none relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
-                />
-                {/* small hitbox over the body only — won't fire near the About chip */}
-                <button
-                  type="button"
-                  onClick={splatToGame}
-                  aria-label="Click me — there's a game"
-                  className="group absolute inset-x-[26%] bottom-[3%] top-[8%] cursor-pointer"
-                >
-                  <span className="eyebrow float-b absolute left-1/2 top-[60%] -translate-x-1/2 whitespace-nowrap rounded-full bg-paper/90 px-2.5 py-1 text-[0.6rem] text-ink shadow-sm transition-transform group-hover:scale-110">
-                    {site.clickMe}
-                  </span>
-                </button>
-              </div>
+              <motion.img
+                src="/images/cutout-web.png"
+                alt="Blake Stall, cut out and smiling"
+                className="pointer-events-none relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
+              />
             </Depth>
           </Enter>
           <Depth px={22} py={15} className="absolute -right-2 top-6 md:right-0">
@@ -467,8 +401,8 @@ export function Canvas() {
       </main>
 
       <Ticker />
+      <GameButton onOpen={() => open("game")} />
       <Overlay overlay={overlay} onClose={close} />
-      <InkSplat splat={splat} onEnd={onInkEnd} />
     </div>
   );
 }

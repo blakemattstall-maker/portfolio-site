@@ -26,15 +26,14 @@ export const site = {
     "five years behind a camera",
     "i build ai tools i use every day",
   ],
-  status: "Open to work — Summer 2027",
+  status: "Open to work · Summer 2027",
   orbitLabels: [
     { text: "MARKETING", accent: "peach" as Accent },
     { text: "MEDIA PRODUCTION", accent: "sun" as Accent },
     { text: "CURRENTLY BUILDING…", accent: "coral" as Accent },
   ],
-  clickMe: "▸ click me",
   ticker: [
-    "Open to work — Summer 2027",
+    "Open to work · Summer 2027",
     "GA4 certified",
     "HubSpot Content Marketing certified",
     "Adobe Student Ambassador",
@@ -45,9 +44,10 @@ export const site = {
   about: {
     heading: "About me",
     body: [
-      "I fell for videography five years ago — a cheap camera and the first editor I could find. Since then: 20+ client projects, an agency run at Love Local Media, and a summer at Trifilm working enterprise productions for clients like Microsoft and Amazon.",
-      "Now I study marketing at Illinois State, because making things people watch stopped being enough — I want to know why they watch, and what it moves. GA4 and HubSpot certified, Adobe Student Ambassador.",
-      "Off the clock: heavy barbells, and I never really stop building things.",
+      "Hi, I'm Blake. I'm a marketing student at Illinois State, and what I care about most is where analytics, brand strategy, and creative storytelling meet. I like figuring out not just what grabs attention, but why it works, and using both the data and the creative side to build something stronger.",
+      "That curiosity has pulled me onto both sides of marketing. This past summer I was a production intern at Trifilm, working on enterprise shoots for global clients and getting a firsthand look at professional creative workflows and how big brands actually communicate. Before that I freelanced and worked with Love Local Media, helping local businesses tell their story through video.",
+      "Off the clock I'm an Adobe Student Ambassador building a creative community on campus, a Jesse W. Fell Scholar, and a two-time Dean's List student. I also lift, and I genuinely never stop building things, whether that's an app, a keyboard, or a small business. Curiosity is the thread through all of it.",
+      "I'm most drawn to marketing analytics, product marketing, brand strategy, and digital, where I get to pair analytical thinking with creative problem-solving. If you're a marketer, creative, or builder who cares about work that actually matters, I'd love to talk.",
     ],
     stamps: ["20+ PROJECTS", "CLASS OF 2029"],
     photo: { src: "/images/proj/about-mountains.jpg", caption: "Out west, summer 2026" },
@@ -55,31 +55,26 @@ export const site = {
       {
         title: "The Keyboard",
         status: "SHIPPED",
-        blurb: "A 60% mechanical keyboard I designed and built from nothing — layout, circuit, case, and all.",
+        blurb: "A 60% mechanical keyboard I designed and built from nothing: the layout, the circuit, the case, all of it.",
         blocks: [
-          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "1 — Started with the layout: a 60% with a few keys moved to where I actually reach for them." },
-          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "2 — Modeled the whole case from scratch in Fusion 360." },
-          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "3 — The board itself — hand-wired, every switch to the controller." },
-          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "4 — 3D-printed the case, iterating on fit until it was right." },
-          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "5 — A brass weight in the base to give it real heft." },
-          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6 — Finished. Purple on a celestial mat. It's the one I type on." },
+          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "1. Started with the layout, a 60% with a few keys moved to where I actually reach for them." },
+          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "2. Modeled the whole case from scratch in Fusion 360." },
+          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "3. The board itself, hand-wired, every switch to the controller." },
+          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "4. 3D-printed the case, iterating on the fit until it was right." },
+          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "5. A brass weight in the base to give it real heft." },
+          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6. Finished. Purple on a celestial mat. It's the one I type on every day." },
         ] as Block[],
       },
       {
         title: "Almanac",
         status: "RUNNING",
-        blurb: "My AI operating system — it runs my life daily. Full story in the work grid; hardware add-ons in the works.",
-      },
-      {
-        title: "Resume Engine",
-        status: "IN BUILD",
-        blurb: "A tool that re-aims my real experience at each job description. Never fabricates.",
+        blurb: "My AI operating system. It runs my life daily, and the full story is in the work grid. Hardware add-ons are in the works.",
       },
     ],
   },
   contact: {
     heading: "Let's make something people watch.",
-    sub: "If you need someone who can shoot the thing, cut the thing, build the thing — and read the dashboard after it ships — say hi.",
+    sub: "If you need someone who can shoot the thing, cut the thing, build the thing, and read the dashboard after it ships, say hi.",
   },
 };
 
@@ -87,12 +82,12 @@ export type Video = { id: string; title: string; context: string };
 
 export const videos: Video[] = [
   { id: "7n0jBKk99RI", title: "Rage in the Birdcage", context: "Hype edit for an MMA club fight night. Fast cuts, big energy." },
-  { id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Meet-day recap — the misses, the makes, the grind between." },
-  { id: "7thI9wz33cE", title: "Authava — Sizzle Reel", context: "Brand sizzle for an AI chatbot company. Polished, high-ticket feel." },
-  { id: "4B626q57J5c", title: "Zevia — Spec Commercial", context: "Product spec spot: summer light, condensation, appetite appeal." },
+  { id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Meet-day recap. The misses, the makes, the grind between." },
+  { id: "7thI9wz33cE", title: "Authava Sizzle Reel", context: "Brand sizzle for an AI chatbot company. Polished, high-ticket feel." },
+  { id: "4B626q57J5c", title: "Zevia Spec Commercial", context: "Product spec spot: summer light, condensation, appetite appeal." },
   { id: "LHQpXGTwbxk", title: "Breaking Grounds Music", context: "Commercial for a local music shop's live series. Real client, real deadline." },
-  { id: "dlFG1q6c2kc", title: "Oreo — Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
-  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece — lighting and pacing, start to finish." },
+  { id: "dlFG1q6c2kc", title: "Oreo Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
+  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece. Lighting and pacing, start to finish." },
   { id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece, back when I was starting out." },
 ];
 
@@ -128,16 +123,16 @@ export const work: WorkItem[] = [
     title: "Video Portfolio",
     tileHint: "",
     accent: "sun",
-    outcome: "Five years behind a camera, 20+ projects — shot and edited. Here are my favorites.",
-    meta: { role: "Videographer & Editor", timeline: "2023 — Present", status: "Ongoing" },
+    outcome: "Five years behind a camera, 20+ projects, shot and edited. Here are my favorites.",
+    meta: { role: "Videographer & Editor", timeline: "2023–Present", status: "Ongoing" },
     isReel: true,
     thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
     trailer: {
-      outcome: "20+ video projects, shot and edited — here are my favorites:",
+      outcome: "20+ video projects, shot and edited. Here are my favorites:",
       moves: [
-        "I run the whole thing myself — from conceptualizing and pitching, to shooting, to editing, all the way to delivering the final cut.",
+        "I run the whole thing myself, from conceptualizing and pitching, to shooting, to editing, all the way to delivering the final cut.",
         "I shoot on Sony and Blackmagic cinema systems, then bring it home in the Adobe Creative Suite.",
-        "I light the set, rig the mics, haul the gear, and handle all the media — I'm hands-on for every part of it.",
+        "I light the set, rig the mics, haul the gear, and handle all the media. I'm hands-on for every part of it.",
       ],
     },
     photos: [],
@@ -170,7 +165,7 @@ export const work: WorkItem[] = [
       {
         heading: "What I took from it",
         paragraphs: [
-          "Three things stuck with me. Hiring for the person can matter more than the skillset. In production, being able to solve the problem beats having all the answers. And AI is a phenomenal tool — but it still needs someone with good taste to keep it from derailing.",
+          "Three things stuck with me. Hiring for the person can matter more than the skillset. In production, being able to solve the problem beats having all the answers. And AI is a phenomenal tool, but it still needs someone with good taste to keep it from derailing.",
           "It was my first real look into the industry, and the team trusted me with work that mattered. That's the summer that made me sure this is what I want to be around.",
         ],
       },
@@ -185,7 +180,7 @@ export const work: WorkItem[] = [
     thumb: "/images/proj/almanac-tile.jpg",
     accent: "coral",
     outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, and location, and once a day it decides on its own whether anything is worth telling me.",
-    meta: { role: "Builder", timeline: "2026 — present", status: "Running daily" },
+    meta: { role: "Builder", timeline: "2026–present", status: "Running daily" },
     link: { label: "Visit getalmanac.xyz", href: "https://getalmanac.xyz" },
     stats: [
       { value: "6", label: "live data sources: calendar, tasks, email, docs, bank, location" },
@@ -263,10 +258,10 @@ export const work: WorkItem[] = [
     tileHint: "",
     accent: "sun",
     thumb: "/images/proj/qs-4.jpg",
-    outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store — shipped worldwide.",
-    meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Wound down — on purpose" },
+    outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store, shipped worldwide.",
+    meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Wound down, on purpose" },
     trailer: {
-      outcome: "I ran a whole custom-cable business out of my bedroom — my own Shopify store, my own product photography, my own marketing, shipping orders across the US and overseas.",
+      outcome: "I ran a whole custom-cable business out of my bedroom: my own Shopify store, my own product photography, my own marketing, shipping orders across the US and overseas.",
       moves: [],
     },
     photos: [],
@@ -274,7 +269,7 @@ export const work: WorkItem[] = [
     blocks: [
       {
         kind: "text",
-        body: "QsCables started as a hobby and turned into a real store. I ran it on Shopify end to end — listings, orders, packaging, shipping — mostly across the US, with the occasional order flying overseas. Every cable was made to order, by me.",
+        body: "QsCables started as a hobby and turned into a real store. I ran it on Shopify end to end: listings, orders, packaging, shipping, mostly across the US, with the occasional order flying overseas. Every cable was made to order, by me.",
       },
       {
         kind: "duo",
@@ -285,24 +280,24 @@ export const work: WorkItem[] = [
       },
       {
         kind: "text",
-        heading: "The build was obsessive — on purpose",
-        body: "Each coil got heat-set around a brass rod in the oven, shocked in the freezer, then re-coiled the opposite way and set again. Then hand-soldered aviator connectors, heatshrink, the works. It sounds like overkill until you pull one: most cheap cables on Amazon slacken and never recover. Mine spring right back to a tight coil. That tension was the whole point — quality you can feel in your hand.",
+        heading: "The build was obsessive, on purpose",
+        body: "Each coil got heat-set around a brass rod in the oven, shocked in the freezer, then re-coiled the opposite way and set again. Then hand-soldered aviator connectors, heatshrink, the works. It sounds like overkill until you pull one: most cheap cables on Amazon slacken and never recover. Mine spring right back to a tight coil. That tension was the whole point: quality you can feel in your hand.",
       },
       {
         kind: "photo",
         src: "/images/proj/qs-5.jpg",
-        caption: "Detachable ends and connectors — the parts most people never see.",
+        caption: "Detachable ends and connectors, the parts most people never see.",
         aspect: "16/9",
       },
       {
         kind: "text",
         heading: "It had to look as good as it worked",
-        body: "I shot all my own product photography — every image in this case is mine. If the cable was going to sell online, the photo had to do the selling.",
+        body: "I shot all my own product photography. Every image in this case is mine. If the cable was going to sell online, the photo had to do the selling.",
       },
       {
         kind: "photo",
         src: "/images/proj/qs-4.jpg",
-        caption: "The range — every color combination I offered.",
+        caption: "The range. Every color combination I offered.",
         aspect: "16/9",
       },
       {
@@ -337,7 +332,7 @@ export const work: WorkItem[] = [
       {
         kind: "text",
         heading: "Why I wound it down",
-        body: "As bigger vendors scaled into custom cables, order volume slowed. I'd learned what I came for — product, brand, marketing, and fulfillment, all at once, before I could drive — so I pointed the same energy at videography, where the market was wide open and the craft ran deeper. Knowing when a thing has run its course is its own skill.",
+        body: "As bigger vendors scaled into custom cables, order volume slowed. I'd learned what I came for: product, brand, marketing, and fulfillment, all at once, before I could drive. So I pointed the same energy at videography, where the market was wide open and the craft ran deeper. Knowing when a thing has run its course is its own skill.",
       },
     ],
   },
