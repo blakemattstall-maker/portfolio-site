@@ -5,6 +5,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 export type Block =
   | { kind: "text"; heading?: string; body: string }
   | { kind: "photo"; src: string; caption?: string; aspect?: string; pos?: string }
+  | { kind: "video"; src: string; poster?: string; caption?: string; aspect?: string }
+  | { kind: "slot"; media: "photo" | "video"; label: string; caption?: string; aspect?: string }
   | { kind: "duo"; photos: { src: string; caption?: string }[] }
   | {
       kind: "reddit";
@@ -80,6 +82,33 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
             </div>
           )}
           {b.kind === "photo" && <Figure src={b.src} caption={b.caption} aspect={b.aspect} pos={b.pos} />}
+          {b.kind === "video" && (
+            <figure>
+              <video
+                src={b.src}
+                poster={b.poster}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full border-2 border-ink/15 object-cover"
+                style={b.aspect ? { aspectRatio: b.aspect } : undefined}
+              />
+              {b.caption && <figcaption className="eyebrow mt-1.5 text-[0.62rem] leading-tight opacity-60">{b.caption}</figcaption>}
+            </figure>
+          )}
+          {b.kind === "slot" && (
+            <figure>
+              <div
+                className="photo-slot photo-slot--dark flex-col gap-1 p-4"
+                style={{ aspectRatio: b.aspect ?? (b.media === "video" ? "16/9" : "4/3") }}
+              >
+                <span className="eyebrow opacity-70">{b.media === "video" ? "▶ VIDEO" : "PHOTO"}</span>
+                <span className="eyebrow max-w-[24ch] text-center leading-tight opacity-50">{b.label}</span>
+              </div>
+              {b.caption && <figcaption className="eyebrow mt-1.5 text-[0.62rem] leading-tight opacity-60">{b.caption}</figcaption>}
+            </figure>
+          )}
           {b.kind === "duo" && (
             <div className="grid grid-cols-2 items-start gap-3">
               {b.photos.map((p) => (

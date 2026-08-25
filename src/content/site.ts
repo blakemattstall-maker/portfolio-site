@@ -153,12 +153,12 @@ export const work: WorkItem[] = [
     thumb: "/images/proj/trifilm-office.jpg",
     outcome: "My summer at Trifilm: I moved from Chicago to Seattle to make real corporate productions for clients like Microsoft.",
     meta: { role: "Production Intern", timeline: "Summer 2026 · Kirkland, WA", status: "Wrapped" },
-    link: { label: "Watch the Microsoft intern-week film I worked on", href: "https://www.youtube.com/watch?v=S6UxOGB41AI" },
+    link: { label: "A Microsoft intern-week film my Trifilm crew made", href: "https://www.youtube.com/watch?v=S6UxOGB41AI" },
     trailer: {
-      outcome: "A little over three months ago I packed up and moved across the country — Chicago to Seattle — for my first real look inside the production world. Over 400 hours of shooting, editing, and shadowing later, it was a damn good summer.",
+      outcome: "A little over three months ago I packed up and moved across the country, from Chicago to Seattle, for my first real look inside the production world. Over 400 hours of shooting, editing, and shadowing later, it was a damn good summer.",
       moves: [
-        "They trusted me with real work — 400+ hours across shooting, editing, and shadowing on live corporate productions, not coffee runs.",
-        "I worked on productions for the team's clients, including a video for Microsoft's intern week (linked above — a project I actually got to be part of).",
+        "They trusted me with real work: 400+ hours across shooting, editing, and shadowing on live corporate productions, not coffee runs.",
+        "I worked on productions for the team's clients. The Microsoft intern-week video above is one the crew I was part of produced.",
         "My fellow intern and I even hosted a video-podcast episode exploring Trifilm from the inside.",
       ],
     },
@@ -181,28 +181,75 @@ export const work: WorkItem[] = [
     index: "03",
     kind: "Build",
     title: "Almanac",
-    tileHint: "app photo — coming with the Almanac media set",
+    tileHint: "the 3D life-graph / globe",
     accent: "coral",
-    outcome: "I built my own AI operating system — memory, proactive nudges, real integrations. It has a name now.",
+    outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, and location, and once a day it decides on its own whether anything is worth telling me.",
     meta: { role: "Designer / Builder / Only User", timeline: "2026 — present", status: "Running daily" },
-    link: { label: "getalmanac.xyz", href: "https://getalmanac.xyz" },
+    links: [
+      { label: "getalmanac.xyz", href: "https://getalmanac.xyz" },
+      { label: "Try the live demo (passphrase: demo)", href: "https://getalmanac.xyz" },
+    ],
     trailer: {
-      outcome: "My personal AI system: it captures my life passively, remembers what matters, and prompts me before I ask — running every day on my phone.",
-      moves: [
-        "I scoped and shipped the product end to end: memory model, capture pipeline, proactive prompting.",
-        "I wired real integrations — email, documents, banking, location — for under $10 a month.",
-        "I make the product calls: what to build, what to kill, and what 'done' means for one user.",
-      ],
+      outcome: "A solo-built personal operating system that captures my life passively, remembers what matters, and prompts me before I ask. It runs every day on my phone for about $7 a month. This is not a feature list. It is four decisions, and what each one cost.",
+      moves: [],
     },
-    photos: [{ label: "app photo — media set coming" }, { label: "app photo — media set coming" }],
-    sections: [
+    photos: [],
+    blocks: [
       {
+        kind: "slot",
+        media: "video",
+        label: "The /graph view settling into clusters, then the 3D globe spinning once",
+        caption: "My whole life as a map: people, projects, money, and notes, all connected from what I captured, never tagged by hand. The way it settles is the thing a screenshot can't show.",
+        aspect: "16/9",
+      },
+      {
+        kind: "text",
+        heading: "One notification a day, and most days none",
+        body: "The easy version of this app interrupts you constantly. Every app does; attention is the only thing they're really competing for. I built several features that pushed notifications, then deleted the pushing, because the moment an app gets muted, every other feature dies with it. So the interruption budget became a hard rule baked into the architecture, not a setting. The default is one digest a day, and the part of the system that decides whether to speak is told that silence is the right answer on most days.",
+      },
+      {
+        kind: "slot",
+        media: "video",
+        label: "Action Button press → speak a sentence → a task and an expense file themselves",
+        caption: "I talk to it like a person. One sentence becomes a task with the right date and a logged expense, and it decides which is which. I never fill in a form.",
+        aspect: "16/9",
+      },
+      {
+        kind: "text",
+        heading: "The machine never does the math",
+        body: "Language models narrate; they don't tally. Ask one to add up your spending and it gives you a confident, specific, wrong number. So the rule across the whole system is simple: compute every figure in code, hand the model the number as a fact, and forbid it from recalculating. I broke that rule myself in three different files without noticing, and they disagreed by a factor of three. The fix wasn't to correct the number. It was to delete every place the number could come from except one.",
+      },
+      {
+        kind: "slot",
+        media: "photo",
+        label: "The morning brief card, scrolled to show the day",
+        caption: "Every morning it writes me one of these from my actual calendar, tasks, and who I haven't talked to. Every number in it was computed in code, never guessed.",
+        aspect: "4/3",
+      },
+      {
+        kind: "text",
+        heading: "I built a feature, then deleted it",
+        body: "I wanted an accountability mechanic: real money moved automatically based on whether I did what I said I would. I built the whole thing, then deleted it. An automated system placing real financial trades off the back of \"did he go to the gym\" is a bad idea at any dollar amount. That is a line, not a design call I get to make differently on a Tuesday. Knowing when the right amount of a feature is zero is its own skill.",
+      },
+      {
+        kind: "slot",
+        media: "photo",
+        label: "An insight card, something the app raised on its own",
+        caption: "The part I'm proudest of: once a day it decides on its own whether something is worth telling me, and most days it stays quiet. That restraint is the whole product.",
+        aspect: "4/3",
+      },
+      {
+        kind: "text",
+        heading: "I audit my own work, and it lies to me",
+        body: "Twice I've run an adversarial pass over my own code, checking every claim against the live database, because the code and the docs tend to lie in the same direction. One audit found that the passphrase gate on my dashboard had never protected a single write; anyone on the internet could have deleted my data. None of these bugs ever produced an error or a wrong-looking screen. The maturity I'm claiming isn't that I write code without bugs. It's that I know what a silent failure looks like, I go looking for them on purpose, and I make the next one loud.",
+      },
+      {
+        kind: "text",
         heading: "Why a marketing student builds software",
-        paragraphs: [
-          "Because LLMs are the biggest shift in how attention and communication work since social — and I'd rather be someone who has shipped with them than someone who has opinions about them. Building Almanac taught me what AI products actually cost, where they fail, and what makes people keep using them: the same questions marketing asks of any product.",
-        ],
+        body: "Because LLMs are the biggest shift in how attention and communication work since social, and I'd rather be someone who has shipped with them than someone who only has opinions about them. Building Almanac taught me what AI products actually cost, where they fail, and what makes people keep using them. Those are the same questions marketing asks of any product.",
       },
     ],
+    sections: [],
   },
   {
     slug: "qscables",
@@ -264,17 +311,22 @@ export const work: WorkItem[] = [
       {
         kind: "reddit",
         heading: "And I marketed the whole thing myself",
-        body: "No ad budget — just Reddit, done right. Organic posts in the keyboard communities and a giveaway campaign that put the brand in front of thousands. These both did numbers, and they drove real orders to the store.",
+        body: "No ad budget. Just Reddit and Instagram, done right. Organic posts in the keyboard communities plus giveaway campaigns that put the brand in front of thousands. My Instagram was only 115 followers, but the engagement punched way above that, and it all drove real orders to the store.",
         posts: [
           {
             stat: "408 ▲",
-            title: "\"Never thought I'd enjoy making cables…\" — r/MechanicalKeyboards (38 comments)",
+            title: "\"Never thought I'd enjoy making cables…\" on r/MechanicalKeyboards (38 comments)",
             href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/",
           },
           {
             stat: "giveaway",
-            title: "Bulk QsCables giveaway campaign — r/mechmarket",
+            title: "Bulk QsCables giveaway on r/mechmarket",
             href: "https://www.reddit.com/r/mechmarket/comments/u358tv/bulk_qscables_highend_customizable_cables_giveaway/",
+          },
+          {
+            stat: "Instagram",
+            title: "The giveaway post that drove my best engagement",
+            href: "https://www.instagram.com/p/CcT78JNM-j0/",
           },
         ],
       },

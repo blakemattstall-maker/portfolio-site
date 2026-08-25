@@ -46,15 +46,24 @@ export function CaseBody({ item }: { item: WorkItem }) {
         <span className="eyebrow opacity-60">{item.meta.status}</span>
       </div>
       <h2 className="display mt-4 text-4xl font-bold sm:text-5xl">{item.title}</h2>
-      {item.link && (
-        <a
-          href={item.link.href}
-          target="_blank"
-          rel="noreferrer"
-          className="eyebrow mt-4 inline-block border-2 border-ink/20 px-3 py-1.5 transition-colors hover:bg-ink hover:text-paper"
-        >
-          {item.link.label} ↗
-        </a>
+      {(item.link || item.links) && (
+        <div className="mt-4 flex flex-wrap gap-2.5">
+          {[...(item.link ? [item.link] : []), ...(item.links ?? [])].map((l, i) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noreferrer"
+              className={`eyebrow inline-block border-2 px-3 py-1.5 transition-colors ${
+                i === 0
+                  ? `${ACCENT_BG[item.accent]} border-transparent text-ink hover:opacity-80`
+                  : "border-ink/20 hover:bg-ink hover:text-paper"
+              }`}
+            >
+              {l.label} ↗
+            </a>
+          ))}
+        </div>
       )}
       <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 border-y-2 border-ink/10 py-4 sm:grid-cols-3">
         {(
