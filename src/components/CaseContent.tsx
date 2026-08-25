@@ -50,7 +50,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
         <div className="mt-4 flex flex-wrap gap-2.5">
           {[...(item.link ? [item.link] : []), ...(item.links ?? [])].map((l, i) => (
             <a
-              key={l.href}
+              key={`${l.href}-${i}`}
               href={l.href}
               target="_blank"
               rel="noreferrer"

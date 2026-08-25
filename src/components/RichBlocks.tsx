@@ -2,12 +2,26 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { VideoLoop } from "./VideoLoop";
+import { PhoneFrame } from "./PhoneFrame";
 
 export type Block =
   | { kind: "text"; heading?: string; body: string }
   | { kind: "photo"; src: string; caption?: string; aspect?: string; pos?: string }
   | { kind: "video"; src: string; poster?: string; caption?: string; aspect?: string }
   | { kind: "slot"; media: "photo" | "video"; label: string; caption?: string; aspect?: string }
+  | {
+      // A feature paired with a phone-framed 9:16 screen. Side-by-side on
+      // desktop (alternating), stacked on mobile.
+      kind: "feature";
+      heading: string;
+      body: string;
+      side?: "left" | "right";
+      caption?: string;
+      media: "video" | "photo" | "slot";
+      src?: string;
+      poster?: string;
+      slotLabel?: string;
+    }
   | { kind: "duo"; photos: { src: string; caption?: string }[] }
   | {
       kind: "reddit";
@@ -100,6 +114,37 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
               </div>
               {b.caption && <figcaption className="eyebrow mt-1.5 text-[0.62rem] leading-tight opacity-60">{b.caption}</figcaption>}
             </figure>
+          )}
+          {b.kind === "feature" && (
+            <div className="grid items-center gap-6 md:grid-cols-2 md:gap-8">
+              <div className={b.side === "left" ? "md:order-2" : ""}>
+                <h3 className="display text-xl font-semibold sm:text-2xl">{b.heading}</h3>
+                <p className="mt-2 leading-relaxed opacity-85">{b.body}</p>
+              </div>
+              <div className={b.side === "left" ? "md:order-1" : ""}>
+                <PhoneFrame>
+                  {b.media === "video" && b.src && (
+                    <VideoLoop src={b.src} poster={b.poster} aspect="9/16" />
+                  )}
+                  {b.media === "photo" && b.src && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={b.src} alt={b.caption ?? b.heading} loading="lazy" className="h-full w-full object-cover" />
+                  )}
+                  {(b.media === "slot" || !b.src) && (
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 p-4 text-center">
+                      <span className="eyebrow text-paper/80">{b.media === "photo" ? "PHOTO" : "▶ VIDEO"}</span>
+                      <span className="eyebrow max-w-[20ch] leading-tight text-paper/45">{b.slotLabel}</span>
+                      <span className="eyebrow mt-1 text-paper/30">9:16</span>
+                    </div>
+                  )}
+                </PhoneFrame>
+                {b.caption && (
+                  <p className="eyebrow mx-auto mt-2.5 max-w-[230px] text-center text-[0.62rem] leading-tight opacity-55">
+                    {b.caption}
+                  </p>
+                )}
+              </div>
+            </div>
           )}
           {b.kind === "duo" && (
             <div className="grid grid-cols-2 items-start gap-3">
