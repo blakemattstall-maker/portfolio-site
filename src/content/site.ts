@@ -151,7 +151,7 @@ export const work: WorkItem[] = [
     slug: "trifilm",
     index: "02",
     kind: "Enterprise",
-    title: "Trifilm Summer",
+    title: "Trifilm Internship",
     tileHint: "set / gear shot (client-safe)",
     accent: "peach",
     thumb: "/images/proj/trifilm-office.jpg",
@@ -175,7 +175,7 @@ export const work: WorkItem[] = [
     ],
     sections: [
       {
-        heading: "What I took from it",
+        heading: "My top three takeaways",
         paragraphs: [],
         bullets: [
           "Hiring for the person can matter more than the skillset.",

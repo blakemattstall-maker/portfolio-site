@@ -7,7 +7,7 @@ import { Canvas } from "@/components/Canvas";
 // a ?query, so these are the links to paste into a profile.
 const SECTIONS: Record<string, { open: string; title: string }> = {
   video: { open: "videography", title: "Video Portfolio · Blake Stall" },
-  trifilm: { open: "trifilm", title: "Trifilm Summer · Blake Stall" },
+  trifilm: { open: "trifilm", title: "Trifilm Internship · Blake Stall" },
   almanac: { open: "almanac", title: "Almanac · Blake Stall" },
   qscables: { open: "qscables", title: "QsCables · Blake Stall" },
   about: { open: "about", title: "About · Blake Stall" },
