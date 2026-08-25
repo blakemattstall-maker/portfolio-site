@@ -15,31 +15,6 @@ const ACCENT_TEXT: Record<string, string> = {
   coral: "text-coral",
 };
 
-/* Small game-controller icon, tucked in a corner, that opens the arcade. */
-function GameButton({ onOpen }: { onOpen: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onOpen}
-      aria-label="Play a quick game"
-      title="Play a quick game"
-      className="fixed bottom-14 left-4 z-40 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-line bg-paper text-ink shadow-md transition-transform hover:-translate-y-0.5 hover:border-coral sm:bottom-16 sm:left-6"
-    >
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path
-          d="M7 8.5h10a4 4 0 0 1 3.9 3.1l.8 4.2A2.4 2.4 0 0 1 19.4 18c-.9 0-1.7-.5-2.1-1.3L16.6 16H7.4l-.7.7A2.4 2.4 0 0 1 4.6 18a2.4 2.4 0 0 1-2.3-2.9l.8-4.2A4 4 0 0 1 7 8.5Z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-        <path d="M6.5 12v2M5.5 13h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        <circle cx="15.5" cy="12" r="0.9" fill="currentColor" />
-        <circle cx="17.5" cy="13.7" r="0.9" fill="currentColor" />
-      </svg>
-    </button>
-  );
-}
-
 /* CSS-driven entrance — completes even in throttled/background tabs. */
 function Enter({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   return (
@@ -311,9 +286,9 @@ export function Canvas() {
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     [
-                      "-left-3 top-[16%] -rotate-6",
-                      "right-0 bottom-[26%] rotate-2",
-                      "-left-2 bottom-[6%] -rotate-3",
+                      "-left-6 top-[3%] -rotate-6",
+                      "-right-6 bottom-[13%] rotate-3",
+                      "-left-5 bottom-[1%] -rotate-3",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
@@ -336,8 +311,8 @@ export function Canvas() {
         {/* RIGHT — the tilted contact sheet of work */}
         <Enter delay={0.3} className="relative md:col-span-5">
           <div className="plx-tilt">
-          <div className="sheet mx-auto w-full max-w-[520px] rotate-0 p-3 md:rotate-2 md:hover:rotate-1 md:transition-transform md:duration-500">
-            <div className="grid grid-cols-2 gap-3">
+          <div className="sheet mx-auto w-full max-w-[520px] rotate-0 p-2.5 md:rotate-2 md:p-3 md:hover:rotate-1 md:transition-transform md:duration-500">
+            <div className="grid grid-cols-2 gap-2.5 md:gap-3">
               {work.map((item) => (
                 <button
                   key={item.slug}
@@ -358,13 +333,13 @@ export function Canvas() {
                       <span className="eyebrow opacity-50">PHOTO · {item.tileHint}</span>
                     </div>
                   )}
-                  <span className="mt-1.5 flex items-center gap-1.5 px-0.5 pb-1">
-                    <span className={`inline-block h-2 w-2 rotate-45 ${ACCENT_BG[item.accent]}`} aria-hidden />
-                    <span className="eyebrow text-ink">
+                  <span className="mt-1 flex items-center gap-1.5 px-0.5 pb-0.5">
+                    <span className={`inline-block h-2 w-2 shrink-0 rotate-45 ${ACCENT_BG[item.accent]}`} aria-hidden />
+                    <span className="truncate font-mono text-[0.58rem] uppercase tracking-[0.03em] text-ink">
                       {item.index} {item.title}
                     </span>
                     <span
-                      className={`eyebrow ml-auto opacity-0 transition-opacity group-hover:opacity-100 ${ACCENT_TEXT[item.accent]}`}
+                      className={`eyebrow ml-auto hidden shrink-0 opacity-0 transition-opacity group-hover:opacity-100 sm:block ${ACCENT_TEXT[item.accent]}`}
                     >
                       OPEN →
                     </span>
@@ -401,7 +376,7 @@ export function Canvas() {
       </main>
 
       <Ticker />
-      <GameButton onOpen={() => open("game")} />
+      {/* Game entry hidden for now (overlaps too much on mobile); still reachable via ?open=game */}
       <Overlay overlay={overlay} onClose={close} />
     </div>
   );

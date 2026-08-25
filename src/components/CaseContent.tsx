@@ -4,7 +4,7 @@ import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/cont
 import { Burst, Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
-import { RichBlocks } from "./RichBlocks";
+import { RichBlocks, CollapsibleStory } from "./RichBlocks";
 
 export const ACCENT_BG: Record<Accent, string> = {
   peach: "bg-peach",
@@ -217,7 +217,10 @@ export function AboutBody() {
             <p className="mt-2 leading-relaxed opacity-80">{item.blurb}</p>
             {"blocks" in item && item.blocks && (
               <div className="mt-5">
-                <RichBlocks blocks={item.blocks} />
+                <CollapsibleStory
+                  blocks={item.blocks}
+                  label={`See how I built it (${item.blocks.filter((b) => b.kind === "photo").length} steps)`}
+                />
               </div>
             )}
           </section>

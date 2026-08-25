@@ -44,10 +44,8 @@ export const site = {
   about: {
     heading: "About me",
     body: [
-      "Hi, I'm Blake. I'm a marketing student at Illinois State, and what I care about most is where analytics, brand strategy, and creative storytelling meet. I like figuring out not just what grabs attention, but why it works, and using both the data and the creative side to build something stronger.",
-      "That curiosity has pulled me onto both sides of marketing. This past summer I was a production intern at Trifilm, working on enterprise shoots for global clients and getting a firsthand look at professional creative workflows and how big brands actually communicate. Before that I freelanced and worked with Love Local Media, helping local businesses tell their story through video.",
-      "Off the clock I'm an Adobe Student Ambassador building a creative community on campus, a Jesse W. Fell Scholar, and a two-time Dean's List student. I also lift, and I genuinely never stop building things, whether that's an app, a keyboard, or a small business. Curiosity is the thread through all of it.",
-      "I'm most drawn to marketing analytics, product marketing, brand strategy, and digital, where I get to pair analytical thinking with creative problem-solving. If you're a marketer, creative, or builder who cares about work that actually matters, I'd love to talk.",
+      "Hi, I'm Blake. I study marketing at Illinois State, and what really drives me is figuring out not just what grabs attention, but why it works, then using both the data and the creative side to build something stronger.",
+      "Off the clock I lift, and I genuinely never stop building things, whether it's an app, a mechanical keyboard, or a small business. Curiosity is the thread through all of it. I'm most drawn to marketing analytics, product marketing, and brand strategy, and I'm always up to talk with people building work that matters.",
     ],
     stamps: ["20+ PROJECTS", "CLASS OF 2029"],
     photo: { src: "/images/proj/about-mountains.jpg", caption: "Out west, summer 2026" },

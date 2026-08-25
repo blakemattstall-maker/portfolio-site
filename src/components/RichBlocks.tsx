@@ -86,6 +86,63 @@ function Figure({ src, caption, aspect, pos }: { src: string; caption?: string; 
   );
 }
 
+/* A long photo story, collapsed behind a teaser image until expanded.
+   Keeps the About overlay from being dominated by one project's dev log. */
+export function CollapsibleStory({
+  blocks,
+  label,
+  teaserSrc,
+}: {
+  blocks: Block[];
+  label: string;
+  teaserSrc?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const teaser =
+    teaserSrc ??
+    ([...blocks].reverse().find((b) => b.kind === "photo") as { src?: string } | undefined)?.src;
+
+  if (open) {
+    return (
+      <div>
+        <RichBlocks blocks={blocks} />
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className="eyebrow mt-4 cursor-pointer border-2 border-ink/20 px-3 py-1.5 transition-colors hover:bg-ink hover:text-paper"
+        >
+          Collapse ↑
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => setOpen(true)}
+      className="group relative block w-full overflow-hidden border-2 border-ink/15"
+      aria-label={label}
+    >
+      {teaser && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={teaser}
+          alt=""
+          loading="lazy"
+          className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          style={{ aspectRatio: "16/9" }}
+        />
+      )}
+      <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/80 via-ink/10 to-transparent p-4">
+        <span className="rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink shadow-sm transition-transform group-hover:-translate-y-0.5">
+          {label} ↓
+        </span>
+      </span>
+    </button>
+  );
+}
+
 export function RichBlocks({ blocks }: { blocks: Block[] }) {
   return (
     <div className="space-y-6 text-ink">
