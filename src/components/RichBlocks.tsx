@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { VideoLoop } from "./VideoLoop";
 
 export type Block =
   | { kind: "text"; heading?: string; body: string }
@@ -84,16 +85,7 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
           {b.kind === "photo" && <Figure src={b.src} caption={b.caption} aspect={b.aspect} pos={b.pos} />}
           {b.kind === "video" && (
             <figure>
-              <video
-                src={b.src}
-                poster={b.poster}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full border-2 border-ink/15 object-cover"
-                style={b.aspect ? { aspectRatio: b.aspect } : undefined}
-              />
+              <VideoLoop src={b.src} poster={b.poster} aspect={b.aspect ?? "16/9"} />
               {b.caption && <figcaption className="eyebrow mt-1.5 text-[0.62rem] leading-tight opacity-60">{b.caption}</figcaption>}
             </figure>
           )}
