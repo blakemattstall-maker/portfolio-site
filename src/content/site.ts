@@ -184,11 +184,8 @@ export const work: WorkItem[] = [
     tileHint: "the 3D life-graph / globe",
     accent: "coral",
     outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, and location, and once a day it decides on its own whether anything is worth telling me.",
-    meta: { role: "Designer / Builder / Only User", timeline: "2026 — present", status: "Running daily" },
-    links: [
-      { label: "getalmanac.xyz", href: "https://getalmanac.xyz" },
-      { label: "Try the live demo (passphrase: demo)", href: "https://getalmanac.xyz" },
-    ],
+    meta: { role: "Builder", timeline: "2026 — present", status: "Running daily" },
+    link: { label: "getalmanac.xyz", href: "https://getalmanac.xyz" },
     trailer: {
       outcome: "A personal operating system I built for myself. I talk to it, it files what I said into the right place, connects it to everything else I've told it, and once a day it decides on its own whether anything is worth surfacing. It runs every day on my phone for about $7 a month.",
       moves: [],
