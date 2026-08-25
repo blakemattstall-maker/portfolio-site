@@ -134,10 +134,12 @@ export function CollapsibleStory({
   blocks,
   label,
   teaserSrc,
+  teaserAspect = "16/9",
 }: {
   blocks: Block[];
   label: string;
   teaserSrc?: string;
+  teaserAspect?: string;
 }) {
   const [open, setOpen] = useState(false);
   const teaser =
@@ -172,8 +174,8 @@ export function CollapsibleStory({
           src={teaser}
           alt=""
           loading="lazy"
-          className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          style={{ aspectRatio: "16/9" }}
+          className="w-full bg-ink object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          style={{ aspectRatio: teaserAspect }}
         />
       )}
       <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/80 via-ink/10 to-transparent p-4">
