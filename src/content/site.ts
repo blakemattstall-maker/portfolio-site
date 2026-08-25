@@ -13,6 +13,10 @@ import type { Block } from "@/components/RichBlocks";
 
 export type Accent = "peach" | "sun" | "coral";
 
+/** Stable DOM id for a desk project, so the canvas can deep-scroll to it. */
+export const deskId = (title: string) =>
+  `desk-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
 export const site = {
   name: "Blake Stall",
   email: "blake@blakestall.com",
@@ -44,14 +48,15 @@ export const site = {
   about: {
     heading: "About me",
     body: [
-      "Hi, I'm Blake. I study marketing at Illinois State, and what really drives me is figuring out not just what grabs attention, but why it works, then using both the data and the creative side to build something stronger.",
-      "Off the clock I lift, and I genuinely never stop building things, whether it's an app, a mechanical keyboard, or a small business. Curiosity is the thread through all of it. I'm most drawn to marketing analytics, product marketing, and brand strategy, and I'm always up to talk with people building work that matters.",
+      "Hi, I'm Blake! I study marketing at Illinois State University, and you can usually find me skipping sleep to work on a new project. Off the clock I lift weights (I'm the marketing chair of Redbird Barbell) and play video games (I was on my university's Valorant team, and we made it to two tournament finals in one semester).",
+      "I love pulling concepts out of the classroom and using projects as a way to learn on my own terms. This year I've gone deep on agentic workflows to build apps, pairing that with my video background to learn the whole pipeline of product development and sales. I'm aiming for marketing analytics, product marketing, and brand strategy, and I'm always up to talk with people building things that matter.",
     ],
     stamps: ["20+ PROJECTS", "CLASS OF 2029"],
     photo: { src: "/images/proj/about-mountains.jpg", caption: "Out west, summer 2026" },
     desk: [
       {
         title: "The Keyboard",
+        label: "My favorite project",
         status: "SHIPPED",
         blurb: "A 60% mechanical keyboard I designed and built from nothing: the layout, the circuit, the case, all of it.",
         blocks: [
@@ -337,7 +342,7 @@ export const work: WorkItem[] = [
         kind: "duo",
         photos: [
           { src: "/images/proj/qs-tile.jpg", caption: "A customer's board, with their cable" },
-          { src: "/images/proj/qs-7.jpg", caption: "Another customer build in the wild" },
+          { src: "/images/proj/qs-7.jpg", caption: "Another customer build in the wild", pos: "top" },
         ],
       },
       {

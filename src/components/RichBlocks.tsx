@@ -22,7 +22,7 @@ export type Block =
       poster?: string;
       slotLabel?: string;
     }
-  | { kind: "duo"; photos: { src: string; caption?: string }[]; aspect?: string }
+  | { kind: "duo"; photos: { src: string; caption?: string; pos?: string }[]; aspect?: string }
   | { kind: "terminal"; heading: string; body: string; prompt?: string }
   | { kind: "cta"; heading: string; sub?: string; label: string; href: string }
   | {
@@ -249,7 +249,7 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
           {b.kind === "duo" && (
             <div className="grid grid-cols-2 items-start gap-3">
               {b.photos.map((p) => (
-                <Figure key={p.src} src={p.src} caption={p.caption} aspect={b.aspect ?? "4/3"} />
+                <Figure key={p.src} src={p.src} caption={p.caption} aspect={b.aspect ?? "4/3"} pos={p.pos} />
               ))}
             </div>
           )}

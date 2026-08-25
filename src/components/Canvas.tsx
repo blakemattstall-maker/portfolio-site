@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { site, work } from "@/content/site";
+import { deskId, site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { Burst, StaggerHeadline } from "./ui";
 import { ThumbWar } from "./ThumbWar";
@@ -69,6 +69,39 @@ function ArrowLoop({ className }: { className?: string }) {
         strokeWidth="4.5"
         strokeLinecap="round"
       />
+    </svg>
+  );
+}
+
+/* A little mechanical keyboard, drawn in Blake's palette (peach/sun caps on an
+   ink plate, coral esc key as a wink). Pokes out from behind the work grid and
+   links to the keyboard build in the About overlay. */
+function KeyboardDoodle({ className }: { className?: string }) {
+  const cols = [12, 23.5, 35, 46.5, 58];
+  const rows = [16, 27, 38];
+  const caps = ["#F9A66C", "#FFC94B"];
+  const Cap = ({ x, y, w = 9, fill }: { x: number; y: number; w?: number; fill: string }) => (
+    <rect x={x} y={y} width={w} height={9} rx={2} fill={fill} stroke="#2E3E40" strokeWidth={1.3} />
+  );
+  return (
+    <svg viewBox="0 0 118 72" fill="none" className={className} aria-hidden>
+      <rect x={2} y={7} width={114} height={60} rx={10} fill="#F9FAF4" stroke="#2E3E40" strokeWidth={3.4} />
+      <rect x={8} y={13} width={102} height={48} rx={6} fill="#2E3E40" />
+      {/* main cluster */}
+      {rows.map((y, r) =>
+        cols.map((x, c) => (
+          <Cap key={`${r}-${c}`} x={x} y={y} fill={r === 0 && c === 0 ? "#F17A7E" : caps[(r + c) % 2]} />
+        ))
+      )}
+      <Cap x={12} y={49} fill="#F9A66C" />
+      <Cap x={23.5} y={49} w={32} fill="#FFC94B" />
+      <Cap x={58} y={49} fill="#F9A66C" />
+      {/* right cluster */}
+      {rows.map((y, r) =>
+        [82, 94].map((x, c) => <Cap key={`r${r}-${c}`} x={x} y={y} fill={caps[(r + c + 1) % 2]} />)
+      )}
+      <Cap x={82} y={49} fill="#FFC94B" />
+      <Cap x={94} y={49} fill="#F9A66C" />
     </svg>
   );
 }
@@ -185,6 +218,18 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const open = useCallback((key: Exclude<OverlayKey, null>) => {
     setOverlay(key);
     window.history.replaceState(null, "", `/?open=${key}`);
+  }, []);
+
+  // Open About and jump straight to a specific desk project once it mounts.
+  const openDesk = useCallback((title: string) => {
+    setOverlay("about");
+    window.history.replaceState(null, "", "/?open=about");
+    const id = deskId(title);
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ block: "start" });
+      })
+    );
   }, []);
 
   // Open a starting overlay from either ?open=<key> or the initialOpen prop
@@ -314,8 +359,18 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
 
         {/* RIGHT — the tilted contact sheet of work */}
         <Enter delay={0.3} className="relative md:col-span-5">
-          <div className="plx-tilt">
-          <div className="sheet mx-auto w-full max-w-[520px] rotate-0 p-2.5 md:rotate-2 md:p-3 md:hover:rotate-1 md:transition-transform md:duration-500">
+          <div className="plx-tilt relative">
+          {/* keyboard easter egg: pokes out from behind the sheet, jumps to the build */}
+          <button
+            type="button"
+            onClick={() => openDesk("The Keyboard")}
+            aria-label="See my favorite project: the mechanical keyboard I built"
+            title="psst — my favorite build"
+            className="group absolute -bottom-8 left-8 z-0 hidden -rotate-6 cursor-pointer transition-transform duration-300 hover:-translate-y-1.5 md:block"
+          >
+            <KeyboardDoodle className="w-28 drop-shadow-[0_9px_16px_rgba(46,62,64,0.4)]" />
+          </button>
+          <div className="sheet relative z-10 mx-auto w-full max-w-[520px] rotate-0 p-2.5 md:rotate-2 md:p-3 md:hover:rotate-1 md:transition-transform md:duration-500">
             <div className="grid grid-cols-2 gap-2.5 md:gap-3">
               {work.map((item) => (
                 <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
+import { deskId, site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
 import { Burst, Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
@@ -238,12 +238,15 @@ export function AboutBody() {
       <h3 className="eyebrow mt-10 opacity-60">On the desk: things I've built</h3>
       <div className="mt-4 space-y-8">
         {about.desk.map((item) => (
-          <section key={item.title} className="border-t-2 border-ink/10 pt-5">
-            <div className="flex items-baseline gap-3">
+          <section key={item.title} id={deskId(item.title)} className="border-t-2 border-ink/10 pt-5">
+            <div className="flex flex-wrap items-center gap-2.5">
               <span className="eyebrow flex items-center gap-1.5 opacity-50">
                 {item.status === "RUNNING" && <span className="live-dot" aria-hidden />}
                 {item.status}
               </span>
+              {"label" in item && item.label && (
+                <span className="eyebrow bg-peach px-2 py-1 text-ink">★ {item.label}</span>
+              )}
             </div>
             <h4 className="display mt-1.5 text-2xl font-semibold">{item.title}</h4>
             <p className="mt-2 leading-relaxed opacity-80">{item.blurb}</p>
