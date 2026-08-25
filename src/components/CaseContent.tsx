@@ -99,12 +99,6 @@ export function CaseBody({ item }: { item: WorkItem }) {
         )}
       </section>
 
-      {item.blocks && (
-        <div className="mt-8">
-          <RichBlocks blocks={item.blocks} />
-        </div>
-      )}
-
       {item.stats && (
         <div className="mt-6 flex flex-wrap gap-3">
           {item.stats.map((s) => {
@@ -131,6 +125,12 @@ export function CaseBody({ item }: { item: WorkItem }) {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {item.blocks && (
+        <div className="mt-8">
+          <RichBlocks blocks={item.blocks} />
         </div>
       )}
 

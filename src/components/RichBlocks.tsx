@@ -23,6 +23,7 @@ export type Block =
       slotLabel?: string;
     }
   | { kind: "duo"; photos: { src: string; caption?: string }[] }
+  | { kind: "cta"; heading: string; sub?: string; label: string; href: string }
   | {
       kind: "reddit";
       heading: string;
@@ -152,6 +153,22 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
                 <Figure key={p.src} src={p.src} caption={p.caption} aspect="4/3" />
               ))}
             </div>
+          )}
+          {b.kind === "cta" && (
+            <a
+              href={b.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex flex-col items-center gap-3 border-2 border-coral bg-coral/10 p-6 text-center transition-colors hover:bg-coral/20 sm:flex-row sm:justify-between sm:text-left"
+            >
+              <span>
+                <span className="display block text-xl font-semibold sm:text-2xl">{b.heading}</span>
+                {b.sub && <span className="mt-1 block text-sm opacity-70">{b.sub}</span>}
+              </span>
+              <span className="shrink-0 rounded-full bg-coral px-6 py-3 font-semibold text-ink transition-transform group-hover:-translate-y-0.5">
+                {b.label} ↗
+              </span>
+            </a>
           )}
           {b.kind === "reddit" && (
             <div className="border-l-4 border-coral bg-coral/10 p-5">

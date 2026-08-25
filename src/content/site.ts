@@ -186,7 +186,13 @@ export const work: WorkItem[] = [
     accent: "coral",
     outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, and location, and once a day it decides on its own whether anything is worth telling me.",
     meta: { role: "Builder", timeline: "2026 — present", status: "Running daily" },
-    link: { label: "getalmanac.xyz", href: "https://getalmanac.xyz" },
+    link: { label: "Visit getalmanac.xyz", href: "https://getalmanac.xyz" },
+    stats: [
+      { value: "6", label: "live data sources: calendar, tasks, email, docs, bank, location" },
+      { value: "~2 dozen", label: "tools the AI can call" },
+      { value: "240+", label: "automated tests" },
+      { value: "~$7/mo", label: "all-in running cost" },
+    ],
     trailer: {
       outcome: "A personal operating system I built for myself. I talk to it, it files what I said into the right place, connects it to everything else I've told it, and once a day it decides on its own whether anything is worth surfacing. It runs every day on my phone for about $7 a month.",
       moves: [],
@@ -232,12 +238,19 @@ export const work: WorkItem[] = [
       {
         kind: "text",
         heading: "How it works, for the curious",
-        body: "Under the hood: a router picks from around two dozen tools behind the voice capture, and reads and writes my real Google calendar, tasks, email, and docs, plus a bank feed and my location. Everything it stores becomes a connected graph you can walk. Every figure is calculated in code and handed to the model as fact, so it phrases things in plain language but never does the arithmetic itself. Around 240 automated tests, one deployment, roughly seven dollars a month.",
+        body: "For anyone in tech: it's a Next.js app on Supabase with an LLM router that uses native tool-calling across roughly two dozen tools to read and write my real Google Calendar, Tasks, Gmail, and Docs, plus a bank feed and my location. Memories are retrieved semantically with pgvector, and everything else it stores becomes a polymorphic entity graph I can traverse and see rendered live with force-graph. Scheduled jobs write the morning brief, rebuild the graph nightly, and run the once-a-day observer. One rule holds the whole thing together: every number is calculated in code and handed to the model as fact, so it phrases things in plain language but never does the arithmetic itself. 240+ automated tests, one deployment, about seven dollars a month.",
       },
       {
         kind: "text",
         heading: "What it actually means",
         body: "I'm a marketing major, and I built and shipped this alone. It's proof I can take an AI product from an idea to something real and used daily: scoping it, wiring up real integrations, and deciding what to build and what to leave out. Those are the same questions marketing asks of any product, which is exactly why building one has taught me more about the field than reading about it ever could.",
+      },
+      {
+        kind: "cta",
+        heading: "Almanac is live",
+        sub: "Poke around the real thing, running on demo data.",
+        label: "Open getalmanac.xyz",
+        href: "https://getalmanac.xyz",
       },
     ],
     sections: [],
