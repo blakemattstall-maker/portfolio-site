@@ -192,7 +192,7 @@ export const work: WorkItem[] = [
     meta: { role: "Builder", timeline: "2026–present", status: "Running daily" },
     link: { label: "Visit getalmanac.xyz", href: "https://getalmanac.xyz" },
     stats: [
-      { value: "6", label: "live data sources: calendar, tasks, email, docs, bank, location" },
+      { value: "6", label: "live data sources" },
       { value: "~2 dozen", label: "tools the AI can call" },
       { value: "240+", label: "automated tests" },
       { value: "~$7/mo", label: "all-in running cost" },
@@ -270,18 +270,15 @@ export const work: WorkItem[] = [
     outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store, shipped worldwide.",
     meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Wound down, on purpose" },
     trailer: {
-      outcome: "I ran a whole custom-cable business out of my bedroom: my own Shopify store, my own product photography, my own marketing, shipping orders across the US and overseas.",
+      outcome: "I started an artisan cable business out of my bedroom: a Shopify store, a production line, a photography booth, my own marketing, and orders shipped internationally.",
       moves: [],
     },
     photos: [],
     sections: [],
     blocks: [
       {
-        kind: "text",
-        body: "QsCables started as a hobby and turned into a real store. I ran it on Shopify end to end: listings, orders, packaging, shipping, mostly across the US, with the occasional order flying overseas. Every cable was made to order, by me.",
-      },
-      {
         kind: "duo",
+        aspect: "1/1",
         photos: [
           { src: "/images/proj/qs-1.jpg", caption: "A finished build" },
           { src: "/images/proj/qs-2.jpg", caption: "Coiled, aviator connector" },
@@ -290,7 +287,7 @@ export const work: WorkItem[] = [
       {
         kind: "text",
         heading: "The build was obsessive, on purpose",
-        body: "Each coil got heat-set around a brass rod in the oven, shocked in the freezer, then re-coiled the opposite way and set again. Then hand-soldered aviator connectors, heatshrink, the works. It sounds like overkill until you pull one: most cheap cables on Amazon slacken and never recover. Mine spring right back to a tight coil. That tension was the whole point: quality you can feel in your hand.",
+        body: "First, raw wire was double-sleeved with German paracord and Techflex. Then each coil was heat-set around a brass rod in the oven, shocked in the freezer, re-coiled the opposite way, and set again. Then hand-soldered aviator connectors, heatshrink, and the final touches. It sounds like overkill until you pull one: most cheap cables on Amazon slacken and never recover, while mine spring right back to a tight coil. I knew a strong product was the most crucial thing for an artisan business, and the multi-hour build process reflected that.",
       },
       {
         kind: "photo",
@@ -306,36 +303,41 @@ export const work: WorkItem[] = [
       {
         kind: "photo",
         src: "/images/proj/qs-4.jpg",
-        caption: "The range. Every color combination I offered.",
+        caption: "Dual-colored cables, a delicate add-on process of melting the sleeving together.",
         aspect: "16/9",
+      },
+      {
+        kind: "reddit",
+        heading: "And I marketed the whole thing myself",
+        body: "I had no ad budget. Using just organic posts in the keyboard communities on Reddit and Instagram, plus a few giveaway campaigns, I reached over 50,000 post impressions. My Instagram was only 115 followers, but the engagement punched way above that, and most importantly, it drove converting traffic to the store.",
+        posts: [
+          {
+            stat: "408 upvotes",
+            title: "View the post on r/MechanicalKeyboards",
+            href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/",
+          },
+          {
+            stat: "the giveaway",
+            title: "View the campaign on r/mechmarket",
+            href: "https://www.reddit.com/r/mechmarket/comments/u358tv/bulk_qscables_highend_customizable_cables_giveaway/",
+          },
+          {
+            stat: "on Instagram",
+            title: "View the giveaway post",
+            href: "https://www.instagram.com/p/CcT78JNM-j0/",
+          },
+        ],
+      },
+      {
+        kind: "text",
+        heading: "Out in the wild, on real keyboards",
+        body: "The best part was seeing them land on customers' desks. The color combos were built to match a specific board, right down to the keycaps, a small tribute to the quality and care I put into every order.",
       },
       {
         kind: "duo",
         photos: [
           { src: "/images/proj/qs-tile.jpg", caption: "A customer's board, with their cable" },
           { src: "/images/proj/qs-7.jpg", caption: "Another customer build in the wild" },
-        ],
-      },
-      {
-        kind: "reddit",
-        heading: "And I marketed the whole thing myself",
-        body: "No ad budget. Just Reddit and Instagram, done right. Organic posts in the keyboard communities plus giveaway campaigns that put the brand in front of thousands. My Instagram was only 115 followers, but the engagement punched way above that, and it all drove real orders to the store.",
-        posts: [
-          {
-            stat: "408 ▲",
-            title: "\"Never thought I'd enjoy making cables…\" on r/MechanicalKeyboards (38 comments)",
-            href: "https://www.reddit.com/r/MechanicalKeyboards/comments/sb6ans/never_thought_id_enjoy_making_cables_more_than/",
-          },
-          {
-            stat: "giveaway",
-            title: "Bulk QsCables giveaway on r/mechmarket",
-            href: "https://www.reddit.com/r/mechmarket/comments/u358tv/bulk_qscables_highend_customizable_cables_giveaway/",
-          },
-          {
-            stat: "Instagram",
-            title: "The giveaway post that drove my best engagement",
-            href: "https://www.instagram.com/p/CcT78JNM-j0/",
-          },
         ],
       },
       {

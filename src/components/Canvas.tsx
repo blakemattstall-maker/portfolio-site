@@ -282,7 +282,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         <div className="relative z-20 flex items-end justify-center md:col-span-3 md:h-full md:self-end lg:-mx-10">
           <Enter delay={0.2} className="relative flex items-end">
             <Depth px={14} py={9} className="relative flex items-end">
-              <ArrowLoop className="absolute -left-24 -top-14 hidden w-12 -rotate-12 lg:block" />
+              <ArrowLoop className="absolute -left-28 top-[6%] hidden w-12 -rotate-6 lg:block" />
               {site.orbitLabels.map((label, i) => (
                 <span
                   key={label.text}
@@ -290,7 +290,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     [
-                      "-left-6 top-[3%] -rotate-6",
+                      "-left-12 top-[15%] -rotate-6",
                       "-right-6 bottom-[13%] rotate-3",
                       "-left-5 bottom-[1%] -rotate-3",
                     ][i]

@@ -129,11 +129,11 @@ export function CaseBody({ item }: { item: WorkItem }) {
             const ac = STAT_ACCENTS[i % STAT_ACCENTS.length];
             const inner = (
               <>
-                <span className={`display block text-3xl font-bold leading-none ${ACCENT_TEXT[ac]}`}>{s.value}</span>
-                <span className="eyebrow mt-2 block text-[0.56rem] leading-snug opacity-65">{s.label}</span>
+                <span className={`display block text-2xl font-bold leading-none ${ACCENT_TEXT[ac]}`}>{s.value}</span>
+                <span className="eyebrow mt-1.5 block text-[0.55rem] leading-snug opacity-65">{s.label}</span>
               </>
             );
-            const base = `flex h-full flex-col items-center justify-start border-2 border-t-4 border-ink/12 ${ACCENT_TOP[ac]} bg-ink/[0.02] p-3.5 text-center`;
+            const base = `flex h-full flex-col items-center justify-center border-2 border-t-4 border-ink/12 ${ACCENT_TOP[ac]} bg-ink/[0.02] px-3 py-2.5 text-center`;
             return s.href ? (
               <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className={`${base} transition-colors hover:bg-ink/[0.06]`}>
                 {inner}

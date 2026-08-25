@@ -22,7 +22,7 @@ export type Block =
       poster?: string;
       slotLabel?: string;
     }
-  | { kind: "duo"; photos: { src: string; caption?: string }[] }
+  | { kind: "duo"; photos: { src: string; caption?: string }[]; aspect?: string }
   | { kind: "terminal"; heading: string; body: string; prompt?: string }
   | { kind: "cta"; heading: string; sub?: string; label: string; href: string }
   | {
@@ -93,7 +93,13 @@ function TerminalReveal({ heading, body, prompt = "~/almanac" }: { heading: stri
   const [open, setOpen] = useState(false);
   const cmd = heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return (
-    <div className="overflow-hidden rounded-lg border-2 border-ink/20 bg-ink font-mono text-paper">
+    <div className="relative rounded-lg border-2 border-ink/20 bg-ink font-mono text-paper">
+      {!open && (
+        <span className="float-b pointer-events-none absolute -right-1 -top-3 z-10 rounded-full bg-sun px-2.5 py-1 text-[0.62rem] font-bold text-ink shadow-md">
+          click me!
+          <span className="absolute -bottom-1 right-4 h-2 w-2 rotate-45 bg-sun" aria-hidden />
+        </span>
+      )}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -243,7 +249,7 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
           {b.kind === "duo" && (
             <div className="grid grid-cols-2 items-start gap-3">
               {b.photos.map((p) => (
-                <Figure key={p.src} src={p.src} caption={p.caption} aspect="4/3" />
+                <Figure key={p.src} src={p.src} caption={p.caption} aspect={b.aspect ?? "4/3"} />
               ))}
             </div>
           )}
