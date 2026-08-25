@@ -150,7 +150,7 @@ function Depth({ px, py, children, className }: { px: number; py: number; childr
   );
 }
 
-export function Canvas() {
+export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const [overlay, setOverlay] = useState<OverlayKey>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -178,21 +178,25 @@ export function Canvas() {
 
   const close = useCallback(() => {
     setOverlay(null);
-    window.history.replaceState(null, "", window.location.pathname);
+    // land on the clean home URL whether we arrived via /video, ?open=, or a click
+    window.history.replaceState(null, "", "/");
   }, []);
 
   const open = useCallback((key: Exclude<OverlayKey, null>) => {
     setOverlay(key);
-    window.history.replaceState(null, "", `?open=${key}`);
+    window.history.replaceState(null, "", `/?open=${key}`);
   }, []);
 
+  // Open a starting overlay from either ?open=<key> or the initialOpen prop
+  // (the clean /video, /almanac, ... routes). Does not rewrite the URL, so a
+  // shared path like /video stays clean in the address bar.
   useEffect(() => {
-    const wanted = new URLSearchParams(window.location.search).get("open");
+    const wanted = new URLSearchParams(window.location.search).get("open") || initialOpen;
     if (!wanted) return;
     if (wanted === "about" || wanted === "contact" || wanted === "game" || work.some((w) => w.slug === wanted)) {
       setOverlay(wanted as Exclude<OverlayKey, null>);
     }
-  }, []);
+  }, [initialOpen]);
 
   return (
     <div ref={rootRef} className="relative flex min-h-dvh flex-col md:h-dvh">
