@@ -79,18 +79,24 @@ export const site = {
 export type Video = { id: string; title: string; context: string };
 
 export const videos: Video[] = [
-  { id: "7n0jBKk99RI", title: "Rage in the Birdcage", context: "Hype edit for an MMA club fight night. Fast cuts, big energy." },
-  { id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Meet-day recap. The misses, the makes, the grind between." },
-  { id: "7thI9wz33cE", title: "Authava Sizzle Reel", context: "Brand sizzle for an AI chatbot company. Polished, high-ticket feel." },
-  { id: "4B626q57J5c", title: "Zevia Spec Commercial", context: "Product spec spot: summer light, condensation, appetite appeal." },
-  { id: "LHQpXGTwbxk", title: "Breaking Grounds Music", context: "Commercial for a local music shop's live series. Real client, real deadline." },
+  { id: "7n0jBKk99RI", title: "Rage in the Birdcage", context: "Hype edit for an MMA club fight night." },
+  { id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Powerlifting meet-day hype edit. I also competed and cameo in the video!" },
+  { id: "7thI9wz33cE", title: "Authava Sizzle Reel", context: "Brand sizzle video for an AI infrastructure company." },
+  { id: "4B626q57J5c", title: "Zevia Spec Commercial", context: "Product spec shoot for a summer soda alternative." },
+  { id: "LHQpXGTwbxk", title: "Breaking Grounds In Music", context: "Commercial for a local music school." },
   { id: "dlFG1q6c2kc", title: "Oreo Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
-  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece. Lighting and pacing, start to finish." },
+  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece to practice lighting and pacing." },
   { id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece, back when I was starting out." },
 ];
 
-export type CaseSection = { heading: string; paragraphs: string[] };
-export type PhotoSlot = { label: string; src?: string; aspect?: string; pos?: string };
+export type CaseSection = { heading: string; paragraphs: string[]; bullets?: string[] };
+export type PhotoSlot = {
+  label: string;
+  src?: string;
+  aspect?: string;
+  pos?: string;
+  link?: { label: string; href: string };
+};
 
 export type WorkItem = {
   slug: string;
@@ -146,25 +152,30 @@ export const work: WorkItem[] = [
     thumb: "/images/proj/trifilm-office.jpg",
     outcome: "My summer at Trifilm: I moved from Chicago to Seattle to make real corporate productions for clients like Microsoft.",
     meta: { role: "Production Intern", timeline: "Summer 2026 · Kirkland, WA", status: "Wrapped" },
-    link: { label: "A Microsoft intern-week film my Trifilm crew made", href: "https://www.youtube.com/watch?v=S6UxOGB41AI" },
     trailer: {
-      outcome: "A little over three months ago I packed up and moved across the country, from Chicago to Seattle, for my first real look inside the production world. Over 400 hours of shooting, editing, and shadowing later, it was a damn good summer.",
+      outcome: "I packed my bags and moved across the country, from Chicago to Seattle, for my first real look inside the production world.",
       moves: [
-        "They trusted me with real work: 400+ hours across shooting, editing, and shadowing on live corporate productions, not coffee runs.",
-        "I worked on productions for the team's clients. The Microsoft intern-week video above is one the crew I was part of produced.",
-        "My fellow intern and I even hosted a video-podcast episode exploring Trifilm from the inside.",
+        "400+ hours of shooting, editing, and shadowing production professionals on live corporate projects.",
+        "Helped out on productions for the team's clients, including the Microsoft intern-week video linked below.",
+        "Planned and pitched an internal video podcast series from the perspective of the interns.",
       ],
     },
     photos: [
-      { label: "On the Trifilm crew recording Microsoft's intern week", src: "/images/proj/trifilm-intern.jpg" },
+      {
+        label: "On the Trifilm crew recording Microsoft's intern week",
+        src: "/images/proj/trifilm-intern.jpg",
+        link: { label: "Watch the Microsoft intern-week film", href: "https://www.youtube.com/watch?v=S6UxOGB41AI" },
+      },
       { label: "On set, slate in hand", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
     ],
     sections: [
       {
         heading: "What I took from it",
-        paragraphs: [
-          "Three things stuck with me. Hiring for the person can matter more than the skillset. In production, being able to solve the problem beats having all the answers. And AI is a phenomenal tool, but it still needs someone with good taste to keep it from derailing.",
-          "It was my first real look into the industry, and the team trusted me with work that mattered. That's the summer that made me sure this is what I want to be around.",
+        paragraphs: [],
+        bullets: [
+          "Hiring for the person can matter more than the skillset.",
+          "In production, solving the problem beats having all the answers.",
+          "AI is a phenomenal tool, but it still needs someone with good taste to keep it from derailing.",
         ],
       },
     ],
@@ -187,7 +198,7 @@ export const work: WorkItem[] = [
       { value: "~$7/mo", label: "all-in running cost" },
     ],
     trailer: {
-      outcome: "A personal operating system I built for myself. I talk to it, it files what I said into the right place, connects it to everything else I've told it, and once a day it decides on its own whether anything is worth surfacing. It runs every day on my phone for about $7 a month.",
+      outcome: "An executive assistant system I built for myself. I talk to it, it files what I said into the right place, connects and graphs each data point, and generates insights meant to hold me accountable and improve my life.",
       moves: [],
     },
     photos: [],
@@ -198,7 +209,7 @@ export const work: WorkItem[] = [
         media: "video",
         src: "/images/proj/almanac-graph.mp4",
         heading: "Everything connects into a map",
-        body: "Every person, project, charge, and note I capture becomes a point on a map I can actually walk, connected from what I told it and never tagged by hand. Tap a node and you travel to what it's attached to. The way it settles into shape is the thing a screenshot can't show.",
+        body: "Every person, project, charge, and note I capture becomes a point on a map I can actually walk, connected from what I told it and never tagged by hand. Tap a node and you travel to what it's attached to. Every future query can traverse this graph, so the system continuously improves itself.",
         caption: "The /graph view, and the 3D globe it folds into.",
       },
       {
@@ -207,8 +218,8 @@ export const work: WorkItem[] = [
         media: "video",
         src: "/images/proj/almanac-capture.mp4",
         heading: "Talk to it, and it files itself",
-        body: "I capture everything by voice. One sentence like \"remind me to send the contract Thursday, and I spent forty bucks at Costco\" becomes a task with the right date and a logged expense, and it decides which is which. I never fill in a form.",
-        caption: "Press, speak, done. The one loop the whole product is built around.",
+        body: "I capture everything by voice through an iPhone shortcut. One tap opens the recorder, and a sentence like \"remind me to send the contract Thursday, and I spent forty bucks at Costco\" becomes a task with the right date and a logged expense, and it decides which is which. Seconds later it's filed and waiting on my dashboard. I never fill in a form.",
+        caption: "One tap to record, then it lands on the dashboard.",
       },
       {
         kind: "feature",
@@ -224,13 +235,13 @@ export const work: WorkItem[] = [
         side: "left",
         media: "photo",
         src: "/images/proj/almanac-insight.jpg",
-        heading: "And it speaks up only when it matters",
-        body: "Most assistants interrupt you constantly, because attention is the thing they compete for. Almanac is built the other way. At most one digest a day, and on most days it stays quiet on its own. An assistant you actually leave notifications on is the only kind that ends up being useful, so restraint is the point, not a limitation.",
-        caption: "Once a day it decides whether anything is worth raising. Most days, nothing is.",
+        heading: "And it speaks up on its own",
+        body: "Most assistants just sit there until you ask them something. Almanac reads across everything it knows and surfaces insights on its own: the spending creeping up, the friend I haven't texted in weeks, the goal I said mattered and then drifted from. That is the part I'm proudest of. It also knows when to stay quiet, at most one digest a day, so the insights it does raise are the ones actually worth my attention.",
+        caption: "It connects the dots I'd miss, then only tells me when it counts.",
       },
       {
-        kind: "text",
-        heading: "How it works, for the curious",
+        kind: "terminal",
+        heading: "how it works",
         body: "For anyone in tech: it's a Next.js app on Supabase with an LLM router that uses native tool-calling across roughly two dozen tools to read and write my real Google Calendar, Tasks, Gmail, and Docs, plus a bank feed and my location. Memories are retrieved semantically with pgvector, and everything else it stores becomes a polymorphic entity graph I can traverse and see rendered live with force-graph. Scheduled jobs write the morning brief, rebuild the graph nightly, and run the once-a-day observer. One rule holds the whole thing together: every number is calculated in code and handed to the model as fact, so it phrases things in plain language but never does the arithmetic itself. 240+ automated tests, one deployment, about seven dollars a month.",
       },
       {

@@ -23,6 +23,7 @@ export type Block =
       slotLabel?: string;
     }
   | { kind: "duo"; photos: { src: string; caption?: string }[] }
+  | { kind: "terminal"; heading: string; body: string; prompt?: string }
   | { kind: "cta"; heading: string; sub?: string; label: string; href: string }
   | {
       kind: "reddit";
@@ -83,6 +84,41 @@ function Figure({ src, caption, aspect, pos }: { src: string; caption?: string; 
       </div>
       {caption && <figcaption className="eyebrow mt-1.5 text-[0.62rem] leading-tight opacity-60">{caption}</figcaption>}
     </figure>
+  );
+}
+
+/* A terminal-styled disclosure: collapsed it shows a blinking command prompt
+   inviting a click; expanded it reveals the technical write-up. */
+function TerminalReveal({ heading, body, prompt = "~/almanac" }: { heading: string; body: string; prompt?: string }) {
+  const [open, setOpen] = useState(false);
+  const cmd = heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return (
+    <div className="overflow-hidden rounded-lg border-2 border-ink/20 bg-ink font-mono text-paper">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-left text-sm"
+        aria-expanded={open}
+      >
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="h-2.5 w-2.5 rounded-full bg-coral" />
+          <span className="h-2.5 w-2.5 rounded-full bg-sun" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#6fae7e]" />
+        </span>
+        <span className="ml-1 truncate">
+          <span className="text-sun">{prompt}</span>
+          <span className="text-paper/50"> $ </span>
+          <span>./{cmd}</span>
+          {!open && <span className="term-caret text-paper">▍</span>}
+        </span>
+        <span className="ml-auto shrink-0 text-[0.65rem] text-paper/45">{open ? "close ✕" : "run ↵"}</span>
+      </button>
+      {open && (
+        <div className="border-t border-paper/15 px-4 py-4">
+          <p className="font-[family-name:var(--font-body)] text-sm leading-relaxed text-paper/85">{body}</p>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -211,6 +247,7 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
               ))}
             </div>
           )}
+          {b.kind === "terminal" && <TerminalReveal heading={b.heading} body={b.body} prompt={b.prompt} />}
           {b.kind === "cta" && (
             <a
               href={b.href}

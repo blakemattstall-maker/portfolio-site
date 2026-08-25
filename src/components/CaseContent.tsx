@@ -12,6 +12,20 @@ export const ACCENT_BG: Record<Accent, string> = {
   coral: "bg-coral",
 };
 
+const ACCENT_TEXT: Record<Accent, string> = {
+  peach: "text-peach",
+  sun: "text-sun",
+  coral: "text-coral",
+};
+
+const ACCENT_TOP: Record<Accent, string> = {
+  peach: "border-t-peach",
+  sun: "border-t-sun",
+  coral: "border-t-coral",
+};
+
+const STAT_ACCENTS: Accent[] = ["peach", "sun", "coral", "peach"];
+
 export function PhotoSlotEl({ slot, dark = true }: { slot: PhotoSlot; dark?: boolean }) {
   const aspect = slot.aspect ?? "4/3";
   if (slot.src) {
@@ -26,6 +40,16 @@ export function PhotoSlotEl({ slot, dark = true }: { slot: PhotoSlot; dark?: boo
           style={{ aspectRatio: aspect, objectPosition: slot.pos ?? "center" }}
         />
         <figcaption className="eyebrow mt-1.5 text-[0.6rem] opacity-55">{slot.label}</figcaption>
+        {slot.link && (
+          <a
+            href={slot.link.href}
+            target="_blank"
+            rel="noreferrer"
+            className="eyebrow mt-2 inline-block border-2 border-ink/25 px-2.5 py-1.5 transition-colors hover:bg-ink hover:text-paper"
+          >
+            {slot.link.label} ↗
+          </a>
+        )}
       </figure>
     );
   }
@@ -100,27 +124,23 @@ export function CaseBody({ item }: { item: WorkItem }) {
       </section>
 
       {item.stats && (
-        <div className="mt-6 flex flex-wrap gap-3">
-          {item.stats.map((s) => {
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {item.stats.map((s, i) => {
+            const ac = STAT_ACCENTS[i % STAT_ACCENTS.length];
             const inner = (
               <>
-                <span className="display block text-2xl font-bold leading-none">{s.value}</span>
-                <span className="eyebrow mt-1 block text-[0.6rem] leading-tight opacity-70">{s.label}</span>
+                <span className={`display block text-3xl font-bold leading-none ${ACCENT_TEXT[ac]}`}>{s.value}</span>
+                <span className="eyebrow mt-2 block text-[0.56rem] leading-snug opacity-65">{s.label}</span>
               </>
             );
+            const base = `flex h-full flex-col items-center justify-start border-2 border-t-4 border-ink/12 ${ACCENT_TOP[ac]} bg-ink/[0.02] p-3.5 text-center`;
             return s.href ? (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                className={`min-w-[8rem] flex-1 border-2 p-3 transition-colors hover:bg-ink hover:text-paper ${ACCENT_BG[item.accent]}/15 border-ink/15`}
-              >
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className={`${base} transition-colors hover:bg-ink/[0.06]`}>
                 {inner}
-                <span className="eyebrow mt-1.5 block text-[0.58rem] opacity-50">see the post ↗</span>
+                <span className="eyebrow mt-1.5 block text-[0.55rem] opacity-45">see it ↗</span>
               </a>
             ) : (
-              <div key={s.label} className="min-w-[8rem] flex-1 border-2 border-ink/15 p-3">
+              <div key={s.label} className={base}>
                 {inner}
               </div>
             );
@@ -158,13 +178,25 @@ export function CaseBody({ item }: { item: WorkItem }) {
       {item.sections.map((section) => (
         <section key={section.heading} className="mt-8">
           <h3 className="display text-2xl font-semibold">{section.heading}</h3>
-          <div className="mt-3 space-y-3 leading-relaxed opacity-80">
-            {section.paragraphs.map((p, i) => (
-              <p key={i}>
-                <Copy text={p} />
-              </p>
-            ))}
-          </div>
+          {section.paragraphs.length > 0 && (
+            <div className="mt-3 space-y-3 leading-relaxed opacity-80">
+              {section.paragraphs.map((p, i) => (
+                <p key={i}>
+                  <Copy text={p} />
+                </p>
+              ))}
+            </div>
+          )}
+          {section.bullets && (
+            <ul className="mt-4 space-y-2.5">
+              {section.bullets.map((b, i) => (
+                <li key={i} className="flex gap-3 leading-relaxed opacity-85">
+                  <span className={`mt-2 inline-block h-2 w-2 shrink-0 rotate-45 ${ACCENT_BG[item.accent]}`} aria-hidden />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       ))}
     </div>
