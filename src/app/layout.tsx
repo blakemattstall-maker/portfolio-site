@@ -30,17 +30,17 @@ const jbmono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blake Stall — Marketing × Media Production",
+  title: "Blake Stall · Marketing & Media",
   description:
-    "Marketing student at Illinois State with two years behind the camera. I make things people watch — and study why they work.",
+    "Marketing student at Illinois State with two years behind the camera. I make things people watch, and study why they work.",
   metadataBase: new URL("https://blakestall.com"),
   openGraph: {
-    title: "Blake Stall — Marketing × Media Production",
+    title: "Blake Stall · Marketing & Media",
     description: "A curious student creative, becoming a strategist.",
     url: "https://blakestall.com",
     siteName: "Blake Stall",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Blake Stall — portfolio" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Blake Stall portfolio" }],
   },
   twitter: {
     card: "summary_large_image",

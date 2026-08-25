@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
   const now = Date.now();
   if (now - (lastPost.get(ip) ?? 0) < 3000) {
-    return NextResponse.json({ error: "Too fast — one score every few seconds." }, { status: 429 });
+    return NextResponse.json({ error: "Too fast. One score every few seconds." }, { status: 429 });
   }
 
   let body: unknown;

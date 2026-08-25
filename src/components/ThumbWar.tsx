@@ -59,7 +59,7 @@ function ThumbCard({ side, onPick, disabled }: { side: ThumbSide; onPick: () => 
 function Board({ scores, highlightTs }: { scores: ScoreEntry[]; highlightTs?: number }) {
   return (
     <ol className="mt-3 space-y-1">
-      {scores.length === 0 && <li className="eyebrow opacity-50">No scores yet — set the first one.</li>}
+      {scores.length === 0 && <li className="eyebrow opacity-50">No scores yet. Set the first one.</li>}
       {scores.map((s, i) => (
         <li
           key={`${s.initials}${s.ts}`}

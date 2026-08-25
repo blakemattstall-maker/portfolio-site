@@ -41,7 +41,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
     <div className="text-ink">
       <div className="flex items-center gap-3">
         <span className={`eyebrow px-2 py-1 text-ink ${ACCENT_BG[item.accent]}`}>
-          {item.index} — {item.kind}
+          {item.index} · {item.kind}
         </span>
         <span className="eyebrow opacity-60">{item.meta.status}</span>
       </div>
@@ -150,7 +150,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
 
       {item.isReel && (
         <div className="mt-8">
-          <h3 className="eyebrow mb-5 opacity-60">My picks — press play:</h3>
+          <h3 className="eyebrow mb-5 opacity-60">My picks. Press play:</h3>
           <VideoGrid videos={videos} />
         </div>
       )}
@@ -203,7 +203,7 @@ export function AboutBody() {
         </figure>
       )}
 
-      <h3 className="eyebrow mt-10 opacity-60">On the desk — things I've built</h3>
+      <h3 className="eyebrow mt-10 opacity-60">On the desk: things I've built</h3>
       <div className="mt-4 space-y-8">
         {about.desk.map((item) => (
           <section key={item.title} className="border-t-2 border-ink/10 pt-5">
