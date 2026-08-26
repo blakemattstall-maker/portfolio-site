@@ -103,21 +103,21 @@ function TerminalReveal({ heading, body, prompt = "~/almanac" }: { heading: stri
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-left text-sm"
+        className="flex w-full cursor-pointer items-center gap-2 px-3 py-3 text-left text-xs sm:px-4 sm:text-sm"
         aria-expanded={open}
       >
-        <span className="flex gap-1.5" aria-hidden>
+        <span className="flex shrink-0 gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-coral" />
           <span className="h-2.5 w-2.5 rounded-full bg-sun" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#6fae7e]" />
         </span>
-        <span className="ml-1 truncate">
+        <span className="ml-1 min-w-0 whitespace-nowrap">
           <span className="text-sun">{prompt}</span>
           <span className="text-paper/50"> $ </span>
           <span>./{cmd}</span>
           {!open && <span className="term-caret text-paper">▍</span>}
         </span>
-        <span className="ml-auto shrink-0 text-[0.65rem] text-paper/45">{open ? "close ✕" : "run ↵"}</span>
+        <span className="ml-auto hidden shrink-0 text-[0.65rem] text-paper/45 sm:block">{open ? "close ✕" : "run ↵"}</span>
       </button>
       {open && (
         <div className="border-t border-paper/15 px-4 py-4">
@@ -178,10 +178,15 @@ export function CollapsibleStory({
           style={{ aspectRatio: teaserAspect }}
         />
       )}
-      <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/80 via-ink/10 to-transparent p-4">
+      {/* desktop: pill overlaid on the image */}
+      <span className="absolute inset-0 hidden items-end justify-center bg-gradient-to-t from-ink/80 via-ink/10 to-transparent p-4 sm:flex">
         <span className="rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink shadow-sm transition-transform group-hover:-translate-y-0.5">
           {label} ↓
         </span>
+      </span>
+      {/* mobile: tappable bar below the image, so it never covers the photo */}
+      <span className="flex items-center justify-center gap-2 border-t-2 border-dashed border-ink/25 bg-ink/[0.04] px-4 py-3 text-sm font-semibold text-ink transition-colors group-hover:bg-ink/[0.08] sm:hidden">
+        {label} ↓
       </span>
     </button>
   );
@@ -249,7 +254,7 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
             </div>
           )}
           {b.kind === "duo" && (
-            <div className="grid grid-cols-2 items-start gap-3">
+            <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
               {b.photos.map((p) => (
                 <Figure key={p.src} src={p.src} caption={p.caption} aspect={b.aspect ?? "4/3"} pos={p.pos} />
               ))}
@@ -284,13 +289,17 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
                     href={p.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex-1 border-2 border-ink/20 bg-paper p-3 transition-colors hover:border-coral"
+                    className="group relative flex-1 border-2 border-coral/45 bg-paper p-3 transition-all hover:-translate-y-0.5 hover:border-coral hover:shadow-[0_6px_0_rgba(241,122,126,0.22)]"
                   >
-                    <span className="flex items-baseline gap-2">
+                    <span className="flex items-baseline justify-between gap-2">
                       <span className="display text-2xl font-bold leading-none text-coral">{p.stat}</span>
-                      <span className="eyebrow opacity-50 transition-transform group-hover:translate-x-0.5">↗</span>
+                      <span className="eyebrow shrink-0 rounded-full bg-coral px-2 py-0.5 text-[0.55rem] leading-none text-ink">
+                        Open ↗
+                      </span>
                     </span>
-                    <span className="mt-1.5 block text-sm font-medium leading-snug">{p.title}</span>
+                    <span className="mt-1.5 block text-sm font-medium leading-snug underline decoration-coral/50 decoration-2 underline-offset-2">
+                      {p.title}
+                    </span>
                   </a>
                 ))}
               </div>

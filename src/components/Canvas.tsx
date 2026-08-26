@@ -335,9 +335,9 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     [
-                      "-left-12 top-[15%] -rotate-6",
-                      "-right-6 bottom-[13%] rotate-3",
-                      "-left-5 bottom-[1%] -rotate-3",
+                      "-rotate-6 left-2 top-[4%] sm:-left-12 sm:top-[15%]",
+                      "rotate-3 right-2 top-[62%] sm:-right-6 sm:top-auto sm:bottom-[13%]",
+                      "-rotate-3 left-2 bottom-[3%] sm:-left-5 sm:bottom-[1%]",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}

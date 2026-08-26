@@ -63,7 +63,7 @@ export function PhotoSlotEl({ slot, dark = true }: { slot: PhotoSlot; dark?: boo
 export function CaseBody({ item }: { item: WorkItem }) {
   return (
     <div className="text-ink">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 pr-16 sm:pr-0">
         <span className={`eyebrow px-2 py-1 text-ink ${ACCENT_BG[item.accent]}`}>
           {item.index} · {item.kind}
         </span>
@@ -161,7 +161,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
       )}
 
       {item.photos.length > 0 && (
-        <div className="mt-6 grid grid-cols-2 items-start gap-3">
+        <div className="mt-6 grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
           {item.photos.map((slot) => (
             <PhotoSlotEl key={slot.label} slot={slot} />
           ))}
