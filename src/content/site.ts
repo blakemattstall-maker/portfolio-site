@@ -81,17 +81,17 @@ export const site = {
   },
 };
 
-export type Video = { id: string; title: string; context: string };
+export type Video = { id: string; title: string; context: string; date: string };
 
 export const videos: Video[] = [
-  { id: "7n0jBKk99RI", title: "Rage in the Birdcage", context: "Hype edit for an MMA club fight night." },
-  { id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Powerlifting meet-day hype edit. I also competed and cameo in the video!" },
-  { id: "7thI9wz33cE", title: "Authava Sizzle Reel", context: "Brand sizzle video for an AI infrastructure company." },
-  { id: "4B626q57J5c", title: "Zevia Spec Commercial", context: "Product spec shoot for a summer soda alternative." },
-  { id: "LHQpXGTwbxk", title: "Breaking Grounds In Music", context: "Commercial for a local music school." },
-  { id: "dlFG1q6c2kc", title: "Oreo Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
-  { id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece to practice lighting and pacing." },
-  { id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece, back when I was starting out." },
+  { date: "May 2026", id: "7n0jBKk99RI", title: "Rage in the Birdcage", context: "Hype edit for an MMA club fight night." },
+  { date: "Oct 2025", id: "QBmQVm6qBg8", title: "Powerlifting Meet Recap", context: "Powerlifting meet-day hype edit. I also competed and cameo in the video!" },
+  { date: "Nov 2025", id: "7thI9wz33cE", title: "Authava Sizzle Reel", context: "Brand sizzle video for an AI infrastructure company." },
+  { date: "Aug 2024", id: "4B626q57J5c", title: "Zevia Spec Commercial", context: "Product spec shoot for a summer soda alternative." },
+  { date: "Jun 2025", id: "LHQpXGTwbxk", title: "Breaking Grounds In Music", context: "Commercial for a local music school." },
+  { date: "Jun 2024", id: "dlFG1q6c2kc", title: "Oreo Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
+  { date: "Mar 2025", id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece to practice lighting and pacing." },
+  { date: "Aug 2025", id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece, back when I was starting out." },
 ];
 
 export type CaseSection = { heading: string; paragraphs: string[]; bullets?: string[] };
@@ -178,8 +178,8 @@ export const work: WorkItem[] = [
         heading: "My top three takeaways",
         paragraphs: [],
         bullets: [
-          "Hiring for the person can matter more than the skillset.",
-          "In production, solving the problem beats having all the answers.",
+          "The people who got asked back were the ones who were easy to work with, not always the ones with the best reel.",
+          "No shoot ever goes fully to plan. What mattered was how fast the crew adapted, not how detailed the plan was.",
           "AI is a phenomenal tool, but it still needs someone with good taste to keep it from derailing.",
         ],
       },
@@ -208,6 +208,11 @@ export const work: WorkItem[] = [
     },
     photos: [],
     blocks: [
+      {
+        kind: "text",
+        heading: "Why I built it",
+        body: "Watching producers at Trifilm juggle a dozen moving parts at once showed me how much of that job is pure coordination. Then I came back to my heaviest year yet: side projects, the Adobe Student Ambassador role, a creative internship with Redbird Athletics, and my most intensive courseload so far. I wanted to see how many hours I could win back from the repetitive parts, entering every assignment into my calendar by hand, reshuffling my week, keeping track of goals and what I said I would finish. So I built the system that does it.",
+      },
       {
         kind: "feature",
         side: "right",
@@ -273,7 +278,7 @@ export const work: WorkItem[] = [
     accent: "sun",
     thumb: "/images/proj/qs-4.jpg",
     outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store, shipped worldwide.",
-    meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Wound down, on purpose" },
+    meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Closed in 2024" },
     trailer: {
       outcome: "I started an artisan cable business out of my bedroom: a Shopify store, a production line, a photography booth, my own marketing, and orders shipped internationally.",
       moves: [],
@@ -347,8 +352,8 @@ export const work: WorkItem[] = [
       },
       {
         kind: "text",
-        heading: "Why I wound it down",
-        body: "As bigger vendors scaled into custom cables, order volume slowed. I'd learned what I came for: product, brand, marketing, and fulfillment, all at once, before I could drive. So I pointed the same energy at videography, where the market was wide open and the craft ran deeper. Knowing when a thing has run its course is its own skill.",
+        heading: "Why I closed it",
+        body: "As bigger vendors scaled into custom cables, order volume slowed and the margins stopped making sense. By then I'd run every part of a business at once, product, brand, marketing, and fulfillment, before I could drive. I moved that same energy into videography, where the market was wide open and the craft ran deeper.",
       },
     ],
   },

@@ -41,7 +41,10 @@ function Thumb({ video, onOpen, eager }: { video: Video; onOpen: () => void; eag
           </span>
         </span>
       </span>
-      <span className="mt-3 block font-semibold leading-snug text-ink">{video.title}</span>
+      {/* Date sits on its own line above the title so a long title can never
+          squeeze or clip it, at any width. */}
+      <span className="eyebrow mt-3 block text-[0.6rem] text-ink/45">{video.date}</span>
+      <span className="mt-1 block font-semibold leading-snug text-ink">{video.title}</span>
       <span className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm leading-snug text-ink/60">{video.context}</span>
     </button>
   );
