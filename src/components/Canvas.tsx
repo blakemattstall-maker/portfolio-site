@@ -188,6 +188,35 @@ function Depth({ px, py, children, className }: { px: number; py: number; childr
   );
 }
 
+/* Overlays change the URL but never trigger a Next route change, so nothing is
+   recorded for them. Report a virtual pageview using the same public paths the
+   /video, /almanac, ... routes use, so Top Pages reflects what people actually
+   opened. Fires only on user action (never on first mount) so a direct visit to
+   /almanac isn't counted twice. Silently no-ops when analytics is absent or
+   blocked — no added requests, no blocking work. */
+const OVERLAY_PATHS: Record<string, string> = {
+  videography: "/video",
+  trifilm: "/trifilm",
+  almanac: "/almanac",
+  qscables: "/qscables",
+  about: "/about",
+  contact: "/contact",
+  game: "/game",
+};
+
+function trackOverlayView(key: string) {
+  const path = OVERLAY_PATHS[key];
+  if (!path) return;
+  try {
+    (window as unknown as { va?: (event: string, props?: unknown) => void }).va?.("pageview", {
+      route: path,
+      path,
+    });
+  } catch {
+    /* analytics blocked or unavailable — tracking is strictly optional */
+  }
+}
+
 export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const [overlay, setOverlay] = useState<OverlayKey>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -245,6 +274,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         if (alphaMap.current.getImageData(x, y, 1, 1).data[3] > 32) {
           setOverlay("about");
           window.history.replaceState(null, "", "/?open=about");
+          trackOverlayView("about");
         }
       } catch {
         /* canvas unavailable — the easter egg just stays dormant */
@@ -263,12 +293,14 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const open = useCallback((key: Exclude<OverlayKey, null>) => {
     setOverlay(key);
     window.history.replaceState(null, "", `/?open=${key}`);
+    trackOverlayView(key);
   }, []);
 
   // Open About and jump straight to a specific desk project once it mounts.
   const openDesk = useCallback((title: string) => {
     setOverlay("about");
     window.history.replaceState(null, "", "/?open=about");
+    trackOverlayView("about");
     const id = deskId(title);
     // The modal mounts a frame or two later and animates in, so poll for the target
     // and scroll its container directly (scrollIntoView is unreliable mid-animation).
