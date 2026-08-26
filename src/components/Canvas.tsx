@@ -225,11 +225,30 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
     setOverlay("about");
     window.history.replaceState(null, "", "/?open=about");
     const id = deskId(title);
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        document.getElementById(id)?.scrollIntoView({ block: "start" });
-      })
-    );
+    // The modal mounts a frame or two later and animates in, so poll for the target
+    // and scroll its container directly (scrollIntoView is unreliable mid-animation).
+    // A second pass corrects for any layout shift as media finishes reserving space.
+    // NOTE: timers, not requestAnimationFrame — rAF is suspended in hidden/throttled
+    // tabs (the same trap that forced entrance animations to pure CSS), which left
+    // the overlay open but never scrolled.
+    let tries = 0;
+    const jump = () => {
+      const el = document.getElementById(id);
+      const scroller = el?.closest<HTMLElement>(".overlay-scroll");
+      if (!el || !scroller) return false;
+      const offset =
+        el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
+      scroller.scrollTop = Math.max(0, offset - 12);
+      return true;
+    };
+    const attempt = () => {
+      if (jump()) {
+        setTimeout(jump, 260); // re-settle once media has reserved its space
+        return;
+      }
+      if (tries++ < 40) setTimeout(attempt, 25);
+    };
+    attempt();
   }, []);
 
   // Open a starting overlay from either ?open=<key> or the initialOpen prop
@@ -244,9 +263,9 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   }, [initialOpen]);
 
   return (
-    <div ref={rootRef} className="relative flex min-h-dvh flex-col md:h-dvh">
+    <div ref={rootRef} className="relative flex min-h-dvh flex-col lg:h-dvh">
       {/* availability pill, top right */}
-      <div className="absolute right-4 top-3 z-10 hidden md:block">
+      <div className="absolute right-4 top-3 z-10 hidden lg:block">
       <Burst>
         <button
           type="button"
@@ -259,9 +278,9 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
       </Burst>
       </div>
 
-      <main className="relative mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-start gap-6 px-5 pb-4 pt-6 md:grid-cols-12 md:items-center md:gap-4 md:px-10 md:py-4">
+      <main className="relative mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-start gap-6 px-5 pb-4 pt-6 lg:grid-cols-12 lg:items-center lg:gap-4 lg:px-10 lg:py-4">
         {/* LEFT — name, one-liner, descriptor, status, socials */}
-        <div className="relative z-10 md:col-span-4">
+        <div className="relative z-10 lg:col-span-4">
           <Depth px={5} py={3}>
           <StaggerHeadline
             text={`${site.name.split(" ")[0].toUpperCase()} ${site.name.split(" ")[1].toUpperCase()}`}
@@ -320,8 +339,11 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
           </Depth>
         </div>
 
-        {/* CENTER — the hero cutout, large and left-leaning, orbited by role labels */}
-        <div className="relative z-20 flex items-end justify-center md:col-span-3 md:h-full md:self-end lg:-mx-10">
+        {/* CENTER — the hero cutout, large and left-leaning, orbited by role labels.
+            pointer-events-none: this column is purely decorative, and its z-20 box
+            overhangs the work grid — without this it swallowed clicks meant for the
+            keyboard easter egg tucked behind the sheet. */}
+        <div className="pointer-events-none relative z-20 mb-7 flex items-end justify-center lg:col-span-3 lg:mb-0 lg:h-full lg:self-end lg:-mx-10">
           <Enter delay={0.2} className="relative flex items-end">
             <Depth px={14} py={9} className="relative flex items-end">
               <ArrowLoop className="absolute -left-28 top-[6%] hidden w-12 -rotate-6 lg:block" />
@@ -335,9 +357,9 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                        so the two lower stickers keep the same gap on every phone
                        and sit on the chest — never across the neck or face. */
                     [
-                      "-rotate-6 -left-1 top-1 sm:-left-12 sm:top-[15%]",
-                      "rotate-3 -right-3 bottom-11 sm:-right-6 sm:bottom-[13%]",
-                      "-rotate-3 -left-3 -bottom-2 sm:-left-5 sm:bottom-[1%]",
+                      "-rotate-6 -left-1 top-1 lg:-left-12 lg:top-[15%]",
+                      "rotate-3 -right-3 bottom-11 lg:-right-6 lg:bottom-[13%]",
+                      "-rotate-3 -left-3 -bottom-2 lg:-left-5 lg:bottom-[1%]",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
@@ -351,17 +373,17 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 /* mobile: a FIXED height (no viewport units) so the hero can't resize
                    when the phone's URL bar collapses, and can't collapse on short
                    screens like the SE — sticker placement stays identical everywhere. */
-                className="pointer-events-none relative mx-auto h-[240px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:h-auto md:max-h-[54dvh] lg:max-h-[66dvh]"
+                className="pointer-events-none relative mx-auto h-[240px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] lg:h-auto lg:max-h-[62dvh]"
               />
             </Depth>
           </Enter>
-          <Depth px={22} py={15} className="absolute -right-2 top-6 md:right-0">
+          <Depth px={22} py={15} className="absolute -right-2 top-6 lg:right-0">
             <Star className="w-7 float-b" />
           </Depth>
         </div>
 
         {/* RIGHT — the tilted contact sheet of work */}
-        <Enter delay={0.3} className="relative md:col-span-5">
+        <Enter delay={0.3} className="relative lg:col-span-5">
           <div className="plx-tilt relative">
           {/* keyboard easter egg: pokes out from behind the sheet, jumps to the build */}
           <button
@@ -371,11 +393,13 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             title="psst, my favorite build"
             /* mobile: pokes out the TOP-RIGHT of the grid. desktop: top-LEFT,
                aligned with the first tile row, jutting past the sheet's edge. */
-            className="group absolute -top-7 right-3 z-0 rotate-6 cursor-pointer transition-transform duration-300 hover:-translate-y-1.5 md:-left-14 md:right-auto md:top-12 md:-rotate-6"
+            className="group absolute -top-14 right-3 z-0 rotate-6 cursor-pointer drop-shadow-[0_9px_16px_rgba(46,62,64,0.45)] transition-transform duration-300 hover:-translate-y-1.5 lg:-left-24 lg:right-auto lg:top-12 lg:-rotate-6"
           >
-            <KeyboardDoodle className="w-28 drop-shadow-[0_9px_16px_rgba(46,62,64,0.4)]" />
+            <span className="kb-alive relative block overflow-hidden rounded-[10px]">
+              <KeyboardDoodle className="w-28 lg:w-32" />
+            </span>
           </button>
-          <div className="sheet relative z-10 mx-auto w-full max-w-[520px] rotate-0 p-2.5 md:rotate-2 md:p-3 md:hover:rotate-1 md:transition-transform md:duration-500">
+          <div className="sheet relative z-10 mx-auto w-full max-w-[520px] rotate-0 p-2.5 lg:rotate-2 lg:p-3 lg:hover:rotate-1 lg:transition-transform lg:duration-500">
             <div className="grid grid-cols-2 gap-2.5 md:gap-3">
               {work.map((item) => (
                 <button
