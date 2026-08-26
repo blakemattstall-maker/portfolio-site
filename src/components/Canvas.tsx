@@ -402,7 +402,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                        so the two lower stickers keep the same gap on every phone
                        and sit on the chest — never across the neck or face. */
                     [
-                      "-rotate-6 -left-1 top-1 lg:-left-12 lg:top-[15%]",
+                      "-rotate-6 -left-1 top-1 lg:left-6 lg:top-[15%] xl:-left-12",
                       "rotate-3 -right-3 bottom-12 lg:-right-6 lg:bottom-[13%]",
                       "-rotate-3 -left-3 bottom-3 lg:-left-5 lg:bottom-[1%]",
                     ][i]
