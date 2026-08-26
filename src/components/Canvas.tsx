@@ -5,7 +5,12 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Reac
 import { deskId, site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { Burst, SocialIcons, StaggerHeadline } from "./ui";
-import { ThumbWar } from "./ThumbWar";
+import dynamic from "next/dynamic";
+
+// The game is hidden for now but kept for a future revival. Loading it lazily
+// keeps it out of the main bundle entirely — it only downloads if someone
+// actually opens ?open=game.
+const ThumbWar = dynamic(() => import("./ThumbWar").then((m) => m.ThumbWar));
 
 type OverlayKey = "about" | "contact" | "game" | (typeof work)[number]["slug"] | null;
 
