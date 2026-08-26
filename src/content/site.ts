@@ -24,7 +24,7 @@ export const site = {
     { label: "LinkedIn", href: "https://www.linkedin.com/in/blakestall" },
     { label: "Instagram", href: "https://www.instagram.com/blakes.tall/" },
   ],
-  oneLiner: "A marketing student who builds the things he markets.",
+  oneLiner: "Marketing student and compulsive builder creating videos, brands, and software.",
   descriptor: [
     "marketing major @ illinois state",
     "five years behind a camera",

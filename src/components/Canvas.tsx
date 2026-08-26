@@ -209,6 +209,46 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
     };
   }, []);
 
+  // Clicking Blake's cutout opens About — but only where he actually is.
+  // The image stays pointer-events-none (its rectangular box overhangs the work
+  // grid and would swallow the keyboard's clicks), so instead we listen at the
+  // document level and hit-test the PNG's alpha channel: transparent corners
+  // fall through to whatever is underneath, opaque pixels open About.
+  const cutoutRef = useRef<HTMLImageElement>(null);
+  const alphaMap = useRef<CanvasRenderingContext2D | null>(null);
+
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      const img = cutoutRef.current;
+      if (!img || !img.naturalWidth) return;
+      // never steal a click meant for a real control or an open overlay
+      if ((e.target as HTMLElement | null)?.closest("a,button,[role='dialog']")) return;
+      const r = img.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) return;
+      try {
+        if (!alphaMap.current) {
+          const c = document.createElement("canvas");
+          c.width = img.naturalWidth;
+          c.height = img.naturalHeight;
+          const ctx = c.getContext("2d", { willReadFrequently: true });
+          if (!ctx) return;
+          ctx.drawImage(img, 0, 0);
+          alphaMap.current = ctx;
+        }
+        const x = Math.floor(((e.clientX - r.left) / r.width) * img.naturalWidth);
+        const y = Math.floor(((e.clientY - r.top) / r.height) * img.naturalHeight);
+        if (alphaMap.current.getImageData(x, y, 1, 1).data[3] > 32) {
+          setOverlay("about");
+          window.history.replaceState(null, "", "/?open=about");
+        }
+      } catch {
+        /* canvas unavailable — the easter egg just stays dormant */
+      }
+    };
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, []);
+
   const close = useCallback(() => {
     setOverlay(null);
     // land on the clean home URL whether we arrived via /video, ?open=, or a click
@@ -314,11 +354,25 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 Contact me →
               </button>
             </Burst>
-            <SocialIcons
-              className="mt-4"
-              tone="light"
-              links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]}
-            />
+            {/* On small screens the keyboard rides here, in the free space beside
+                the contact icons, instead of cluttering the top of the work grid. */}
+            <div className="mt-4 flex items-center gap-3">
+              <SocialIcons
+                tone="light"
+                links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]}
+              />
+              <button
+                type="button"
+                onClick={() => openDesk("The Keyboard")}
+                aria-label="See my favorite project: the mechanical keyboard I built"
+                title="psst, my favorite build"
+                className="shrink-0 cursor-pointer drop-shadow-[0_6px_12px_rgba(46,62,64,0.4)] transition-transform duration-300 hover:-translate-y-1 lg:hidden"
+              >
+                <span className="kb-alive relative block overflow-hidden rounded-[8px]">
+                  <KeyboardDoodle className="w-[78px]" />
+                </span>
+              </button>
+            </div>
           </Enter>
           </Depth>
         </div>
@@ -327,7 +381,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             pointer-events-none: this column is purely decorative, and its z-20 box
             overhangs the work grid — without this it swallowed clicks meant for the
             keyboard easter egg tucked behind the sheet. */}
-        <div className="pointer-events-none relative z-20 mb-7 flex items-end justify-center lg:col-span-3 lg:mb-0 lg:h-full lg:self-end lg:-mx-10">
+        <div className="pointer-events-none relative z-20 -mb-[29px] flex items-end justify-center lg:col-span-3 lg:mb-0 lg:h-full lg:self-end lg:-mx-10">
           <Enter delay={0.2} className="relative flex items-end">
             <Depth px={14} py={9} className="relative flex items-end">
               <ArrowLoop className="absolute -left-28 top-[6%] hidden w-12 -rotate-6 lg:block" />
@@ -342,8 +396,8 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                        and sit on the chest — never across the neck or face. */
                     [
                       "-rotate-6 -left-1 top-1 lg:-left-12 lg:top-[15%]",
-                      "rotate-3 -right-3 bottom-11 lg:-right-6 lg:bottom-[13%]",
-                      "-rotate-3 -left-3 -bottom-2 lg:-left-5 lg:bottom-[1%]",
+                      "rotate-3 -right-3 bottom-16 lg:-right-6 lg:bottom-[13%]",
+                      "-rotate-3 -left-3 bottom-4 lg:-left-5 lg:bottom-[1%]",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
@@ -352,12 +406,14 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 </span>
               ))}
               <motion.img
+                ref={cutoutRef}
                 src="/images/cutout-web.png"
                 alt="Blake Stall, cut out and smiling"
+                crossOrigin="anonymous"
                 /* mobile: a FIXED height (no viewport units) so the hero can't resize
                    when the phone's URL bar collapses, and can't collapse on short
                    screens like the SE — sticker placement stays identical everywhere. */
-                className="pointer-events-none relative mx-auto h-[240px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] lg:h-auto lg:max-h-[62dvh]"
+                className="pointer-events-none relative mx-auto h-[300px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] lg:h-auto lg:max-h-[62dvh]"
               />
             </Depth>
           </Enter>
@@ -377,10 +433,10 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             title="psst, my favorite build"
             /* mobile: pokes out the TOP-RIGHT of the grid. desktop: top-LEFT,
                aligned with the first tile row, jutting past the sheet's edge. */
-            className="group absolute -top-14 right-3 z-0 rotate-6 cursor-pointer drop-shadow-[0_9px_16px_rgba(46,62,64,0.45)] transition-transform duration-300 hover:-translate-y-1.5 lg:-left-24 lg:right-auto lg:top-12 lg:-rotate-6"
+            className="group absolute -left-24 top-12 z-0 hidden -rotate-6 cursor-pointer drop-shadow-[0_9px_16px_rgba(46,62,64,0.45)] transition-transform duration-300 hover:-translate-y-1.5 lg:block"
           >
             <span className="kb-alive relative block overflow-hidden rounded-[10px]">
-              <KeyboardDoodle className="w-28 lg:w-32" />
+              <KeyboardDoodle className="w-32" />
             </span>
           </button>
           <div className="sheet relative z-10 mx-auto w-full max-w-[520px] rotate-0 p-2.5 lg:rotate-2 lg:p-3 lg:hover:rotate-1 lg:transition-transform lg:duration-500">
