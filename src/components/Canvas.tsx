@@ -365,7 +365,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             type="button"
             onClick={() => openDesk("The Keyboard")}
             aria-label="See my favorite project: the mechanical keyboard I built"
-            title="psst — my favorite build"
+            title="psst, my favorite build"
             className="group absolute -bottom-[68px] right-6 z-0 hidden -rotate-3 cursor-pointer transition-transform duration-300 hover:-translate-y-1.5 md:block"
           >
             <KeyboardDoodle className="w-28 drop-shadow-[0_9px_16px_rgba(46,62,64,0.4)]" />
