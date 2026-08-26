@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { deskId, site, work } from "@/content/site";
 import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
-import { Burst, StaggerHeadline } from "./ui";
+import { Burst, SocialIcons, StaggerHeadline } from "./ui";
 import { ThumbWar } from "./ThumbWar";
 
 type OverlayKey = "about" | "contact" | "game" | (typeof work)[number]["slug"] | null;
@@ -314,27 +314,11 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 Contact me →
               </button>
             </Burst>
-            <div className="mt-4 flex flex-wrap gap-2.5">
-              <a
-                href={`mailto:${site.email}`}
-                target="_blank"
-                rel="noreferrer"
-                className="eyebrow border-2 border-paper/40 px-3 py-1.5 transition-colors hover:bg-paper hover:text-ink"
-              >
-                Email
-              </a>
-              {site.socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="eyebrow border-2 border-paper/40 px-3 py-1.5 transition-colors hover:bg-paper hover:text-ink"
-                >
-                  {social.label}
-                </a>
-              ))}
-            </div>
+            <SocialIcons
+              className="mt-4"
+              tone="light"
+              links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]}
+            />
           </Enter>
           </Depth>
         </div>
@@ -436,27 +420,24 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
               ))}
             </div>
             <div className="mt-1 flex gap-2 border-t-2 border-ink/10 px-1 pt-3 pb-1">
+              {/* One primary action here. Contact is already the coral CTA up top
+                  and the status pill, so it stays reachable but stops competing. */}
               <Burst>
                 <button
                   type="button"
                   onClick={() => open("about")}
-                  className="eyebrow cursor-pointer bg-sun px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
+                  className="cursor-pointer bg-sun px-5 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
                 >
-                  About
+                  About me →
                 </button>
               </Burst>
-              <Burst>
-                <button
-                  type="button"
-                  onClick={() => open("contact")}
-                  className="eyebrow cursor-pointer bg-coral px-3.5 py-2 text-ink transition-transform hover:-translate-y-0.5"
-                >
-                  Contact
-                </button>
-              </Burst>
-              <span className="eyebrow ml-auto hidden self-center text-ink/50 sm:block">
-                4 cases · click around
-              </span>
+              <button
+                type="button"
+                onClick={() => open("contact")}
+                className="eyebrow ml-auto cursor-pointer self-center text-ink/60 underline decoration-ink/25 underline-offset-4 transition-colors hover:text-ink"
+              >
+                Contact
+              </button>
             </div>
           </div>
           </div>

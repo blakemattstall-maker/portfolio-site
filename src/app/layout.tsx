@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://blakestall.com"),
   openGraph: {
     title: "Blake Stall · Marketing & Media",
-    description: "A curious student creative, becoming a strategist.",
+    description: "A marketing student who builds the things he markets.",
     url: "https://blakestall.com",
     siteName: "Blake Stall",
     type: "website",

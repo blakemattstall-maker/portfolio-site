@@ -1,7 +1,7 @@
 "use client";
 
 import { deskId, site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
-import { Burst, Copy } from "./ui";
+import { Burst, Copy, SocialIcons } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
 import { RichBlocks, CollapsibleStory } from "./RichBlocks";
@@ -285,19 +285,7 @@ export function ContactBody() {
           </a>
         </Burst>
       </div>
-      <div className="mt-6 flex flex-wrap gap-5">
-        {site.socials.map((social) => (
-          <a
-            key={social.label}
-            href={social.href}
-            target="_blank"
-            rel="noreferrer"
-            className="eyebrow underline decoration-ink/30 underline-offset-4 transition-opacity hover:opacity-60"
-          >
-            {social.label}
-          </a>
-        ))}
-      </div>
+      <SocialIcons className="mt-6" tone="dark" links={site.socials} />
     </div>
   );
 }
