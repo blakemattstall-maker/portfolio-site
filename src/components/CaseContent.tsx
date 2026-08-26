@@ -89,7 +89,8 @@ export function CaseBody({ item }: { item: WorkItem }) {
           ))}
         </div>
       )}
-      <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 border-y-2 border-ink/10 py-4 sm:grid-cols-3">
+      {/* 3 across on every size — at 2 cols the third item wrapped to a lonely second row */}
+      <dl className="mt-5 grid grid-cols-3 gap-x-3 border-y-2 border-ink/10 py-4 sm:gap-x-6">
         {(
           [
             ["Role", item.meta.role],
@@ -98,8 +99,8 @@ export function CaseBody({ item }: { item: WorkItem }) {
           ] as const
         ).map(([label, value]) => (
           <div key={label}>
-            <dt className="eyebrow opacity-50">{label}</dt>
-            <dd className="mt-1 text-sm font-medium">{value}</dd>
+            <dt className="eyebrow text-[0.58rem] opacity-50 sm:text-[0.68rem]">{label}</dt>
+            <dd className="mt-1 text-xs font-medium leading-snug sm:text-sm">{value}</dd>
           </div>
         ))}
       </dl>

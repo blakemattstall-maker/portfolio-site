@@ -285,10 +285,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             </ul>
           </Enter>
           <Enter delay={0.55}>
-            <div className="mt-6 flex items-center gap-2.5 md:hidden">
-              <span className="live-dot" aria-hidden />
-              <span className="eyebrow">{site.status}</span>
-            </div>
+            {/* status pill lives top-right on desktop only; on mobile it ate prime space */}
             <Burst className="mt-5">
               <button
                 type="button"
@@ -334,10 +331,13 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                   className={`eyebrow pointer-events-none absolute z-10 px-2.5 py-1.5 text-ink ${ACCENT_BG[label.accent]} ${
                     ["float-a", "float-b", "float-a"][i]
                   } ${
+                    /* mobile offsets are in fixed px off the bottom edge, not %,
+                       so the two lower stickers keep the same gap on every phone
+                       and sit on the chest — never across the neck or face. */
                     [
-                      "-rotate-6 left-2 top-[4%] sm:-left-12 sm:top-[15%]",
-                      "rotate-3 right-2 top-[62%] sm:-right-6 sm:top-auto sm:bottom-[13%]",
-                      "-rotate-3 left-2 bottom-[3%] sm:-left-5 sm:bottom-[1%]",
+                      "-rotate-6 -left-1 top-1 sm:-left-12 sm:top-[15%]",
+                      "rotate-3 -right-3 bottom-11 sm:-right-6 sm:bottom-[13%]",
+                      "-rotate-3 -left-3 -bottom-2 sm:-left-5 sm:bottom-[1%]",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
@@ -348,7 +348,10 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
               <motion.img
                 src="/images/cutout-web.png"
                 alt="Blake Stall, cut out and smiling"
-                className="pointer-events-none relative mx-auto max-h-[26dvh] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:max-h-[54dvh] lg:max-h-[66dvh]"
+                /* mobile: a FIXED height (no viewport units) so the hero can't resize
+                   when the phone's URL bar collapses, and can't collapse on short
+                   screens like the SE — sticker placement stays identical everywhere. */
+                className="pointer-events-none relative mx-auto h-[240px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] md:h-auto md:max-h-[54dvh] lg:max-h-[66dvh]"
               />
             </Depth>
           </Enter>
@@ -366,7 +369,9 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             onClick={() => openDesk("The Keyboard")}
             aria-label="See my favorite project: the mechanical keyboard I built"
             title="psst, my favorite build"
-            className="group absolute -bottom-[68px] right-6 z-0 hidden -rotate-3 cursor-pointer transition-transform duration-300 hover:-translate-y-1.5 md:block"
+            /* mobile: pokes out the TOP-RIGHT of the grid. desktop: top-LEFT,
+               aligned with the first tile row, jutting past the sheet's edge. */
+            className="group absolute -top-7 right-3 z-0 rotate-6 cursor-pointer transition-transform duration-300 hover:-translate-y-1.5 md:-left-14 md:right-auto md:top-12 md:-rotate-6"
           >
             <KeyboardDoodle className="w-28 drop-shadow-[0_9px_16px_rgba(46,62,64,0.4)]" />
           </button>
