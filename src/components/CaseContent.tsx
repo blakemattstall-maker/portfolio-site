@@ -254,7 +254,7 @@ export function AboutBody() {
               <div className="mt-5">
                 <CollapsibleStory
                   blocks={item.blocks}
-                  teaserAspect="1400 / 650"
+                  teaserAspect="1500 / 649"
                   label={`See how I built it (${item.blocks.filter((b) => b.kind === "photo").length} steps)`}
                 />
               </div>
