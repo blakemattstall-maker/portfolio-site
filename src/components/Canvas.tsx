@@ -345,19 +345,21 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
           </Enter>
           <Enter delay={0.55}>
             {/* status pill lives top-right on desktop only; on mobile it ate prime space */}
-            <Burst className="mt-5">
-              <button
-                type="button"
-                onClick={() => open("contact")}
-                className="cursor-pointer rounded-full bg-coral px-6 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-              >
-                Contact me →
-              </button>
-            </Burst>
-            {/* On small screens the keyboard rides here, in the free space beside
-                the contact icons, instead of cluttering the top of the work grid. */}
-            <div className="mt-4 flex items-center gap-3">
+            {/* On small screens the keyboard rides in the empty right-hand gutter,
+                vertically straddling the Contact button and the icon row, instead
+                of cluttering the top of the work grid. */}
+            <div className="relative">
+              <Burst className="mt-5">
+                <button
+                  type="button"
+                  onClick={() => open("contact")}
+                  className="cursor-pointer rounded-full bg-coral px-6 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
+                >
+                  Contact me →
+                </button>
+              </Burst>
               <SocialIcons
+                className="mt-4"
                 tone="light"
                 links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]}
               />
@@ -366,10 +368,10 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 onClick={() => openDesk("The Keyboard")}
                 aria-label="See my favorite project: the mechanical keyboard I built"
                 title="psst, my favorite build"
-                className="shrink-0 cursor-pointer drop-shadow-[0_6px_12px_rgba(46,62,64,0.4)] transition-transform duration-300 hover:-translate-y-1 lg:hidden"
+                className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer drop-shadow-[0_6px_12px_rgba(46,62,64,0.4)] transition-transform duration-300 hover:-translate-y-[calc(50%+4px)] lg:hidden"
               >
                 <span className="kb-alive relative block overflow-hidden rounded-[8px]">
-                  <KeyboardDoodle className="w-[78px]" />
+                  <KeyboardDoodle className="w-[92px]" />
                 </span>
               </button>
             </div>
@@ -381,14 +383,14 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             pointer-events-none: this column is purely decorative, and its z-20 box
             overhangs the work grid — without this it swallowed clicks meant for the
             keyboard easter egg tucked behind the sheet. */}
-        <div className="pointer-events-none relative z-20 -mb-[29px] flex items-end justify-center lg:col-span-3 lg:mb-0 lg:h-full lg:self-end lg:-mx-10">
+        <div className="pointer-events-none relative z-0 -mb-[26px] flex items-end justify-center lg:z-20 lg:col-span-3 lg:mb-0 lg:h-full lg:self-end lg:-mx-10">
           <Enter delay={0.2} className="relative flex items-end">
             <Depth px={14} py={9} className="relative flex items-end">
               <ArrowLoop className="absolute -left-28 top-[6%] hidden w-12 -rotate-6 lg:block" />
               {site.orbitLabels.map((label, i) => (
                 <span
                   key={label.text}
-                  className={`eyebrow pointer-events-none absolute z-10 px-2.5 py-1.5 text-ink ${ACCENT_BG[label.accent]} ${
+                  className={`eyebrow sticker pointer-events-none absolute z-10 text-ink ${ACCENT_BG[label.accent]} ${
                     ["float-a", "float-b", "float-a"][i]
                   } ${
                     /* mobile offsets are in fixed px off the bottom edge, not %,
@@ -396,8 +398,8 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                        and sit on the chest — never across the neck or face. */
                     [
                       "-rotate-6 -left-1 top-1 lg:-left-12 lg:top-[15%]",
-                      "rotate-3 -right-3 bottom-16 lg:-right-6 lg:bottom-[13%]",
-                      "-rotate-3 -left-3 bottom-4 lg:-left-5 lg:bottom-[1%]",
+                      "rotate-3 -right-3 bottom-12 lg:-right-6 lg:bottom-[13%]",
+                      "-rotate-3 -left-3 bottom-3 lg:-left-5 lg:bottom-[1%]",
                     ][i]
                   }`}
                   style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
@@ -413,7 +415,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 /* mobile: a FIXED height (no viewport units) so the hero can't resize
                    when the phone's URL bar collapses, and can't collapse on short
                    screens like the SE — sticker placement stays identical everywhere. */
-                className="pointer-events-none relative mx-auto h-[300px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] lg:h-auto lg:max-h-[62dvh]"
+                className="pointer-events-none relative mx-auto h-[260px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] lg:h-auto lg:max-h-[62dvh]"
               />
             </Depth>
           </Enter>
@@ -423,7 +425,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         </div>
 
         {/* RIGHT — the tilted contact sheet of work */}
-        <Enter delay={0.3} className="relative lg:col-span-5">
+        <Enter delay={0.3} className="relative z-10 lg:z-0 lg:col-span-5">
           <div className="plx-tilt relative">
           {/* keyboard easter egg: pokes out from behind the sheet, jumps to the build */}
           <button

@@ -295,3 +295,17 @@ body::before {
   .kb-alive { animation: none; }
   .kb-alive::after { display: none; }
 }
+
+/* Hero orbit stickers — smaller on phones so all three fit the shorter cutout
+   without colliding. Declared after .eyebrow so it wins the font-size (both are
+   unlayered, later rule takes it). */
+.sticker {
+  font-size: 0.58rem;
+  padding: 0.25rem 0.5rem;
+}
+@media (min-width: 1024px) {
+  .sticker {
+    font-size: 0.68rem;
+    padding: 0.375rem 0.625rem;
+  }
+}
