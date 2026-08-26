@@ -27,7 +27,7 @@ export const site = {
   oneLiner: "Marketing student and compulsive builder creating videos, brands, and software.",
   descriptor: [
     "marketing major @ illinois state",
-    "five years behind a camera",
+    "three years behind a camera",
     "i build ai tools i use every day",
   ],
   status: "Open to work · Summer 2027",
@@ -91,7 +91,7 @@ export const videos: Video[] = [
   { date: "Jun 2025", id: "LHQpXGTwbxk", title: "Breaking Grounds In Music", context: "Commercial for a local music school." },
   { date: "Jun 2024", id: "dlFG1q6c2kc", title: "Oreo Spec Commercial", context: "Vertical spec spot with 3D falling-cookie motion graphics." },
   { date: "Mar 2025", id: "8nQZRL5_Bgk", title: "Cinematic Workout Sequence", context: "A personal craft piece to practice lighting and pacing." },
-  { date: "Aug 2025", id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece, back when I was starting out." },
+  { date: "Aug 2025", id: "GNrm7LdIxZs", title: "Acton Contest Video", context: "A competition piece I made through Acton Academy." },
 ];
 
 export type CaseSection = { heading: string; paragraphs: string[]; bullets?: string[] };
@@ -132,7 +132,7 @@ export const work: WorkItem[] = [
     title: "Video Portfolio",
     tileHint: "",
     accent: "sun",
-    outcome: "Five years behind a camera, 20+ projects, shot and edited. Here are my favorites.",
+    outcome: "Three years behind a camera, 20+ projects, shot and edited. Here are my favorites.",
     meta: { role: "Videographer & Editor", timeline: "2023–Present", status: "Ongoing" },
     isReel: true,
     thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
@@ -180,7 +180,7 @@ export const work: WorkItem[] = [
         bullets: [
           "The people who got asked back were the ones who were easy to work with, not always the ones with the best reel.",
           "No shoot ever goes fully to plan. What mattered was how fast the crew adapted, not how detailed the plan was.",
-          "AI is a phenomenal tool, but it still needs someone with good taste to keep it from derailing.",
+          "AI can speed up almost any part of the process, but someone still needs the taste to know when it's wrong.",
         ],
       },
     ],
