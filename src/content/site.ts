@@ -166,7 +166,7 @@ export const work: WorkItem[] = [
       outcome: "I packed my bags and moved across the country, from Chicago to Seattle, for my first real look inside the production world.",
       moves: [
         "400+ hours of shooting, editing, and shadowing production professionals on live corporate projects.",
-        "Helped out on productions for the team's enterprise clients.",
+        "Worked on two very different productions: an employee-focused corporate video for a global company, and a series of social videos for a non-profit.",
         "Planned and pitched an internal video podcast series from the perspective of the interns.",
       ],
     },
@@ -174,6 +174,14 @@ export const work: WorkItem[] = [
       { label: "On set, slate in hand", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
     ],
     sections: [
+      {
+        heading: "The work",
+        paragraphs: [],
+        bullets: [
+          "I supported an employee-focused corporate video production for a global company, helping with on-set execution and production logistics.",
+          "I collaborated with senior editors on a series of short-form social videos for a non-profit, handling footage organization, revisions, and platform-ready deliverables.",
+        ],
+      },
       {
         heading: "My top three takeaways",
         paragraphs: [],
