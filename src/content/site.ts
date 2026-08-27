@@ -56,9 +56,10 @@ export const site = {
     desk: [
       {
         title: "The Keyboard",
-        label: "My favorite project",
+        label: "Where it started",
+        date: "2022",
         status: "SHIPPED",
-        blurb: "A 40% mechanical keyboard I designed and built from nothing: the key layout, the switch plate, the PCB, and the case, all of it.",
+        blurb: "A 40% mechanical keyboard I designed and built from nothing: the key layout, the switch plate, the PCB, and the case, all of it. I finished it in October 2022, a month before ChatGPT launched.",
         blocks: [
           { kind: "photo", src: "/images/proj/kb-layout.png", caption: "1. Started with the layout, a 40% with a few keys moved to where I actually reach for them." },
           { kind: "photo", src: "/images/proj/kb-cad.png", caption: "2. Modeled the whole case from scratch in Fusion 360, learning as I went: tight tolerances, sizing the screw holes so the screws actually fit, and when to fillet an edge versus chamfer it." },
@@ -68,7 +69,7 @@ export const site = {
           { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6. Hand-painted, finished, and screwed shut. It's the one I type on every day." },
           {
             kind: "text",
-            body: "I built this between April and October of 2022, before AI could meaningfully help with any of it. The layout, the CAD, the board, and the firmware were hundreds of hours in programs I had never opened.",
+            body: "There was no model to ask. The layout, the CAD, the board, and the firmware were six months and hundreds of hours in programs I had never opened.",
           },
         ] as Block[],
       },

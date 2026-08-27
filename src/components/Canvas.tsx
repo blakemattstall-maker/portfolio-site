@@ -403,8 +403,8 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
               <button
                 type="button"
                 onClick={() => openDesk("The Keyboard")}
-                aria-label="See my favorite project: the mechanical keyboard I built"
-                title="psst, my favorite build"
+                aria-label="See where it started: the mechanical keyboard I built"
+                title="psst, where it all started"
                 className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer drop-shadow-[0_6px_12px_rgba(46,62,64,0.4)] transition-transform duration-300 hover:-translate-y-[calc(50%+4px)] lg:hidden"
               >
                 <span className="kb-alive relative block overflow-hidden rounded-[8px]">
@@ -468,8 +468,8 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
           <button
             type="button"
             onClick={() => openDesk("The Keyboard")}
-            aria-label="See my favorite project: the mechanical keyboard I built"
-            title="psst, my favorite build"
+            aria-label="See where it started: the mechanical keyboard I built"
+            title="psst, where it all started"
             /* mobile: pokes out the TOP-RIGHT of the grid. desktop: top-LEFT,
                aligned with the first tile row, jutting past the sheet's edge. */
             className="group absolute -left-24 top-12 z-0 hidden -rotate-6 cursor-pointer drop-shadow-[0_9px_16px_rgba(46,62,64,0.45)] transition-transform duration-300 hover:-translate-y-1.5 lg:block"

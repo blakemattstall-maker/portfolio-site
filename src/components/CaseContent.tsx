@@ -245,6 +245,11 @@ export function AboutBody() {
                 {item.status === "RUNNING" && <span className="live-dot" aria-hidden />}
                 {item.status}
               </span>
+              {/* status and date read together as facts; the ★ chip carries the
+                  narrative and goes last so it wraps cleanly on narrow screens */}
+              {"date" in item && item.date && (
+                <span className="eyebrow border-2 border-ink/20 px-2 py-1 opacity-70">{item.date}</span>
+              )}
               {"label" in item && item.label && (
                 <span className="eyebrow bg-peach px-2 py-1 text-ink">★ {item.label}</span>
               )}
