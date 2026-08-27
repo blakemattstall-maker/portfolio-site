@@ -160,21 +160,17 @@ export const work: WorkItem[] = [
     tileHint: "set / gear shot (client-safe)",
     accent: "peach",
     thumb: "/images/proj/trifilm-office.jpg",
-    outcome: "My summer at Trifilm: I moved from Chicago to Seattle to make real corporate productions for clients like Microsoft.",
+    outcome: "My summer at Trifilm: I moved from Chicago to Seattle to make real corporate productions for enterprise clients.",
     meta: { role: "Production Intern", timeline: "Summer 2026 · Kirkland, WA", status: "Wrapped" },
     trailer: {
       outcome: "I packed my bags and moved across the country, from Chicago to Seattle, for my first real look inside the production world.",
       moves: [
         "400+ hours of shooting, editing, and shadowing production professionals on live corporate projects.",
-        "Helped out on productions for the team's clients, including work for Microsoft.",
+        "Helped out on productions for the team's enterprise clients.",
         "Planned and pitched an internal video podcast series from the perspective of the interns.",
       ],
     },
     photos: [
-      {
-        label: "On the Trifilm crew",
-        src: "/images/proj/trifilm-intern.jpg",
-      },
       { label: "On set, slate in hand", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
     ],
     sections: [
