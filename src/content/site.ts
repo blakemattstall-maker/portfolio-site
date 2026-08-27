@@ -166,15 +166,14 @@ export const work: WorkItem[] = [
       outcome: "I packed my bags and moved across the country, from Chicago to Seattle, for my first real look inside the production world.",
       moves: [
         "400+ hours of shooting, editing, and shadowing production professionals on live corporate projects.",
-        "Helped out on productions for the team's clients, including the Microsoft intern-week video linked below.",
+        "Helped out on productions for the team's clients, including work for Microsoft.",
         "Planned and pitched an internal video podcast series from the perspective of the interns.",
       ],
     },
     photos: [
       {
-        label: "On the Trifilm crew recording Microsoft's intern week",
+        label: "On the Trifilm crew",
         src: "/images/proj/trifilm-intern.jpg",
-        link: { label: "Watch the Microsoft intern-week film", href: "https://www.youtube.com/watch?v=S6UxOGB41AI" },
       },
       { label: "On set, slate in hand", src: "/images/proj/about-clapper.jpg", aspect: "3/4" },
     ],
