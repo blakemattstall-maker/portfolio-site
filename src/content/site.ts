@@ -66,6 +66,10 @@ export const site = {
           { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "4. Resin printed the case, dialing in the fit until it was right. I went resin for the accuracy, the smooth finish, and the low cost, all at once." },
           { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "5. A faux-brass weight in the base, purely cosmetic. It's actually resin too, painted to look the part." },
           { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6. Hand-painted, finished, and screwed shut. It's the one I type on every day." },
+          {
+            kind: "text",
+            body: "I built this between April and October of 2022, before AI could meaningfully help with any of it. The layout, the CAD, the board, and the firmware were hundreds of hours in programs I had never opened.",
+          },
         ] as Block[],
       },
       {
