@@ -166,7 +166,7 @@ export const work: WorkItem[] = [
       outcome: "I packed my bags and moved across the country, from Chicago to Seattle, for my first real look inside the production world.",
       moves: [
         "400+ hours of shooting, editing, and shadowing production professionals on live corporate projects.",
-        "Worked on two very different productions: an employee-focused corporate video for a global company, and a series of social videos for a non-profit.",
+        "Helped out on productions for the team's enterprise clients.",
         "Planned and pitched an internal video podcast series from the perspective of the interns.",
       ],
     },
