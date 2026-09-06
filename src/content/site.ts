@@ -7,6 +7,28 @@
  * while any remain.
  * `photos` entries are blank slots (dashed frames) until Blake drops real media
  * into public/images/ and adds a `src` to the slot.
+ *
+ * HOW BLAKE ACTUALLY WRITES (derived from the almanac + qscables cases, which
+ * he approved; a rewrite that ignored this got sent back twice as "salesy"):
+ *   - He never addresses the reader. Zero instances of "your" in an accepted
+ *     case. Write about the thing ("it does X") or about himself ("I did X").
+ *   - No benefit framing ("so you can", "gives you"), no marketing adjectives,
+ *     no objection-handling, no sentences that exist only for rhythm.
+ *   - No semicolons, no rhetorical questions, no exclamation marks outside
+ *     site.about, no em or en dashes outside meta.timeline.
+ *   - He argues in paragraphs. Case blocks use no bulleted lists at all;
+ *     `trailer.moves` is the one list-shaped field, and only when `blocks` is
+ *     empty. Its items are complete first-person sentences.
+ *   - Headings are 5 to 7 words, sentence case, and assert a behavior rather
+ *     than naming a component. Not "The graph" but "Everything connects into
+ *     a map". A heading that would work on a poster is wrong.
+ *   - Numbers appear plainly and unspun, unflattering ones included
+ *     ("My Instagram was only 115 followers").
+ *
+ * SIZING, measured in the browser (a `feature` body sits beside a 9:16 phone
+ * roughly 440px tall): bodies want 75 to 95 words or the column looks empty,
+ * captions must be <= 50 chars because they render uppercase mono in a 230px
+ * box, and stat labels want 2 to 4 words before they wrap to three lines.
  */
 
 import type { Block } from "@/components/RichBlocks";
