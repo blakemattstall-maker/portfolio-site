@@ -151,7 +151,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
 
       {item.blocks && (
         <div className="mt-8">
-          <RichBlocks blocks={item.blocks} />
+          <RichBlocks blocks={item.blocks} accent={item.accent} />
         </div>
       )}
 

@@ -6,6 +6,7 @@ import { PhoneFrame } from "./PhoneFrame";
 
 export type Block =
   | { kind: "text"; heading?: string; body: string }
+  | { kind: "list"; heading?: string; intro?: string; items: string[] }
   | { kind: "photo"; src: string; caption?: string; aspect?: string; pos?: string }
   | { kind: "video"; src: string; poster?: string; caption?: string; aspect?: string }
   | { kind: "slot"; media: "photo" | "video"; label: string; caption?: string; aspect?: string }
@@ -192,7 +193,8 @@ export function CollapsibleStory({
   );
 }
 
-export function RichBlocks({ blocks }: { blocks: Block[] }) {
+export function RichBlocks({ blocks, accent = "peach" }: { blocks: Block[]; accent?: "peach" | "sun" | "coral" }) {
+  const marker = { peach: "bg-peach", sun: "bg-sun", coral: "bg-coral" }[accent];
   return (
     <div className="space-y-6 text-ink">
       {blocks.map((b, i) => (
@@ -201,6 +203,20 @@ export function RichBlocks({ blocks }: { blocks: Block[] }) {
             <div>
               {b.heading && <h3 className="display text-xl font-semibold sm:text-2xl">{b.heading}</h3>}
               <p className={`${b.heading ? "mt-2" : ""} leading-relaxed opacity-85`}>{b.body}</p>
+            </div>
+          )}
+          {b.kind === "list" && (
+            <div>
+              {b.heading && <h3 className="display text-xl font-semibold sm:text-2xl">{b.heading}</h3>}
+              {b.intro && <p className={`${b.heading ? "mt-2" : ""} leading-relaxed opacity-85`}>{b.intro}</p>}
+              <ul className={`${b.heading || b.intro ? "mt-4" : ""} space-y-2.5 sm:pl-1`}>
+                {b.items.map((it, n) => (
+                  <li key={n} className="flex gap-3 leading-relaxed opacity-85">
+                    <span className={`mt-2 inline-block h-2 w-2 shrink-0 rotate-45 ${marker}`} aria-hidden />
+                    <span>{it}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
           {b.kind === "photo" && <Figure src={b.src} caption={b.caption} aspect={b.aspect} pos={b.pos} />}
