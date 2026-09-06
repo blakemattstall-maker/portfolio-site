@@ -251,7 +251,7 @@ export const work: WorkItem[] = [
       {
         kind: "text",
         heading: "Where it goes from here",
-        body: "Redbird Fuel closed a gap the university leaves open. Dining publishes the menus and the nutrition, and nothing turns them into a day of food that meets a student's goals. In its first week 42 students set it up and it planned more than 1,200 meals, on a stack that costs nothing to run. Watterson and Linkins are the two halls live today. The crawler already reads the rest, so the next step is opening those up and getting it in front of students outside the club.",
+        body: "This app solved a crucial gap in university-offered services for the gym-goers around campus, and in the first week alone it helped over 40 students plan more than 1,200 meals. Next steps are to get this in front of a broader group of students around campus to realize a larger vision of the change it could make, both for nutritionally-minded students and those working around allergies.",
       },
       {
         kind: "cta",
