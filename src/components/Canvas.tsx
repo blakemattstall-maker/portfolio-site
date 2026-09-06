@@ -196,7 +196,7 @@ function Depth({ px, py, children, className }: { px: number; py: number; childr
    blocked — no added requests, no blocking work. */
 const OVERLAY_PATHS: Record<string, string> = {
   videography: "/video",
-  trifilm: "/trifilm",
+  redbirdfuel: "/redbirdfuel",
   almanac: "/almanac",
   qscables: "/qscables",
   about: "/about",
