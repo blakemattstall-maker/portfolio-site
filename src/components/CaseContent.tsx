@@ -124,8 +124,17 @@ export function CaseBody({ item }: { item: WorkItem }) {
         )}
       </section>
 
+      {/* An optional banner over the stat row, so a window like "first week"
+          is said once instead of repeated inside every label. */}
+      {item.stats && item.statsLabel && (
+        <div className="mt-6 flex items-center gap-3">
+          <span className={`eyebrow ${ACCENT_BG[item.accent]} px-2.5 py-1 text-ink`}>{item.statsLabel}</span>
+          <span className="h-[3px] flex-1 bg-ink/10" aria-hidden />
+        </div>
+      )}
+
       {item.stats && (
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className={`${item.statsLabel ? "mt-3" : "mt-6"} grid grid-cols-2 gap-3 sm:grid-cols-4`}>
           {item.stats.map((s, i) => {
             const ac = STAT_ACCENTS[i % STAT_ACCENTS.length];
             const inner = (

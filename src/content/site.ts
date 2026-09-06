@@ -148,6 +148,8 @@ export type WorkItem = {
   links?: { label: string; href: string }[];
   gallery?: { src: string; caption?: string }[];
   stats?: { value: string; label: string; href?: string }[];
+  /** Banner over the stat row, for a window that applies to the leading stats. */
+  statsLabel?: string;
   blocks?: Block[];
 };
 
@@ -182,17 +184,18 @@ export const work: WorkItem[] = [
     tileHint: "",
     accent: "peach",
     thumb: "/images/proj/rf-tile.jpg",
-    outcome: "A meal planner for Illinois State's dining halls, running on the day's real posted menus. I'm a marketing major, and I ran the whole build: the goals, the testing sessions with my club, the AI agents that wrote the code, and the call on when each version shipped.",
+    outcome: "A meal planner and calorie tracker for Illinois State's dining halls, built on the menus posted for that day.",
     meta: { role: "Solo product owner", timeline: "Aug 2026 · Illinois State", status: "Live on campus" },
     link: { label: "Visit redbirdfuel.com", href: "https://redbirdfuel.com" },
+    statsLabel: "First week on campus",
     stats: [
-      { value: "42", label: "students, first week" },
-      { value: "1,200+", label: "meals, first week" },
-      { value: "60 cal", label: "worst miss in 480 plans" },
-      { value: "$0", label: "hosting cost" },
+      { value: "42", label: "students set up" },
+      { value: "1,200+", label: "meals planned" },
+      { value: "60 cal", label: "worst miss in 480 test plans" },
+      { value: "$0", label: "monthly hosting cost" },
     ],
     trailer: {
-      outcome: "Redbird Fuel plans a day of meals at Watterson and Linkins around a protein and calorie target, off the menus posted for that day. The planner is arithmetic running in the browser, so the same inputs return the same tray, and every dish on it is one a hall is actually serving.",
+      outcome: "Redbird Fuel is a meal planner and calorie tracker for Illinois State dining halls, based off the menus posted for that day. It designs meal plans around caloric intake, protein, carb, and fat goals, and allergy requirements.",
       moves: [],
     },
     photos: [],
@@ -200,21 +203,21 @@ export const work: WorkItem[] = [
       {
         kind: "text",
         heading: "I built it for my own club",
-        body: "I'm the marketing chair of Redbird Barbell, Illinois State's powerlifting and weightlifting club, and the same thing kept coming up: hitting a goal is hard when every meal comes out of a dining hall. The workaround people had was googling each dish, weighing the serving, doing the macro math, and keeping one more tracker. I started Redbird Fuel in August 2026, built V1 in a three day rush, and launched it by QR code at a club meeting.",
+        body: "I'm the marketing chair of Redbird Barbell, Illinois State's powerlifting and weightlifting club, and the same thing kept coming up: hitting a goal is hard when every meal comes out of a dining hall. The workaround people had was googling, weighing, and calculating each dish. I built the prototype for Redbird Fuel in a three day rush, and launched it by QR code at a club meeting to get early user feedback.",
       },
       {
         kind: "feature",
         side: "right",
         media: "photo",
         src: "/images/proj/rf-today.jpg",
-        heading: "It opens on a finished day",
-        body: "Protein and calories sit at the top as bars, 178 grams of 180 and 2,750 of 2,800. Breakfast here is scrambled eggs, vanilla Greek yogurt, an everything bagel, and hard cooked eggs. Each dish carries its station and its serving weight in grams, and the footer totals that meal alone, 680 calories and 42.6 grams of protein. A toggle switches between Watterson and Linkins. Meals that already passed stay on the screen, still counted, so the day adds up. The session starts anonymous, and email comes later, only to make the log persist.",
-        caption: "Protein and calories, then the day's trays.",
+        heading: "It builds the day from a few goals",
+        body: "A student sets their targets once: calories, protein, carbs, fats, and anything they can't eat. From there it builds a full day out of what the halls are serving, split into meals on the dining halls' own station times, so breakfast is built from what is open at breakfast. Dishes can be swapped or scaled by the serving, and the totals move with them. One toggle switches the whole day between Watterson and Linkins. Meals that have already passed stay on screen and stay counted, so the day still adds up.",
+        caption: "Targets at the top, then the day it built.",
       },
       {
         kind: "text",
         heading: "It does the arithmetic in the browser",
-        body: "I could have handed a model the menu and asked it for a day of food. It does arithmetic in the browser instead. It can never invent a dish the hall isn't serving that day, because the day's posted menu is all it has to work from. Identical inputs produce an identical plan, so two people comparing trays see the same thing. No model runs when a plan is built. A meal solves in under 20ms.",
+        body: "At first, I handed a model the menu and asked it for a day of food. It worked great for me, but that got expensive quickly, especially as users joined. Instead, it does the arithmetic in the browser. Identical inputs produce an identical plan, so two people comparing trays see the same thing. No model runs when a plan is built. A meal solves in under 20ms.",
       },
       {
         kind: "feature",
@@ -222,7 +225,7 @@ export const work: WorkItem[] = [
         media: "photo",
         src: "/images/proj/rf-tray.jpg",
         heading: "It leaves an edited meal alone",
-        body: "V1 quietly re-planned around edits. I ran testing sessions with club members, and they disliked that, so V2 got one rule: once a meal is edited, the app never rearranges it again. It became a food log rather than a suggestion engine, with gram weighing and re-logging. Opening a meal gives a swap, an added dish, a removed meal, and a button to log it. The footer keeps a running total for that meal alone, 1,120 calories and 67.8 grams of protein. V2 shipped five days after V1.",
+        body: "V1 re-generated the meal around user edits. I ran testing sessions with club members, and they disliked that, so V2 got one rule: once a meal is edited, the app never rearranges it again. It became a food log instead, with gram weighing and re-logging. Opening a meal gives a swap, an added dish, a removed meal, and a button to log it. The footer keeps a running total for that meal alone. V2 shipped five days after V1.",
         caption: "A meal opened up, with its own totals.",
       },
       {
@@ -230,25 +233,25 @@ export const work: WorkItem[] = [
         side: "right",
         media: "photo",
         src: "/images/proj/rf-dial.jpg",
-        heading: "I rewrote the labels, not the logic",
-        body: "Onboarding asks one question about the food. It is one slider with four notches, and it opens on the second one, Everyday, which is normal dining-hall food. The helper text under the slider says the targets hold either way, that the notch only changes the kind of food used to reach them, and that it can be changed later. The logic behind it tested fine, and the labels didn't: testers misread them, so I rewrote all four to name the tradeoff each notch makes.",
-        caption: "The onboarding dial, sitting on the default.",
+        heading: "Nutrition slider",
+        body: "A dining hall offers a lot of ways to hit the same set of macros. Some students disliked how the planner reached for pizza and burgers when it had slack left over, and others wanted room for a treat now and then. So onboarding asks one question about food, and the answer is a slider that sets how much slack a plan is allowed to spend. It opens on the second of four notches, Everyday, which is normal dining-hall food. The targets hold either way, and it can be moved later.",
+        caption: "The slider in onboarding, on its default.",
       },
       {
         kind: "text",
-        heading: "I wrote a probe instead of trusting V2",
-        body: "V2 came out of tester feedback. I wrote a probe that builds 480 plans and ran it against both versions, so the change was measured instead of assumed. The share of plans that picked a best-tier entree went from 44% to 69%, and the share that stacked three entrees onto one tray went from 7% down to 3%. At the default notch, all 480 landed within 75 calories and 5 grams of protein of their targets, and the worst single miss was 60 calories.",
+        heading: "I ran both versions through 480 plans",
+        body: "V2 came out of tester feedback, so I wanted to know whether it was actually better and not just different. I wrote a script that builds 480 meal plans, then ran the same 480 through both versions. V2 picked a best-tier entree in 69% of them where V1 managed 44%, and it stacked three entrees onto one tray in 3% of them instead of 7%. At the default slider notch, every one of the 480 landed within 75 calories and 5 grams of protein of its target, and the worst single miss was 60 calories.",
       },
       {
         kind: "terminal",
-        heading: "the solver",
+        heading: "how it works",
         body: "It's a bounded knapsack with soft constraints, solved entirely on the client. It takes a greedy seed, then 8 restarts of hill climbing at 400 iterations across 4 move types, then an exhaustive repair tail behind a lower-bound prune. A seeded PRNG keeps it reproducible, so 25 identical calls return 1 result rather than 25 variations. The menu rows come from Supabase Postgres behind row level security, filled by a GitHub Actions job that crawls the university's NetNutrition menus at 4:10am so the day's dishes are in the database before anyone eats. A static build on Cloudflare Pages, one crawl a day, zero hosting cost.",
         prompt: "~/redbird",
       },
       {
         kind: "text",
-        heading: "I decided what shipped and what waited",
-        body: "I'm a marketing major, not a computer science major, and I did not write the code myself. I set the goals, made the design and tradeoff calls, ran the testing sessions with club members, and directed the AI agents that wrote it. In the first week 42 students finished setup and it built over 1,200 meals. I was also the release manager, which meant deciding when a version was good enough to put in front of them.",
+        heading: "Where it goes from here",
+        body: "Redbird Fuel closed a gap the university leaves open. Dining publishes the menus and the nutrition, and nothing turns them into a day of food that meets a student's goals. In its first week 42 students set it up and it planned more than 1,200 meals, on a stack that costs nothing to run. Watterson and Linkins are the two halls live today. The crawler already reads the rest, so the next step is opening those up and getting it in front of students outside the club.",
       },
       {
         kind: "cta",
