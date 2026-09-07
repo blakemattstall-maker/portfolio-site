@@ -18,7 +18,7 @@ const ACCENT_TEXT: Record<Accent, string> = {
   coral: "text-coral",
 };
 
-const ACCENT_TOP: Record<Accent, string> = {
+export const ACCENT_TOP: Record<Accent, string> = {
   peach: "border-t-peach",
   sun: "border-t-sun",
   coral: "border-t-coral",

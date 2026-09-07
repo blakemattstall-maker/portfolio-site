@@ -309,3 +309,12 @@ body::before {
     padding: 0.375rem 0.625rem;
   }
 }
+
+/* Work-tile hover slip: no slide for reduced motion, and never on touch
+   (a coarse pointer has no hover state to reveal it). */
+@media (prefers-reduced-motion: reduce) {
+  .tile-slip { transition: none; }
+}
+@media (pointer: coarse) {
+  .tile-slip { display: none; }
+}

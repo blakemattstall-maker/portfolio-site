@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { deskId, site, work } from "@/content/site";
-import { ACCENT_BG, AboutBody, CaseBody, ContactBody } from "./CaseContent";
+import { ACCENT_BG, ACCENT_TOP, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { Burst, SocialIcons, StaggerHeadline } from "./ui";
 import dynamic from "next/dynamic";
 
@@ -488,27 +488,48 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                   className="group cursor-pointer text-left"
                   aria-label={`Open case: ${item.title}`}
                 >
-                  {item.thumb ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={item.thumb}
-                      alt={item.title}
-                      className="aspect-[4/3] w-full border-2 border-ink/15 object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    />
-                  ) : (
-                    <div className="photo-slot photo-slot--dark aspect-[4/3] w-full p-2 transition-transform duration-300 group-hover:scale-[1.02]">
-                      <span className="eyebrow opacity-50">PHOTO · {item.tileHint}</span>
-                    </div>
-                  )}
+                  {/* overflow-hidden so the zoom stays inside the frame and the
+                      title slip has somewhere to hide until hover */}
+                  <span className="relative block overflow-hidden border-2 border-ink/15">
+                    {item.thumb ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={item.thumb}
+                        alt={item.title}
+                        className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <span className="photo-slot photo-slot--dark flex aspect-[4/3] w-full p-2 transition-transform duration-300 group-hover:scale-[1.02]">
+                        <span className="eyebrow opacity-50">PHOTO · {item.tileHint}</span>
+                      </span>
+                    )}
+                    {/* The resting caption is deliberately tiny, so hovering slides
+                        the title up over the frame at a readable size. Fine pointers
+                        only: a touch device has no hover to reveal it. */}
+                    <span
+                      aria-hidden
+                      className={`tile-slip pointer-events-none absolute inset-x-0 bottom-0 hidden translate-y-full border-t-4 bg-paper px-2.5 py-2 transition-transform duration-300 ease-out group-hover:translate-y-0 md:block ${ACCENT_TOP[item.accent]}`}
+                    >
+                      <span className="flex items-end justify-between gap-2">
+                        <span className="min-w-0">
+                          <span className="eyebrow block text-[0.5rem] opacity-55">
+                            {item.index} · {item.kind}
+                          </span>
+                          <span className="display block truncate text-base font-bold leading-tight text-ink">
+                            {item.title}
+                          </span>
+                        </span>
+                        {/* OPEN lives here rather than in the caption row below: there
+                            it reserved its width permanently and truncated the longest
+                            title even while invisible. */}
+                        <span className={`eyebrow shrink-0 pb-0.5 ${ACCENT_TEXT[item.accent]}`}>OPEN →</span>
+                      </span>
+                    </span>
+                  </span>
                   <span className="mt-1 flex items-center gap-1.5 px-0.5 pb-0.5">
                     <span className={`inline-block h-2 w-2 shrink-0 rotate-45 ${ACCENT_BG[item.accent]}`} aria-hidden />
-                    <span className="truncate font-mono text-[0.58rem] uppercase tracking-[0.03em] text-ink">
+                    <span className="truncate font-mono text-[0.58rem] uppercase tracking-[0.03em] text-ink min-[360px]:text-[0.66rem]">
                       {item.index} {item.title}
-                    </span>
-                    <span
-                      className={`eyebrow ml-auto hidden shrink-0 opacity-0 transition-opacity group-hover:opacity-100 sm:block ${ACCENT_TEXT[item.accent]}`}
-                    >
-                      OPEN →
                     </span>
                   </span>
                 </button>
