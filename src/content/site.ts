@@ -46,11 +46,11 @@ export const site = {
     { label: "LinkedIn", href: "https://www.linkedin.com/in/blakestall" },
     { label: "Instagram", href: "https://www.instagram.com/blakes.tall/" },
   ],
-  oneLiner: "Marketing student and compulsive builder creating videos, brands, and software.",
+  oneLiner: "Marketing student and compulsive builder",
   descriptor: [
     "marketing major @ illinois state",
     "three years behind a camera",
-    "i build software people actually use",
+    "currently building redbird fuel",
   ],
   status: "Open to work · Summer 2027",
   orbitLabels: [
