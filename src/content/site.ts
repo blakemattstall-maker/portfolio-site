@@ -272,7 +272,7 @@ export const work: WorkItem[] = [
     thumb: "/images/proj/almanac-tile.jpg",
     accent: "coral",
     outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, and location, and once a day it decides on its own whether anything is worth telling me.",
-    meta: { role: "Builder", timeline: "2026–present", status: "Running daily" },
+    meta: { role: "Builder", timeline: "June 2026–present", status: "Running daily" },
     link: { label: "Visit getalmanac.xyz", href: "https://getalmanac.xyz" },
     stats: [
       { value: "6", label: "live data sources" },
