@@ -185,7 +185,7 @@ export const work: WorkItem[] = [
     accent: "peach",
     thumb: "/images/proj/rf-tile.jpg",
     outcome: "A meal planner and calorie tracker for Illinois State's dining halls, built on the menus posted for that day.",
-    meta: { role: "Solo product owner", timeline: "Aug 2026 · Illinois State", status: "Live on campus" },
+    meta: { role: "Builder", timeline: "Aug 2026 · Illinois State", status: "Live on campus" },
     link: { label: "Visit redbirdfuel.com", href: "https://redbirdfuel.com" },
     statsLabel: "First week on campus",
     stats: [
