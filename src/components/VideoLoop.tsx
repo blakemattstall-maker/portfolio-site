@@ -24,9 +24,12 @@ export function VideoLoop({
 
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(rm.matches);
     const v = ref.current;
-    if (!v || rm.matches) return;
+    if (!v) return;
+    if (rm.matches) {
+      const t = setTimeout(() => setReduced(true), 0);
+      return () => clearTimeout(t);
+    }
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {

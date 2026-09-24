@@ -5,14 +5,8 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Reac
 import { deskId, site, work } from "@/content/site";
 import { ACCENT_BG, ACCENT_TOP, AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { Burst, SocialIcons, StaggerHeadline } from "./ui";
-import dynamic from "next/dynamic";
 
-// The game is hidden for now but kept for a future revival. Loading it lazily
-// keeps it out of the main bundle entirely — it only downloads if someone
-// actually opens ?open=game.
-const ThumbWar = dynamic(() => import("./ThumbWar").then((m) => m.ThumbWar));
-
-type OverlayKey = "about" | "contact" | "game" | (typeof work)[number]["slug"] | null;
+type OverlayKey = "about" | "contact" | (typeof work)[number]["slug"] | null;
 
 const ACCENT_TEXT: Record<string, string> = {
   peach: "text-peach",
@@ -78,6 +72,10 @@ function ArrowLoop({ className }: { className?: string }) {
   );
 }
 
+function KeyboardCap({ x, y, w = 9, fill }: { x: number; y: number; w?: number; fill: string }) {
+  return <rect x={x} y={y} width={w} height={9} rx={2} fill={fill} stroke="#2E3E40" strokeWidth={1.3} />;
+}
+
 /* A little mechanical keyboard, drawn in Blake's palette (peach/sun caps on an
    ink plate, coral esc key as a wink). Pokes out from behind the work grid and
    links to the keyboard build in the About overlay. */
@@ -85,9 +83,6 @@ function KeyboardDoodle({ className }: { className?: string }) {
   const cols = [12, 23.5, 35, 46.5, 58];
   const rows = [16, 27, 38];
   const caps = ["#F9A66C", "#FFC94B"];
-  const Cap = ({ x, y, w = 9, fill }: { x: number; y: number; w?: number; fill: string }) => (
-    <rect x={x} y={y} width={w} height={9} rx={2} fill={fill} stroke="#2E3E40" strokeWidth={1.3} />
-  );
   return (
     <svg viewBox="0 0 118 72" fill="none" className={className} aria-hidden>
       <rect x={2} y={7} width={114} height={60} rx={10} fill="#F9FAF4" stroke="#2E3E40" strokeWidth={3.4} />
@@ -95,18 +90,18 @@ function KeyboardDoodle({ className }: { className?: string }) {
       {/* main cluster */}
       {rows.map((y, r) =>
         cols.map((x, c) => (
-          <Cap key={`${r}-${c}`} x={x} y={y} fill={r === 0 && c === 0 ? "#F17A7E" : caps[(r + c) % 2]} />
+          <KeyboardCap key={`${r}-${c}`} x={x} y={y} fill={r === 0 && c === 0 ? "#F17A7E" : caps[(r + c) % 2]} />
         ))
       )}
-      <Cap x={12} y={49} fill="#F9A66C" />
-      <Cap x={23.5} y={49} w={32} fill="#FFC94B" />
-      <Cap x={58} y={49} fill="#F9A66C" />
+      <KeyboardCap x={12} y={49} fill="#F9A66C" />
+      <KeyboardCap x={23.5} y={49} w={32} fill="#FFC94B" />
+      <KeyboardCap x={58} y={49} fill="#F9A66C" />
       {/* right cluster */}
       {rows.map((y, r) =>
-        [82, 94].map((x, c) => <Cap key={`r${r}-${c}`} x={x} y={y} fill={caps[(r + c + 1) % 2]} />)
+        [82, 94].map((x, c) => <KeyboardCap key={`r${r}-${c}`} x={x} y={y} fill={caps[(r + c + 1) % 2]} />)
       )}
-      <Cap x={82} y={49} fill="#FFC94B" />
-      <Cap x={94} y={49} fill="#F9A66C" />
+      <KeyboardCap x={82} y={49} fill="#FFC94B" />
+      <KeyboardCap x={94} y={49} fill="#F9A66C" />
     </svg>
   );
 }
@@ -169,8 +164,6 @@ function Overlay({ overlay, onClose }: { overlay: OverlayKey; onClose: () => voi
           <CaseBody item={item} />
         ) : overlay === "about" ? (
           <AboutBody />
-        ) : overlay === "game" ? (
-          <ThumbWar />
         ) : (
           <ContactBody />
         )}
@@ -188,37 +181,13 @@ function Depth({ px, py, children, className }: { px: number; py: number; childr
   );
 }
 
-/* Overlays change the URL but never trigger a Next route change, so nothing is
-   recorded for them. Report a virtual pageview using the same public paths the
-   /video, /almanac, ... routes use, so Top Pages reflects what people actually
-   opened. Fires only on user action (never on first mount) so a direct visit to
-   /almanac isn't counted twice. Silently no-ops when analytics is absent or
-   blocked — no added requests, no blocking work. */
-const OVERLAY_PATHS: Record<string, string> = {
-  videography: "/video",
-  redbirdfuel: "/redbirdfuel",
-  almanac: "/almanac",
-  qscables: "/qscables",
-  about: "/about",
-  contact: "/contact",
-  game: "/game",
-};
-
-function trackOverlayView(key: string) {
-  const path = OVERLAY_PATHS[key];
-  if (!path) return;
-  try {
-    (window as unknown as { va?: (event: string, props?: unknown) => void }).va?.("pageview", {
-      route: path,
-      path,
-    });
-  } catch {
-    /* analytics blocked or unavailable — tracking is strictly optional */
-  }
-}
-
 export function Canvas({ initialOpen }: { initialOpen?: string }) {
-  const [overlay, setOverlay] = useState<OverlayKey>(null);
+  const [overlay, setOverlay] = useState<OverlayKey>(() => {
+    if (initialOpen === "about" || initialOpen === "contact" || work.some((w) => w.slug === initialOpen)) {
+      return initialOpen as Exclude<OverlayKey, null>;
+    }
+    return null;
+  });
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Subtle whole-scene 3D: normalized pointer position drives CSS vars; layers
@@ -274,7 +243,6 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         if (alphaMap.current.getImageData(x, y, 1, 1).data[3] > 32) {
           setOverlay("about");
           window.history.replaceState(null, "", "/?open=about");
-          trackOverlayView("about");
         }
       } catch {
         /* canvas unavailable — the easter egg just stays dormant */
@@ -293,14 +261,12 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const open = useCallback((key: Exclude<OverlayKey, null>) => {
     setOverlay(key);
     window.history.replaceState(null, "", `/?open=${key}`);
-    trackOverlayView(key);
   }, []);
 
   // Open About and jump straight to a specific desk project once it mounts.
   const openDesk = useCallback((title: string) => {
     setOverlay("about");
     window.history.replaceState(null, "", "/?open=about");
-    trackOverlayView("about");
     const id = deskId(title);
     // The modal mounts a frame or two later and animates in, so poll for the target
     // and scroll its container directly (scrollIntoView is unreliable mid-animation).
@@ -327,17 +293,6 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
     };
     attempt();
   }, []);
-
-  // Open a starting overlay from either ?open=<key> or the initialOpen prop
-  // (the clean /video, /almanac, ... routes). Does not rewrite the URL, so a
-  // shared path like /video stays clean in the address bar.
-  useEffect(() => {
-    const wanted = new URLSearchParams(window.location.search).get("open") || initialOpen;
-    if (!wanted) return;
-    if (wanted === "about" || wanted === "contact" || wanted === "game" || work.some((w) => w.slug === wanted)) {
-      setOverlay(wanted as Exclude<OverlayKey, null>);
-    }
-  }, [initialOpen]);
 
   return (
     <div ref={rootRef} className="relative flex min-h-dvh flex-col lg:h-dvh">
@@ -561,7 +516,6 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
       </main>
 
       <Ticker />
-      {/* Game entry hidden for now (overlaps too much on mobile); still reachable via ?open=game */}
       <Overlay overlay={overlay} onClose={close} />
     </div>
   );

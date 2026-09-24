@@ -53,19 +53,14 @@ The Vision-framework cutout pipeline is one command away (see BRAND.md).
 - One honest "what I'd change" paragraph.
 - 2 photos if any survive: campaign creative + the product. (If no media exists,
   typographic card is fine.)
-- **Succession plan:** Blake IS marketing chair of Redbird Barbell (official per
-  club page; meetings not yet started). When the work produces real campaigns +
-  event photos + numbers, it REPLACES this card as the current-tense campaign
-  story. Receipts pipeline from meeting #1: baseline follower/member counts THE
-  DAY the role starts (before = the comparison number), every flyer/post/design
-  saved at full res, event photos (wide + candid), IG/analytics screenshots
-  monthly, attendance counts per event.
+- **Redbird Barbell:** retired. It was a separate weightlifting-club role and
+  must not be mixed with Redbird Creative, the athletics creative internship.
 - **Targeting note (Blake, Aug 16):** Chicago is the geography — agencies and
   brand/content teams. Site carries "Open to work — Chicago, Summer 2027."
 
 **Reel:**
 - Confirm the 6 videos and their one-liners; retitle or swap any.
-- Optional: per-video real thumbnails (also unlocks real-image Thumb War rounds).
+- Optional: per-video real thumbnails.
 
 **Trifilm:**
 - One client-safe story from a set + one number that makes it real (days on set,
@@ -74,7 +69,7 @@ The Vision-framework cutout pipeline is one command away (see BRAND.md).
 
 **PersonalOS — mostly on me:**
 - `PersonalOS/docs/PersonalOS-Case-Study.md` is excellent and I can port it —
-  the four-decisions structure, ~240 tests, ~$7/mo, the deleted-feature story.
+  the four-decisions structure, 531 tests, and the deleted-feature story.
   Your call needed on two things: tone-check my port, and decide whether the
   portfolio links the public repo and/or the read-only demo (repo is name-free
   by design today; linking it from your named site connects them forever). That
@@ -88,8 +83,8 @@ The Vision-framework cutout pipeline is one command away (see BRAND.md).
 
 ## 5. Meta polish (mine, once imagery lands)
 
-OG share image (1200×630) in the palette; real Thumb War thumbnails; any new
-photos wired into slots. Ask me anytime.
+OG share image (1200×630) in the palette; any new photos wired into slots. Ask
+me anytime.
 
 ## 6. The rule that guards all of it
 

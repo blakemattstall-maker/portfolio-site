@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 
 const BASE = "https://blakestall.com";
 
+export const dynamic = "force-static";
+
 /* The canvas is one page; the case routes are real URLs worth indexing
    (and worth sharing directly, e.g. the video portfolio on LinkedIn). */
 export default function sitemap(): MetadataRoute.Sitemap {

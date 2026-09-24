@@ -1,14 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      // The Trifilm case was retired from the site (it lives on LinkedIn now).
-      // dynamicParams is false, so without this the old path hard-404s for
-      // anyone still holding the link.
-      { source: "/trifilm", destination: "/", permanent: false },
-    ];
-  },
+  // The portfolio has no runtime data now that Thumb War is retired. Emit
+  // plain HTML, CSS and JavaScript so Cloudflare Pages serves every request as
+  // a static asset with no function invocation.
+  output: "export",
 };
 
 export default nextConfig;

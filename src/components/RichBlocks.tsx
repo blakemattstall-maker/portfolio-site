@@ -40,8 +40,8 @@ function Rise({ children, i = 0 }: { children: ReactNode; i?: number }) {
   const [shown, setShown] = useState(false);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
+      const t = setTimeout(() => setShown(true), 0);
+      return () => clearTimeout(t);
     }
     const el = ref.current;
     if (!el) return;

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next";
 
 const clash = localFont({
   src: [
@@ -54,7 +53,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${clash.variable} ${switzer.variable} ${jbmono.variable} h-full antialiased`}>
       <body className="min-h-full">
         {children}
-        <Analytics />
       </body>
     </html>
   );

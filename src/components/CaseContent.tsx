@@ -245,7 +245,7 @@ export function AboutBody() {
         </figure>
       )}
 
-      <h3 className="eyebrow mt-10 opacity-60">On the desk: things I've built</h3>
+      <h3 className="eyebrow mt-10 opacity-60">On the desk: things I&apos;ve built</h3>
       <div className="mt-4 space-y-8">
         {about.desk.map((item) => (
           <section key={item.title} id={deskId(item.title)} className="border-t-2 border-ink/10 pt-5">

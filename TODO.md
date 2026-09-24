@@ -1,4 +1,4 @@
-# TODO — path to internship-application-ready (rev. Aug 24)
+# TODO — portfolio follow-ups
 
 Owners: **YOU** (Blake) · **ME** (Claude) · **US** (together).
 
@@ -9,11 +9,12 @@ Owners: **YOU** (Blake) · **ME** (Claude) · **US** (together).
   (scroll gallery + Reddit/Instagram marketing callout).
 - About rewritten in Blake's voice; Resume Engine removed.
 - Every user-facing em dash purged (the "sounds like AI" tell).
-- Game moved to a corner controller icon; click-me/ink-splat removed.
+- Retired Thumb War and its server-side leaderboard.
 - Videos autoplay silently and start from the top only when scrolled into view.
 - Full desktop + mobile audit: no horizontal overflow anywhere, overlays and
   phone frames render clean at 375px, About head-crop fixed.
-- Live at the vercel.app URL; auto-deploys on push.
+- Sitemap and robots metadata ship with the site.
+- The site exports as static HTML for Cloudflare Pages.
 
 ## Before it's application-ready (critical path)
 
@@ -22,27 +23,19 @@ Owners: **YOU** (Blake) · **ME** (Claude) · **US** (together).
       your voice and I'll fix it. (The one-liner "A curious student creative,
       becoming a strategist" is the one you were least sure of; a couple of
       alternates are in tonight's report.)
-- [ ] **US — put it on blakestall.com.** This is the #1 item: applications
-      should link your domain, not a vercel.app URL. Vercel → Domains → add
-      blakestall.com; GoDaddy A/CNAME per Vercel; DO NOT touch MX (email).
-      Then cancel Framer.
+- [ ] **US — finish the Cloudflare Pages cutover for blakestall.com.** Preserve
+      every existing mail record while moving DNS, and keep the Vercel copy live
+      until both the apex and www hostnames are verified on Cloudflare.
 - [ ] **YOU — decide on a resume PDF.** Most applications expect one. Want a
       "Resume" download button on the site (I'd add it to the contact area)?
       If so, send the PDF.
-- [ ] **YOU — the game.** You want it simpler/revamped. For applications it can
-      stay as-is (tucked in the corner) or I can hide the controller until we
-      rebuild it. Your call.
 
 ## Nice-to-have (not blocking applications)
-- [ ] **ME — Vercel Analytics** (free) so you can see who visits.
-- [ ] **ME — sitemap.ts + robots.ts** for SEO.
 - [ ] **ME — video poster frames** so there's zero flash before a clip plays.
-- [ ] **YOU — leaderboard** still has my test scores; clear the Upstash key or
-      beat them (only matters if the game stays).
 - [ ] Optional extra media: a couple more Trifilm set/gear stills if you have
       client-safe ones.
 
 ## Parked
-- [ ] Game revamp (simpler concept, real thumbnails/metrics).
-- [ ] Redbird Creative + Redbird Barbell cards once they have receipts.
+- [ ] Redbird Creative card updates once shipped pieces have receipts. Redbird
+      Barbell is a separate, retired role and should not return to the site.
 - [ ] Almanac hardware add-ons, when there's media.

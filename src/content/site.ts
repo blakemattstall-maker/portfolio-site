@@ -70,7 +70,7 @@ export const site = {
   about: {
     heading: "About me",
     body: [
-      "Hi, I'm Blake! I study marketing at Illinois State University, and you can usually find me skipping sleep to work on a new project! Off the clock I lift weights (I'm the marketing chair of Redbird Barbell!) and play video games (I was on my university's Valorant team, and we made it to two tournament finals in one semester!).",
+      "Hi, I'm Blake! I study marketing at Illinois State University, and you can usually find me skipping sleep to work on a new project! Off the clock I lift weights and play video games (I was on my university's Valorant team, and we made it to two tournament finals in one semester!).",
       "I love pulling concepts out of the classroom and using projects as a way to learn on my own terms! I'm aiming for marketing analytics, product marketing, and brand strategy, and I'm always up to connect & chat!",
     ],
     stamps: ["20+ PROJECTS", "CLASS OF 2029"],
@@ -271,14 +271,14 @@ export const work: WorkItem[] = [
     tileHint: "",
     thumb: "/images/proj/almanac-tile.jpg",
     accent: "coral",
-    outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, and location, and once a day it decides on its own whether anything is worth telling me.",
+    outcome: "I built my own AI operating system. It reads and writes my real calendar, tasks, email, banking, notes, health logs, and relationships, then decides whether anything is worth telling me.",
     meta: { role: "Builder", timeline: "June 2026–present", status: "Running daily" },
     link: { label: "Visit getalmanac.xyz", href: "https://getalmanac.xyz" },
     stats: [
       { value: "6", label: "live data sources" },
       { value: "~2 dozen", label: "tools the AI can call" },
-      { value: "240+", label: "automated tests" },
-      { value: "~$7/mo", label: "all-in running cost" },
+      { value: "531", label: "automated tests" },
+      { value: "1", label: "system across every domain" },
     ],
     trailer: {
       outcome: "An executive assistant system I built for myself. I talk to it, it files what I said into the right place, connects and graphs each data point, and generates insights meant to hold me accountable and improve my life.",
@@ -330,7 +330,7 @@ export const work: WorkItem[] = [
       {
         kind: "terminal",
         heading: "how it works",
-        body: "For anyone in tech: it's a Next.js app on Supabase with an LLM router that uses native tool-calling across roughly two dozen tools to read and write my real Google Calendar, Tasks, Gmail, and Docs, plus a bank feed and my location. Memories are retrieved semantically with pgvector, and everything else it stores becomes a polymorphic entity graph I can traverse and see rendered live with force-graph. Scheduled jobs write the morning brief, rebuild the graph nightly, and run the once-a-day observer. One rule holds the whole thing together: every number is calculated in code and handed to the model as fact, so it phrases things in plain language but never does the arithmetic itself. 240+ automated tests, one deployment, about seven dollars a month.",
+        body: "For anyone in tech: it's a Next.js app on Supabase with an LLM router that uses native tool-calling across roughly two dozen tools to read and write my real Google Calendar, Tasks, Gmail, and Docs, plus a bank feed, health logs, notes, projects, and relationships. Memories are retrieved semantically with pgvector, and everything else it stores becomes a polymorphic entity graph I can traverse and see rendered live with force-graph. Scheduled jobs write the morning brief and selectively run news, reviews, and cross-domain analysis on an economy schedule. One rule holds the whole thing together: every number is calculated in code and handed to the model as fact, so it phrases things in plain language but never does the arithmetic itself. The system is protected by 531 automated tests.",
       },
       {
         kind: "text",
