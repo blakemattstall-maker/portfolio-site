@@ -41,6 +41,16 @@ export const deskId = (title: string) =>
 
 export const site = {
   name: "Blake Stall",
+  home: {
+    location: "Illinois State · Class of 2029",
+    intro: "I study marketing at Illinois State. I make videos, build things I want to use, and learn a lot by putting them out into the world.",
+    workEyebrow: "A few things I've put into the world",
+    keyboard: "Before the apps and the camera…",
+    current: {
+      label: "Next up · November 2026",
+      text: "I'm heading to Adobe MAX this November! More from the trip soon.",
+    },
+  },
   email: "blake@blakestall.com",
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/blakestall" },
@@ -443,3 +453,12 @@ export const notFoundCopy = {
   sub: "The page you're looking for isn't in the bin. Head back to the desk.",
   cta: "Back to the desk",
 };
+
+
+// Homepage summaries stay short; full case-study copy above retains Blake's voice.
+export const projectCards = [
+  { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "I built a meal planner for my university's dining halls.", action: "View project" },
+  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "Three years behind a camera, from the first idea to the final cut.", action: "Watch the work" },
+  { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An AI assistant I built to keep up with everything I'm doing.", action: "View project" },
+  { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "I made custom keyboard cables and ran the business around them.", action: "View project" },
+];

@@ -63,7 +63,7 @@ export function PhotoSlotEl({ slot, dark = true }: { slot: PhotoSlot; dark?: boo
 export function CaseBody({ item }: { item: WorkItem }) {
   return (
     <div className="text-ink">
-      <div className="flex flex-wrap items-center gap-3 pr-16 sm:pr-0">
+      <div className="flex flex-wrap items-center gap-3">
         <span className={`eyebrow px-2 py-1 text-ink ${ACCENT_BG[item.accent]}`}>
           {item.index} · {item.kind}
         </span>

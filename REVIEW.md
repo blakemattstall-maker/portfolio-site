@@ -1,0 +1,42 @@
+# Development review · October 1, 2026
+
+Based on production-source commit `f808e16` (Cloudflare static migration).
+Working branch: `codex/portfolio-dev`. No production deployment performed.
+
+## Changes
+
+- Larger, clearly labeled project grid with permanent actions and short first-person summaries.
+- Redbird Fuel leads; existing case-study text and facts retained.
+- Compact personal introduction, smaller portrait, clear About/Contact actions.
+- Labeled keyboard origin story and dated Adobe MAX note.
+- Native project and video dialogs with independent dismissal, focus restoration,
+  sticky close controls, and continuation to the next project.
+- Clean links, legacy query links, and browser history supported.
+- Host-independent unfinished-content build gate; local static-export preview.
+- Compatible dependency security patch; npm audit reports zero vulnerabilities.
+
+## Verified
+
+- Lint, TypeScript compilation, and static production build pass.
+- Home tested at 320×568, 375×667, 390×844, 599×800, 600×800, 768×1024,
+  1024×768, 1099×768, 1100×768, 1280×720, 1440×900, and 1920×1080.
+- No horizontal page overflow, intersections between main homepage regions,
+  or horizontally clipped card titles/descriptions at those sizes.
+- Wide view fits in one screen at 1440×900; short desktop windows scroll safely.
+- All six project/About/Contact paths open their correct sheets at 320, 768,
+  and 1440 pixels wide with no horizontal sheet overflow.
+- Video lightbox opens; Escape closes video only and restores its trigger focus.
+- Project continuation, browser Back/Forward, legacy `?open=almanac`, and
+  keyboard-story shortcut checked in browser.
+- HTTP checks: clean routes, robots, sitemap, retired redirects, 404,
+  noindex preview header, and partial video requests pass.
+- Build gate rejects a temporary unfinished content fixture without Vercel
+  environment variables and accepts the real content after fixture removal.
+
+## Still external to this preview
+
+- Almanac's new explainer video has not been supplied. Existing clips remain.
+- Actual Cloudflare dashboard branch/build settings have not been inspected.
+- Responsive checks used the desktop browser at specified viewport sizes;
+  they are not a substitute for reviewing on a physical phone.
+- The Adobe MAX note is dated and should be updated after the November trip.

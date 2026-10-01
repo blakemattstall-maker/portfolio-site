@@ -1,75 +1,18 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { deskId, site, work } from "@/content/site";
-import { ACCENT_BG, ACCENT_TOP, AboutBody, CaseBody, ContactBody } from "./CaseContent";
-import { Burst, SocialIcons, StaggerHeadline } from "./ui";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { deskId, site, work, projectCards } from "@/content/site";
+import { AboutBody, CaseBody, ContactBody } from "./CaseContent";
+import { SocialIcons, StaggerHeadline } from "./ui";
 
-type OverlayKey = "about" | "contact" | (typeof work)[number]["slug"] | null;
-
-const ACCENT_TEXT: Record<string, string> = {
-  peach: "text-peach",
-  sun: "text-sun",
-  coral: "text-coral",
-};
-
-/* CSS-driven entrance — completes even in throttled/background tabs. */
-function Enter({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
-  return (
-    <div className={`enter ${className ?? ""}`} style={{ ["--d" as string]: `${delay}s` }}>
-      {children}
-    </div>
-  );
+type OverlayKey = string | null;
+const pathFor = (key: string) => key === "videography" ? "/video" : `/${key}`;
+function validKey(key: string | null): OverlayKey {
+  return key === "about" || key === "contact" || work.some((w) => w.slug === key) ? key : null;
 }
-
-/* Hand-drawn-ish doodles in palette colors */
-function Squiggle({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 220 24" fill="none" className={className} aria-hidden>
-      <path
-        d="M4 14 C 24 4, 40 22, 60 12 S 96 4, 116 14 152 22 172 10 208 6 216 12"
-        stroke="#FFC94B"
-        strokeWidth="5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function Star({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 40 40" fill="#F17A7E" className={className} aria-hidden>
-      <path d="M20 2 L24.5 15.5 L38 20 L24.5 24.5 L20 38 L15.5 24.5 L2 20 L15.5 15.5 Z" />
-    </svg>
-  );
-}
-
-/* Hand-drawn arrow, matched to Blake's reference: arc sweeping from upper
-   right down to the lower left, with a full two-barb head at the tip. */
-function ArrowLoop({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 90 60" fill="none" className={className} aria-hidden>
-      <path
-        d="M6 14 C 26 2, 58 8, 74 40"
-        stroke="#F9A66C"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M74 40 L76.5 27"
-        stroke="#F9A66C"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M74 40 L61 38.5"
-        stroke="#F9A66C"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+function locationKey() {
+  const path = window.location.pathname.replace(/^\/|\/$/g, "");
+  return validKey(new URLSearchParams(window.location.search).get("open") || (path === "video" ? "videography" : path));
 }
 
 function KeyboardCap({ x, y, w = 9, fill }: { x: number; y: number; w?: number; fill: string }) {
@@ -127,396 +70,148 @@ function Ticker() {
   );
 }
 
-function Overlay({ overlay, onClose }: { overlay: OverlayKey; onClose: () => void }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
-  if (!overlay) return null;
+function Overlay({ overlay, onClose, onOpen }: {
+  overlay: string;
+  onClose: () => void;
+  onOpen: (key: string) => void;
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const item = work.find((w) => w.slug === overlay);
+  const next = item && projectCards[(projectCards.findIndex((c) => c.slug === item.slug) + 1) % projectCards.length];
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    dialog?.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      dialog?.close();
+      document.body.style.overflow = overflow;
+      previousFocus?.focus({ preventScroll: true });
+    };
+  }, []);
+
+  useEffect(() => {
+    sheetRef.current?.scrollTo({ top: 0 });
+    closeRef.current?.focus({ preventScroll: true });
+  }, [overlay]);
 
   return (
-    <motion.div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/60 p-3 backdrop-blur-sm sm:p-8"
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <motion.div
-        className="sheet overlay-scroll relative max-h-[88dvh] w-full max-w-3xl p-6 sm:p-9"
-        onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, y: 26, rotate: -1 }}
-        animate={{ opacity: 1, y: 0, rotate: 0 }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          className="eyebrow absolute right-4 top-4 cursor-pointer border-2 border-ink/20 px-2.5 py-1.5 text-ink transition-colors hover:bg-ink hover:text-paper"
-        >
-          ESC ✕
-        </button>
-        {item ? (
-          <CaseBody item={item} />
-        ) : overlay === "about" ? (
-          <AboutBody />
-        ) : (
-          <ContactBody />
-        )}
-      </motion.div>
-    </motion.div>
-  );
-}
-
-/* Depth helper: children shift with the pointer by px/py pixels at full deflection. */
-function Depth({ px, py, children, className }: { px: number; py: number; children: ReactNode; className?: string }) {
-  return (
-    <div className={`plx ${className ?? ""}`} style={{ "--px": px, "--py": py } as CSSProperties}>
-      {children}
-    </div>
+    <dialog ref={dialogRef} className="portfolio-dialog" aria-label={item?.title ?? (overlay === "about" ? "About me" : "Contact")}
+      onCancel={(event) => { event.preventDefault(); onClose(); }}
+      onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <div ref={sheetRef} className="sheet overlay-scroll case-sheet">
+        <div className="case-toolbar">
+          <span className="eyebrow">{item ? "Selected projects" : "Blake Stall"}</span>
+          <button ref={closeRef} type="button" onClick={onClose} className="case-close">Back to the desk <span aria-hidden>×</span></button>
+        </div>
+        <div className="case-body" key={overlay}>
+          {item ? <CaseBody item={item} /> : overlay === "about" ? <AboutBody /> : <ContactBody />}
+          {next && <nav className="case-next" aria-label="More projects">
+            <div><span className="eyebrow">Keep exploring</span><p className="mt-2 text-sm">A little more of what I do.</p></div>
+            <button type="button" onClick={() => onOpen(next.slug)}>{next.title} <span aria-hidden>→</span></button>
+          </nav>}
+        </div>
+      </div>
+    </dialog>
   );
 }
 
 export function Canvas({ initialOpen }: { initialOpen?: string }) {
-  const [overlay, setOverlay] = useState<OverlayKey>(() => {
-    if (initialOpen === "about" || initialOpen === "contact" || work.some((w) => w.slug === initialOpen)) {
-      return initialOpen as Exclude<OverlayKey, null>;
+  const [overlay, setOverlay] = useState<OverlayKey>(() => validKey(initialOpen ?? null));
+  const hasPushed = useRef(false);
+  useEffect(() => {
+    const sync = () => { setOverlay(locationKey()); hasPushed.current = false; };
+    // Query links from the previous portfolio remain supported.
+    const timer = window.setTimeout(sync, 0);
+    window.addEventListener("popstate", sync);
+    return () => { clearTimeout(timer); window.removeEventListener("popstate", sync); };
+  }, []);
+
+  const open = useCallback((key: string) => {
+    if (!validKey(key)) return;
+    if (overlay) {
+      window.history.replaceState(null, "", pathFor(key));
+    } else {
+      window.history.pushState(null, "", pathFor(key));
+      hasPushed.current = true;
     }
-    return null;
-  });
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  // Subtle whole-scene 3D: normalized pointer position drives CSS vars; layers
-  // pick their own depth (the body::before texture counter-moves for real depth).
-  // Vars live on <html> so every layer — including pseudo-elements — inherits.
-  useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const el = document.documentElement;
-    let raf = 0;
-    const onMove = (e: PointerEvent) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        el.style.setProperty("--mx", ((e.clientX / window.innerWidth) * 2 - 1).toFixed(3));
-        el.style.setProperty("--my", ((e.clientY / window.innerHeight) * 2 - 1).toFixed(3));
-      });
-    };
-    window.addEventListener("pointermove", onMove);
-    return () => {
-      window.removeEventListener("pointermove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  // Clicking Blake's cutout opens About — but only where he actually is.
-  // The image stays pointer-events-none (its rectangular box overhangs the work
-  // grid and would swallow the keyboard's clicks), so instead we listen at the
-  // document level and hit-test the PNG's alpha channel: transparent corners
-  // fall through to whatever is underneath, opaque pixels open About.
-  const cutoutRef = useRef<HTMLImageElement>(null);
-  const alphaMap = useRef<CanvasRenderingContext2D | null>(null);
-
-  useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      const img = cutoutRef.current;
-      if (!img || !img.naturalWidth) return;
-      // never steal a click meant for a real control or an open overlay
-      if ((e.target as HTMLElement | null)?.closest("a,button,[role='dialog']")) return;
-      const r = img.getBoundingClientRect();
-      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) return;
-      try {
-        if (!alphaMap.current) {
-          const c = document.createElement("canvas");
-          c.width = img.naturalWidth;
-          c.height = img.naturalHeight;
-          const ctx = c.getContext("2d", { willReadFrequently: true });
-          if (!ctx) return;
-          ctx.drawImage(img, 0, 0);
-          alphaMap.current = ctx;
-        }
-        const x = Math.floor(((e.clientX - r.left) / r.width) * img.naturalWidth);
-        const y = Math.floor(((e.clientY - r.top) / r.height) * img.naturalHeight);
-        if (alphaMap.current.getImageData(x, y, 1, 1).data[3] > 32) {
-          setOverlay("about");
-          window.history.replaceState(null, "", "/?open=about");
-        }
-      } catch {
-        /* canvas unavailable — the easter egg just stays dormant */
-      }
-    };
-    document.addEventListener("click", onDocClick);
-    return () => document.removeEventListener("click", onDocClick);
-  }, []);
-
-  const close = useCallback(() => {
-    setOverlay(null);
-    // land on the clean home URL whether we arrived via /video, ?open=, or a click
-    window.history.replaceState(null, "", "/");
-  }, []);
-
-  const open = useCallback((key: Exclude<OverlayKey, null>) => {
     setOverlay(key);
-    window.history.replaceState(null, "", `/?open=${key}`);
+  }, [overlay]);
+  const close = useCallback(() => {
+    if (hasPushed.current) {
+      window.history.back();
+      hasPushed.current = false;
+    } else {
+      window.history.replaceState(null, "", "/");
+      setOverlay(null);
+    }
   }, []);
-
-  // Open About and jump straight to a specific desk project once it mounts.
-  const openDesk = useCallback((title: string) => {
-    setOverlay("about");
-    window.history.replaceState(null, "", "/?open=about");
-    const id = deskId(title);
-    // The modal mounts a frame or two later and animates in, so poll for the target
-    // and scroll its container directly (scrollIntoView is unreliable mid-animation).
-    // A second pass corrects for any layout shift as media finishes reserving space.
-    // NOTE: timers, not requestAnimationFrame — rAF is suspended in hidden/throttled
-    // tabs (the same trap that forced entrance animations to pure CSS), which left
-    // the overlay open but never scrolled.
-    let tries = 0;
-    const jump = () => {
-      const el = document.getElementById(id);
-      const scroller = el?.closest<HTMLElement>(".overlay-scroll");
-      if (!el || !scroller) return false;
-      const offset =
-        el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
-      scroller.scrollTop = Math.max(0, offset - 12);
-      return true;
-    };
-    const attempt = () => {
-      if (jump()) {
-        setTimeout(jump, 260); // re-settle once media has reserved its space
-        return;
-      }
-      if (tries++ < 40) setTimeout(attempt, 25);
-    };
-    attempt();
-  }, []);
+  const openDesk = () => {
+    open("about");
+    window.setTimeout(() => document.getElementById(deskId("The Keyboard"))?.scrollIntoView({ block: "start" }), 80);
+  };
 
   return (
-    <div ref={rootRef} className="relative flex min-h-dvh flex-col lg:h-dvh">
-      {/* availability pill, top right */}
-      <div className="absolute right-4 top-3 z-10 hidden lg:block">
-      <Burst>
-        <button
-          type="button"
-          onClick={() => open("contact")}
-          className="flex cursor-pointer items-center gap-2 rounded-full bg-paper px-3.5 py-1.5 transition-transform hover:-translate-y-0.5"
-        >
-          <span className="live-dot" aria-hidden />
-          <span className="eyebrow text-ink">{site.status}</span>
-        </button>
-      </Burst>
-      </div>
-
-      <main className="relative mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 items-start gap-6 px-5 pb-4 pt-6 lg:grid-cols-12 lg:items-center lg:gap-4 lg:px-10 lg:py-4">
-        {/* LEFT — name, one-liner, descriptor, status, socials */}
-        <div className="relative z-10 lg:col-span-4">
-          <Depth px={5} py={3}>
-          <StaggerHeadline
-            text={`${site.name.split(" ")[0].toUpperCase()} ${site.name.split(" ")[1].toUpperCase()}`}
-            className="display text-[clamp(2.7rem,7.5vw,6.1rem)] font-bold"
-          />
-          <Squiggle className="mt-1 w-40 md:w-52" />
-          <Enter delay={0.35}>
-            <p className="mt-5 max-w-[24ch] text-lg font-medium leading-snug">{site.oneLiner}</p>
-          </Enter>
-          <Enter delay={0.45}>
-            <ul className="mt-5 space-y-1.5">
-              {site.descriptor.map((line, i) => (
-                <li key={line} className="eyebrow flex items-center gap-2.5 opacity-85">
-                  <span
-                    className={`inline-block h-1.5 w-1.5 rotate-45 ${["bg-peach", "bg-sun", "bg-coral"][i % 3]}`}
-                    aria-hidden
-                  />
-                  {line}
-                </li>
-              ))}
-            </ul>
-          </Enter>
-          <Enter delay={0.55}>
-            {/* status pill lives top-right on desktop only; on mobile it ate prime space */}
-            {/* On small screens the keyboard rides in the empty right-hand gutter,
-                vertically straddling the Contact button and the icon row, instead
-                of cluttering the top of the work grid. */}
-            <div className="relative">
-              <Burst className="mt-5">
-                <button
-                  type="button"
-                  onClick={() => open("contact")}
-                  className="cursor-pointer rounded-full bg-coral px-6 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-                >
-                  Contact me →
-                </button>
-              </Burst>
-              <SocialIcons
-                className="mt-4"
-                tone="light"
-                links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]}
-              />
-              <button
-                type="button"
-                onClick={() => openDesk("The Keyboard")}
-                aria-label="See where it started: the mechanical keyboard I built"
-                title="psst, where it all started"
-                className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer drop-shadow-[0_6px_12px_rgba(46,62,64,0.4)] transition-transform duration-300 hover:-translate-y-[calc(50%+4px)] lg:hidden"
-              >
-                <span className="kb-alive relative block overflow-hidden rounded-[8px]">
-                  <KeyboardDoodle className="w-[92px]" />
-                </span>
-              </button>
-            </div>
-          </Enter>
-          </Depth>
-        </div>
-
-        {/* CENTER — the hero cutout, large and left-leaning, orbited by role labels.
-            pointer-events-none: this column is purely decorative, and its z-20 box
-            overhangs the work grid — without this it swallowed clicks meant for the
-            keyboard easter egg tucked behind the sheet. */}
-        <div className="pointer-events-none relative z-0 -mb-[26px] flex items-end justify-center lg:z-20 lg:col-span-3 lg:mb-0 lg:h-full lg:self-end lg:-mx-10">
-          <Enter delay={0.2} className="relative flex items-end">
-            <Depth px={14} py={9} className="relative flex items-end">
-              <ArrowLoop className="absolute -left-28 top-[6%] hidden w-12 -rotate-6 lg:block" />
-              {site.orbitLabels.map((label, i) => (
-                <span
-                  key={label.text}
-                  className={`eyebrow sticker pointer-events-none absolute z-10 text-ink ${ACCENT_BG[label.accent]} ${
-                    ["float-a", "float-b", "float-a"][i]
-                  } ${
-                    /* mobile offsets are in fixed px off the bottom edge, not %,
-                       so the two lower stickers keep the same gap on every phone
-                       and sit on the chest — never across the neck or face. */
-                    [
-                      "-rotate-6 -left-1 top-1 lg:left-6 lg:top-[15%] xl:-left-12",
-                      "rotate-3 -right-3 bottom-12 lg:-right-6 lg:bottom-[13%]",
-                      "-rotate-3 -left-3 bottom-3 lg:-left-5 lg:bottom-[1%]",
-                    ][i]
-                  }`}
-                  style={{ ["--tilt" as string]: `${[-6, 3, -3][i]}deg` }}
-                >
-                  {label.text}
-                </span>
-              ))}
-              <motion.img
-                ref={cutoutRef}
-                src="/images/cutout-web.png"
-                alt="Blake Stall, cut out and smiling"
-                crossOrigin="anonymous"
-                /* mobile: a FIXED height (no viewport units) so the hero can't resize
-                   when the phone's URL bar collapses, and can't collapse on short
-                   screens like the SE — sticker placement stays identical everywhere. */
-                className="pointer-events-none relative mx-auto h-[260px] w-auto object-contain drop-shadow-[0_20px_34px_rgba(46,62,64,0.5)] lg:h-auto lg:max-h-[62dvh]"
-              />
-            </Depth>
-          </Enter>
-          <Depth px={22} py={15} className="absolute -right-2 top-6 lg:right-0">
-            <Star className="w-7 float-b" />
-          </Depth>
-        </div>
-
-        {/* RIGHT — the tilted contact sheet of work */}
-        <Enter delay={0.3} className="relative z-10 lg:z-0 lg:col-span-5">
-          <div className="plx-tilt relative">
-          {/* keyboard easter egg: pokes out from behind the sheet, jumps to the build */}
-          <button
-            type="button"
-            onClick={() => openDesk("The Keyboard")}
-            aria-label="See where it started: the mechanical keyboard I built"
-            title="psst, where it all started"
-            /* mobile: pokes out the TOP-RIGHT of the grid. desktop: top-LEFT,
-               aligned with the first tile row, jutting past the sheet's edge. */
-            className="group absolute -left-24 top-12 z-0 hidden -rotate-6 cursor-pointer drop-shadow-[0_9px_16px_rgba(46,62,64,0.45)] transition-transform duration-300 hover:-translate-y-1.5 lg:block"
-          >
-            <span className="kb-alive relative block overflow-hidden rounded-[10px]">
-              <KeyboardDoodle className="w-32" />
-            </span>
-          </button>
-          <div className="sheet relative z-10 mx-auto w-full max-w-[520px] rotate-0 p-2.5 lg:rotate-2 lg:p-3 lg:hover:rotate-1 lg:transition-transform lg:duration-500">
-            <div className="grid grid-cols-2 gap-2.5 md:gap-3">
-              {work.map((item) => (
-                <button
-                  key={item.slug}
-                  type="button"
-                  onClick={() => open(item.slug)}
-                  className="group cursor-pointer text-left"
-                  aria-label={`Open case: ${item.title}`}
-                >
-                  {/* overflow-hidden so the zoom stays inside the frame and the
-                      title slip has somewhere to hide until hover */}
-                  <span className="relative block overflow-hidden border-2 border-ink/15">
-                    {item.thumb ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={item.thumb}
-                        alt={item.title}
-                        className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                      />
-                    ) : (
-                      <span className="photo-slot photo-slot--dark flex aspect-[4/3] w-full p-2 transition-transform duration-300 group-hover:scale-[1.02]">
-                        <span className="eyebrow opacity-50">PHOTO · {item.tileHint}</span>
-                      </span>
-                    )}
-                    {/* The resting caption is deliberately tiny, so hovering slides
-                        the title up over the frame at a readable size. Fine pointers
-                        only: a touch device has no hover to reveal it. */}
-                    <span
-                      aria-hidden
-                      className={`tile-slip pointer-events-none absolute inset-x-0 bottom-0 hidden translate-y-full border-t-4 bg-paper px-2.5 py-2 transition-transform duration-300 ease-out group-hover:translate-y-0 md:block ${ACCENT_TOP[item.accent]}`}
-                    >
-                      <span className="flex items-end justify-between gap-2">
-                        <span className="min-w-0">
-                          <span className="eyebrow block text-[0.5rem] opacity-55">
-                            {item.index} · {item.kind}
-                          </span>
-                          <span className="display block truncate text-base font-bold leading-tight text-ink">
-                            {item.title}
-                          </span>
-                        </span>
-                        {/* OPEN lives here rather than in the caption row below: there
-                            it reserved its width permanently and truncated the longest
-                            title even while invisible. */}
-                        <span className={`eyebrow shrink-0 pb-0.5 ${ACCENT_TEXT[item.accent]}`}>OPEN →</span>
-                      </span>
-                    </span>
-                  </span>
-                  <span className="mt-1 flex items-center gap-1.5 px-0.5 pb-0.5">
-                    <span className={`inline-block h-2 w-2 shrink-0 rotate-45 ${ACCENT_BG[item.accent]}`} aria-hidden />
-                    <span className="truncate font-mono text-[0.58rem] uppercase tracking-[0.03em] text-ink min-[360px]:text-[0.66rem]">
-                      {item.index} {item.title}
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-            <div className="mt-1 flex gap-2 border-t-2 border-ink/10 px-1 pt-3 pb-1">
-              {/* One primary action here. Contact is already the coral CTA up top
-                  and the status pill, so it stays reachable but stops competing. */}
-              <Burst>
-                <button
-                  type="button"
-                  onClick={() => open("about")}
-                  className="cursor-pointer bg-sun px-5 py-2.5 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-                >
-                  About me →
-                </button>
-              </Burst>
-              <button
-                type="button"
-                onClick={() => open("contact")}
-                className="eyebrow ml-auto cursor-pointer self-center text-ink/60 underline decoration-ink/25 underline-offset-4 transition-colors hover:text-ink"
-              >
-                Contact
-              </button>
-            </div>
+    <div className="portfolio">
+      <a className="skip-link" href="#selected-work">Skip to projects</a>
+      <header className="desk-header">
+        <span className="eyebrow">{site.home.location}</span>
+        <button type="button" onClick={() => open("contact")} className="availability"><span className="live-dot" aria-hidden /><span>{site.status}</span><span className="availability-arrow" aria-hidden> ↗</span></button>
+      </header>
+      <main className="desk-layout">
+        <section className="intro" aria-label="Meet Blake">
+          <div className="intro-copy">
+            <StaggerHeadline text={site.name.toUpperCase()} className="display intro-name" />
+            <svg className="intro-squiggle" viewBox="0 0 220 24" fill="none" aria-hidden><path d="M4 14 C24 4 40 22 60 12 S96 4 116 14 152 22 172 10 208 6 216 12" stroke="currentColor" strokeWidth="5" strokeLinecap="round" /></svg>
+            <p className="intro-line">{site.oneLiner}</p>
+            <p className="intro-story">{site.home.intro}</p>
+            <nav className="intro-actions" aria-label="About and contact">
+              <button type="button" onClick={() => open("about")}>More about me <span aria-hidden>→</span></button>
+              <button type="button" onClick={() => open("contact")}>Get in touch <span aria-hidden>↗</span></button>
+            </nav>
           </div>
+          <div className="portrait-area">
+            <button className="portrait-button" type="button" onClick={() => open("about")} aria-label="More about Blake">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/cutout-web.png" alt="Blake Stall, smiling" className="portrait" />
+              <span className="portrait-label">Hi, I’m Blake.</span>
+            </button>
+            <div className="portrait-socials"><SocialIcons links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]} /></div>
           </div>
-        </Enter>
+        </section>
+        <section className="work-area" id="selected-work" tabIndex={-1} aria-labelledby="work-heading">
+          <div className="work-heading"><div><span className="eyebrow">{site.home.workEyebrow}</span><h2 id="work-heading" className="display">Selected projects</h2></div><span className="work-hint">Open a project <span aria-hidden>↘</span></span></div>
+          <div className="project-sheet sheet">
+            <div className="project-grid">
+              {projectCards.map((card, index) => {
+                const item = work.find((w) => w.slug === card.slug)!;
+                return <a key={card.slug} href={pathFor(card.slug)} className="project-card" style={{ "--card-accent": `var(--color-${item.accent})` } as CSSProperties}
+                  onClick={(event) => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) { event.preventDefault(); open(card.slug); } }}>
+                  <div className="project-image">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
+                    <span className="project-category">{card.category}</span>
+                    {card.slug === "videography" && <span className="project-play" aria-hidden>▶</span>}
+                  </div>
+                  <div className="project-caption"><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
+                </a>;
+              })}
+            </div>
+            <div className="desk-footnote"><button type="button" onClick={openDesk}><KeyboardDoodle className="keyboard-icon" /><span>{site.home.keyboard}<span className="footnote-link">The keyboard I built in 2022 →</span></span></button></div>
+          </div>
+        </section>
+        <aside className="current-note" aria-label="Currently">
+          <span className="current-star" aria-hidden>✳</span>
+          <div><span className="eyebrow">{site.home.current.label}</span><p>{site.home.current.text}</p></div>
+        </aside>
       </main>
-
       <Ticker />
-      <Overlay overlay={overlay} onClose={close} />
+      {overlay && <Overlay overlay={overlay} onClose={close} onOpen={open} />}
     </div>
   );
 }

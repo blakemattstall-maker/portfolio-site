@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1 --port 3001",
     "prebuild": "node scripts/check-tk.mjs",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "node scripts/preview.mjs",
+    "lint": "eslint",
+    "preview": "node scripts/preview.mjs",
+    "check": "npm run lint && npm run build"
   },
   "dependencies": {
     "motion": "^13.1.0",
