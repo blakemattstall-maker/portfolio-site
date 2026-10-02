@@ -43,7 +43,7 @@ export const site = {
   name: "Blake Stall",
   home: {
     location: "Illinois State · Class of 2029",
-    intro: "I study marketing at Illinois State. I make videos, build things I want to use, and learn a lot by putting them out into the world.",
+    intro: "I make videos, build things I want to use, and learn a lot by putting them out into the world.",
     workEyebrow: "A few things I've put into the world",
     keyboard: "Before the apps and the camera…",
     current: {
@@ -457,10 +457,10 @@ export const notFoundCopy = {
 
 // Homepage summaries stay short; full case-study copy above retains Blake's voice.
 export const projectCards = [
-  { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "A meal planner built around Illinois State's daily menus, nutrition goals, and allergies. I launched it with my club. 42 students set it up in the first week.", action: "View project" },
-  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "Commercials, event films, and personal work. I handle the concept, camera, lighting, sound, and edit.", action: "Watch the work" },
-  { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An assistant I use every day. It turns voice notes into tasks, connects my calendar and other data, and writes my morning brief.", action: "View project" },
-  { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "Custom cables, made to match each customer's keyboard. I handled the product, the marketing, and every order before I could drive.", action: "View project" },
+  { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "An app I made to help students hit their fitness goals by creating & tracking meals across all of our campus dining halls. Currently serving 50+ users.", action: "View project" },
+  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "A collection of my favorite & best performing freelanced video projects.", action: "Watch the work" },
+  { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An AI assistant that organizes my life and saves me 3+ hours per week. It connects my calendar, bank transactions, assignments, email, and messages, finding patterns across thousands of data points to suggest ways to improve my productivity.", action: "View project" },
+  { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "An ecommerce business I founded and operated selling artisan keyboard cables.", action: "View project" },
 ];
 
 
@@ -472,9 +472,31 @@ export const projectContext: Record<string, string> = {
 };
 
 export const moments = [
-  { id: "first-game", category: "Builds", title: "An FPS game at 13", label: "An early build", body: "I made an FPS game when I was 13. It belongs here alongside the projects I'm making now.", note: "Gameplay and the full story to come." },
-  { id: "trifilm", category: "Experiences", title: "A summer at Trifilm", label: "Production internship · 2026", body: "I spent the summer at Trifilm working in production. Watching producers juggle a dozen moving parts helped shape what I wanted to build when I got back to school.", note: "A longer reflection to come." },
-  { id: "adobe-max", category: "Experiences", title: "Heading to Adobe MAX", label: "Up next · November 2026", body: "I'm heading to Adobe MAX this November! I'll have more to share after the trip.", note: "Upcoming trip" },
-  { id: "barbell", category: "Campus", title: "Redbird Barbell", label: "At Illinois State", body: "Redbird Barbell is part of my life at Illinois State. It's also where I first launched Redbird Fuel and got feedback from the people using it.", note: "More club moments to come." },
-  { id: "creative", category: "Campus", title: "Redbird Creative", label: "Creative internship", body: "I'm doing a creative internship with Redbird Athletics alongside my marketing degree.", note: "Selected work and a recap to come." },
+  {
+    id: "trifilm", category: "Experiences", title: "Trifilm", label: "Summer 2026 Internship",
+    summary: "A summer in Seattle spent editing, shooting, and co-producing a podcast pilot.",
+    body: "I moved from Chicago to Seattle for a summer as a Production Associate Intern at Trifilm. Over 400 hours of editing, shooting, and shadowing gave me my first real look at the production world.",
+    paragraphs: [
+      "I pitched an internal video podcast series across three leadership meetings, then co-produced the pilot with my fellow intern, Hannah Nieman. I also worked with senior editors on short-form social videos for a nonprofit, from organizing footage to revisions and final deliverables.",
+      "Along the way, I tested Higgsfield, Claude, and Midjourney on real production tasks and built a web tool to track runtime and clip lengths during editing. My biggest takeaway: solving the problem matters more than having every answer, and AI still needs someone with good taste behind it."
+    ],
+    cover: "/images/moments/trifilm-cover.webp", coverAlt: "Blake holding a clapperboard on the Trifilm podcast set",
+    image: "/images/moments/trifilm-body.webp", imageAlt: "Blake at the Trifilm office in Seattle",
+  },
+  {
+    id: "adobe-max", category: "Experiences", title: "Heading to Adobe MAX", label: "Up next · November",
+    summary: "Heading to Miami Beach with the Adobe Student Ambassador community.",
+    body: "I'm heading to Adobe MAX in Miami Beach with a small group of Adobe Student Ambassadors to represent the student community! I'm looking forward to learning from creative experts, meeting students from around the world, and taking a few Adobe Certification exams while I'm there.",
+    paragraphs: [],
+    cover: "/images/moments/adobe-max-cover.webp", coverAlt: "Miami Beach Convention Center",
+    image: "/images/moments/adobe-max-body.webp", imageAlt: "Adobe MAX conference graphic",
+  },
+  {
+    id: "barbell", category: "Campus", title: "Redbird Barbell", label: "Marketing chair",
+    summary: "Tabling, advertising, and helping bring 33 members to our first meeting.",
+    body: "I'm the marketing chair for Redbird Barbell at Illinois State. I've helped table and advertise the club, and our first meeting brought together 33 members. It's been a chance to put what I'm learning in marketing into practice around something I already love: lifting.",
+    paragraphs: [],
+    cover: "/images/moments/barbell.webp", coverAlt: "Redbird Barbell members together at a club meeting",
+    image: "/images/moments/barbell.webp", imageAlt: "Redbird Barbell members together at a club meeting",
+  },
 ];

@@ -81,3 +81,11 @@ postcard's destination. Production remains unchanged.
 - Shelf entries open individual routes. `/more` remains available for existing links. Removed the obsolete Trifilm redirect so its new note survives direct navigation.
 - Added subtle fade/rise entrances for project and video dialogs, with reduced-motion support.
 - Validation: lint, content check, TypeScript, and static build pass. Browser checked at 320, 390, 600, 768, 1024, 1100, and 1440px without horizontal page overflow or clipped card copy. Verified keyboard build, About separation, Escape/focus restoration, and direct keyboard/Trifilm links. Production unchanged.
+
+## October 2: supplied copy and photography
+
+- Applied the requested introduction and project summaries, condensing Almanac while retaining time saved, connected data, pattern finding, and productivity suggestions.
+- Removed FPS and Redbird Creative from the collection and generated routes.
+- Added Trifilm internship story, upcoming Adobe MAX blurb based on Blake's supplied LinkedIn post, and Redbird Barbell marketing-chair story.
+- Added five optimized WebP copies of the supplied photographs/graphics. Source originals remain untouched.
+- Validation: lint, content check, TypeScript, static build, and responsive wrapping at 320/390/768/1024/1440px passed. Opened all three updated stories in the preview and visually checked MAX/Barbell body images. No production deployment.

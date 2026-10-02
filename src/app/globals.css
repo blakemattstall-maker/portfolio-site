@@ -576,3 +576,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .case-body { animation: popup-fade 220ms ease both; }
 @media (max-width: 599px) { .intro-actions .contact-primary { font-size: 17px; min-height: 50px; padding: 12px 18px; gap: 20px; } }
 @media (prefers-reduced-motion: reduce) { .portfolio-dialog[open] .case-sheet, .video-dialog[open] > div, .portfolio-dialog[open]::backdrop, .video-dialog[open]::backdrop, .case-body { animation: none; } }
+
+.postcard-trifilm .postcard-art img { object-position: 50% 35%; }
+.postcard-barbell .postcard-art img { object-position: 50% 60%; }
