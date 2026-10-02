@@ -589,5 +589,5 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .moments-intro h2 { margin-top: 0; }
 .moments-intro .shelf-controls { flex-shrink: 0; margin: 0; }
 .project-image-almanac { aspect-ratio: 16 / 10; margin: 10px 10px 0; padding: 0; background: radial-gradient(ellipse at 50% 100%, #82ae9d 0%, #45665e 48%, #1b302d 100%); }
-.project-image-almanac img { position: absolute; width: 60%; height: auto; aspect-ratio: auto; max-width: none; left: 20%; top: -10%; object-fit: contain; filter: drop-shadow(14px 16px 15px #10262270); }
+.project-image-almanac img { position: absolute; width: 60%; height: auto; aspect-ratio: auto; max-width: none; left: 20%; top: 1%; object-fit: contain; filter: drop-shadow(14px 16px 15px #10262270); }
 @media (max-width: 599px) { .moments-intro { gap: 12px; } .moments-intro h2 { font-size: 30px; } }
