@@ -174,7 +174,7 @@ export const work: WorkItem[] = [
     outcome: "Three years behind a camera, 20+ projects, shot and edited. Here are my favorites.",
     meta: { role: "Videographer & Editor", timeline: "2023–Present", status: "Ongoing" },
     isReel: true,
-    thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
+    thumb: "https://i.ytimg.com/vi/4B626q57J5c/maxresdefault.jpg",
     trailer: {
       outcome: "20+ video projects, shot and edited. Here are my favorites:",
       moves: [
@@ -458,8 +458,8 @@ export const notFoundCopy = {
 // Homepage summaries stay short; full case-study copy above retains Blake's voice.
 export const projectCards = [
   { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "An app I made to help students hit their fitness goals by creating & tracking meals across all of our campus dining halls. Currently serving 50+ users.", action: "View project" },
-  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "A collection of my favorite & best performing freelanced video projects.", action: "Watch the work" },
   { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An AI assistant that organizes my life and saves me 3+ hours per week. It connects my calendar, bank transactions, assignments, email, and messages, finding patterns across thousands of data points to suggest ways to improve my productivity.", action: "View project" },
+  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "A collection of my favorite & best performing freelanced video projects.", action: "Watch the work" },
   { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "An ecommerce business I founded and operated selling artisan keyboard cables.", action: "View project" },
 ];
 
