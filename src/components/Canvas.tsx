@@ -159,9 +159,9 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                 const item = work.find((w) => w.slug === card.slug)!;
                 return <a key={card.slug} href={pathFor(card.slug)} className="project-card" style={{ "--card-accent": `var(--color-${item.accent})` } as CSSProperties}
                   onClick={(event) => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) { event.preventDefault(); open(card.slug); } }}>
-                  <div className={`project-image${card.slug === "almanac" ? " project-image-almanac" : ""}`}>
+                  <div className={`project-image${card.slug === "almanac" ? " project-image-almanac" : card.slug === "redbirdfuel" ? " project-image-fuel" : ""}`}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={card.slug === "almanac" ? "/images/proj/almanac-phone.png" : item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
+                    <img src={card.slug === "almanac" ? "/images/proj/almanac-phone.png" : card.slug === "redbirdfuel" ? "/images/proj/rf-phone.png" : item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
                     {card.slug === "videography" && <span className="project-play" aria-hidden>▶</span>}
                   </div>
                   <div className="project-caption"><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
