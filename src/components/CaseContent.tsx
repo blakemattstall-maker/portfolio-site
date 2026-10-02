@@ -1,7 +1,7 @@
 "use client";
 
 import { deskId, site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
-import { Burst, Copy, SocialIcons } from "./ui";
+import { Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
 import { RichBlocks, CollapsibleStory } from "./RichBlocks";
@@ -213,7 +213,7 @@ export function CaseBody({ item }: { item: WorkItem }) {
   );
 }
 
-export function AboutBody() {
+export function AboutBody({ expandKeyboard = false }: { expandKeyboard?: boolean }) {
   const about = site.about;
   return (
     <div className="text-ink">
@@ -268,6 +268,7 @@ export function AboutBody() {
             {"blocks" in item && item.blocks && (
               <div className="mt-5">
                 <CollapsibleStory
+                  defaultOpen={expandKeyboard && item.title === "The Keyboard"}
                   blocks={item.blocks}
                   teaserAspect="1500 / 649"
                   label={`See how I built it (${item.blocks.filter((b) => b.kind === "photo").length} steps)`}
@@ -287,19 +288,10 @@ export function ContactBody() {
       <span className="eyebrow bg-coral px-2 py-1">CONTACT</span>
       <h2 className="display mt-4 text-3xl font-bold sm:text-4xl">{site.contact.heading}</h2>
       <p className="mt-4 max-w-md leading-relaxed opacity-85">{site.contact.sub}</p>
-      <div className="mt-7 flex flex-wrap items-center gap-4">
-        <Burst>
-          <a
-            href={`mailto:${site.email}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block bg-coral px-6 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-          >
-            {site.email}
-          </a>
-        </Burst>
+      <div className="contact-links">
+        <a href={`mailto:${site.email}`} className="contact-link contact-email"><span><small>Email</small>{site.email}</span><span aria-hidden>↗</span></a>
+        {site.socials.map((link) => <a key={link.label} className="contact-link" href={link.href} target="_blank" rel="noreferrer"><span>{link.label}</span><span aria-hidden>↗</span></a>)}
       </div>
-      <SocialIcons className="mt-6" tone="dark" links={site.socials} />
     </div>
   );
 }

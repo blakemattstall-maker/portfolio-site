@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 /* The canvas is one page; the case routes are real URLs worth indexing
    (and worth sharing directly, e.g. the video portfolio on LinkedIn). */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/video", "/redbirdfuel", "/almanac", "/qscables", "/about", "/contact"];
+  const routes = ["", "/video", "/redbirdfuel", "/almanac", "/qscables", "/more", "/about", "/contact"];
   return routes.map((path) => ({
     url: `${BASE}${path}`,
     lastModified: new Date(),

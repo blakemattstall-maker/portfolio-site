@@ -1,14 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
-import { deskId, site, work, projectCards } from "@/content/site";
+import { deskId, site, work, projectCards, projectContext } from "@/content/site";
 import { AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { SocialIcons, StaggerHeadline } from "./ui";
+import { Moments } from "./Moments";
 
 type OverlayKey = string | null;
 const pathFor = (key: string) => key === "videography" ? "/video" : `/${key}`;
 function validKey(key: string | null): OverlayKey {
-  return key === "about" || key === "contact" || work.some((w) => w.slug === key) ? key : null;
+  return key === "about" || key === "contact" || key === "more" || work.some((w) => w.slug === key) ? key : null;
 }
 function locationKey() {
   const path = window.location.pathname.replace(/^\/|\/$/g, "");
@@ -71,7 +72,9 @@ function Ticker() {
 }
 
 
-function Overlay({ overlay, onClose, onOpen }: {
+function Overlay({ overlay, onClose, onOpen, keyboard, onKeyboard }: {
+  keyboard: boolean;
+  onKeyboard: () => void;
   overlay: string;
   onClose: () => void;
   onOpen: (key: string) => void;
@@ -101,7 +104,7 @@ function Overlay({ overlay, onClose, onOpen }: {
   }, [overlay]);
 
   return (
-    <dialog ref={dialogRef} className="portfolio-dialog" aria-label={item?.title ?? (overlay === "about" ? "About me" : "Contact")}
+    <dialog ref={dialogRef} className="portfolio-dialog" aria-label={item?.title ?? (overlay === "about" ? "About me" : overlay === "more" ? "More of me" : "Contact")}
       onCancel={(event) => { event.preventDefault(); onClose(); }}
       onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <div ref={sheetRef} className="sheet overlay-scroll case-sheet">
@@ -110,7 +113,7 @@ function Overlay({ overlay, onClose, onOpen }: {
           <button ref={closeRef} type="button" onClick={onClose} className="case-close">Back to the desk <span aria-hidden>×</span></button>
         </div>
         <div className="case-body" key={overlay}>
-          {item ? <CaseBody item={item} /> : overlay === "about" ? <AboutBody /> : <ContactBody />}
+          {item ? <CaseBody item={item} /> : overlay === "about" ? <AboutBody expandKeyboard={keyboard} /> : overlay === "more" ? <Moments onKeyboard={onKeyboard} /> : <ContactBody />}
           {next && <nav className="case-next" aria-label="More projects">
             <div><span className="eyebrow">Keep exploring</span><p className="mt-2 text-sm">A little more of what I do.</p></div>
             <button type="button" onClick={() => onOpen(next.slug)}>{next.title} <span aria-hidden>→</span></button>
@@ -124,6 +127,13 @@ function Overlay({ overlay, onClose, onOpen }: {
 export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const [overlay, setOverlay] = useState<OverlayKey>(() => validKey(initialOpen ?? null));
   const hasPushed = useRef(false);
+  const [keyboard, setKeyboard] = useState(false);
+  const [view, setView] = useState("grid");
+  const [review, setReview] = useState(false);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setReview(["localhost", "127.0.0.1"].includes(window.location.hostname)), 0);
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(() => {
     const sync = () => { setOverlay(locationKey()); hasPushed.current = false; };
     // Query links from the previous portfolio remain supported.
@@ -134,6 +144,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
 
   const open = useCallback((key: string) => {
     if (!validKey(key)) return;
+    setKeyboard(false);
     if (overlay) {
       window.history.replaceState(null, "", pathFor(key));
     } else {
@@ -153,16 +164,19 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   }, []);
   const openDesk = () => {
     open("about");
+    setKeyboard(true);
     window.setTimeout(() => document.getElementById(deskId("The Keyboard"))?.scrollIntoView({ block: "start" }), 80);
   };
 
   return (
-    <div className="portfolio">
+    <div className={`portfolio view-${view}`}>
+      {review && <div className="design-options"><span>Design preview</span><div role="group" aria-label="Compare navigation options">{[["grid", "01 · Context grid"], ["stories", "02 · Story cards"], ["index", "03 · Project index"]].map(([id, label]) => <button key={id} aria-pressed={view === id} onClick={() => setView(id)}>{label}</button>)}</div></div>}
       <a className="skip-link" href="#selected-work">Skip to projects</a>
       <header className="desk-header">
         <span className="eyebrow">{site.home.location}</span>
         <button type="button" onClick={() => open("contact")} className="availability"><span className="live-dot" aria-hidden /><span>{site.status}</span><span className="availability-arrow" aria-hidden> ↗</span></button>
       </header>
+      <nav className="section-navigation" aria-label="Portfolio sections"><a href="#selected-work">Selected work ↓</a><a href="#more-of-me">More of me ↓</a><button onClick={() => open("about")}>About</button><button onClick={() => open("contact")}>Contact</button></nav>
       <main className="desk-layout">
         <section className="intro" aria-label="Meet Blake">
           <div className="intro-copy">
@@ -198,7 +212,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                     <span className="project-category">{card.category}</span>
                     {card.slug === "videography" && <span className="project-play" aria-hidden>▶</span>}
                   </div>
-                  <div className="project-caption"><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
+                  <div className="project-caption"><span className="project-context">{projectContext[card.slug]}</span><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-format">{card.slug === "videography" ? "Video collection" : "Project story"}</span><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
                 </a>;
               })}
             </div>
@@ -210,8 +224,16 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
           <div><span className="eyebrow">{site.home.current.label}</span><p>{site.home.current.text}</p></div>
         </aside>
       </main>
+      <section className="moments-home" id="more-of-me" aria-labelledby="moments-heading">
+        <div className="moments-intro"><div><span className="eyebrow">Beyond the four projects</span><h2 id="moments-heading" className="display">More of me</h2><p>Smaller builds, experiences, and life around campus.</p></div><button onClick={() => open("more")}>Explore everything →</button></div>
+        <div className="moment-teasers">
+          <button onClick={openDesk}><span className="eyebrow">Where it started · 2022</span><h3 className="display">A keyboard from scratch</h3><p>The layout, the PCB, the case. My first steps into making something of my own.</p><span className="moment-read">See the build →</span></button>
+          <button onClick={() => open("more")}><span className="eyebrow">On set · On campus</span><h3 className="display">Learning as I go</h3><p>Trifilm, Redbird Creative, and Redbird Barbell. The experiences alongside the projects.</p><span className="moment-read">Explore the collection →</span></button>
+          <button onClick={() => open("more")}><span className="eyebrow">Then & next</span><h3 className="display">Still trying things</h3><p>An FPS game at 13. Adobe MAX this November. More of the things that keep me curious.</p><span className="moment-read">Explore the collection →</span></button>
+        </div>
+      </section>
       <Ticker />
-      {overlay && <Overlay overlay={overlay} onClose={close} onOpen={open} />}
+      {overlay && <Overlay overlay={overlay} onClose={close} onOpen={open} keyboard={keyboard} onKeyboard={openDesk} />}
     </div>
   );
 }

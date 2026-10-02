@@ -40,3 +40,17 @@ Working branch: `codex/portfolio-dev`. No production deployment performed.
 - Responsive checks used the desktop browser at specified viewport sizes;
   they are not a substitute for reviewing on a physical phone.
 - The Adobe MAX note is dated and should be updated after the November trip.
+
+## Navigation exploration pass
+
+The local preview now offers Context grid, Story cards, and Project index.
+The comparison bar appears only on localhost; production remains unchanged.
+All three variants passed 320, 390, 768, 1100, and 1440px width checks without
+horizontal overflow or clipped card content. Lint and static build pass.
+
+A short-scrolling homepage now leads into More of me, with a /more collection
+filtered by Builds, Experiences, and Campus. Brief starter entries use known
+facts and explicitly mark forthcoming material. These are for content review,
+not finished recaps. The keyboard shortcut opens its story expanded; contact
+copy is shorter and all three contact methods have large labeled links.
+Keyboard expansion and collection filtering were checked in the browser.

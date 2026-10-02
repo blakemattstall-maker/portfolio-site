@@ -114,7 +114,7 @@ export const site = {
   },
   contact: {
     heading: "Reach out:",
-    sub: "If you need someone who can shoot the thing, cut the thing, build the thing, and read the dashboard after it ships, say hi.",
+    sub: "I'm always happy to connect.",
   },
 };
 
@@ -461,4 +461,20 @@ export const projectCards = [
   { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "Three years behind a camera, from the first idea to the final cut.", action: "Watch the work" },
   { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An AI assistant I built to keep up with everything I'm doing.", action: "View project" },
   { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "I made custom keyboard cables and ran the business around them.", action: "View project" },
+];
+
+
+export const projectContext: Record<string, string> = {
+  redbirdfuel: "Building something people actually use",
+  videography: "From the first idea to the final cut",
+  almanac: "Making AI part of my everyday life",
+  qscables: "Learning to run a business",
+};
+
+export const moments = [
+  { id: "first-game", category: "Builds", title: "An FPS game at 13", label: "An early build", body: "I made an FPS game when I was 13. It belongs here alongside the projects I'm making now.", note: "Gameplay and the full story to come." },
+  { id: "trifilm", category: "Experiences", title: "A summer at Trifilm", label: "Production internship · 2026", body: "I spent the summer at Trifilm working in production. Watching producers juggle a dozen moving parts helped shape what I wanted to build when I got back to school.", note: "A longer reflection to come." },
+  { id: "adobe-max", category: "Experiences", title: "Heading to Adobe MAX", label: "Up next · November 2026", body: "I'm heading to Adobe MAX this November! I'll have more to share after the trip.", note: "Upcoming trip" },
+  { id: "barbell", category: "Campus", title: "Redbird Barbell", label: "At Illinois State", body: "Redbird Barbell is part of my life at Illinois State. It's also where I first launched Redbird Fuel and got feedback from the people using it.", note: "More club moments to come." },
+  { id: "creative", category: "Campus", title: "Redbird Creative", label: "Creative internship", body: "I'm doing a creative internship with Redbird Athletics alongside my marketing degree.", note: "Selected work and a recap to come." },
 ];

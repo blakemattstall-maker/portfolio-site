@@ -136,13 +136,15 @@ export function CollapsibleStory({
   label,
   teaserSrc,
   teaserAspect = "16/9",
+  defaultOpen = false,
 }: {
   blocks: Block[];
   label: string;
   teaserSrc?: string;
   teaserAspect?: string;
+  defaultOpen?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const teaser =
     teaserSrc ??
     ([...blocks].reverse().find((b) => b.kind === "photo") as { src?: string } | undefined)?.src;

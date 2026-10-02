@@ -83,3 +83,13 @@ placeholder-renderer regexes. Do not use fake metrics to pass it.
 
 `BRAND.md`, `CONTENT.md`, `GATHER.md`, and `TODO.md` retain historical decisions;
 this README and current source describe the current implementation.
+
+## Navigation options under review
+
+At the top of the localhost preview, compare **Context grid**, **Story cards**,
+and **Project index**. The selector is local-only. Context grid is the default.
+The homepage now continues below the selected work into **More of me**; the
+collection also has the shareable `/more` route. Edit its starter entries in
+`moments` and project framing in `projectContext`, both in `src/content/site.ts`.
+The earlier one-screen desktop observation describes the first redesign pass;
+this exploration intentionally adds a short scroll for the growing collection.

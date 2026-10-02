@@ -10,6 +10,7 @@ const SECTIONS: Record<string, { open: string; title: string }> = {
   redbirdfuel: { open: "redbirdfuel", title: "Redbird Fuel · Blake Stall" },
   almanac: { open: "almanac", title: "Almanac · Blake Stall" },
   qscables: { open: "qscables", title: "QsCables · Blake Stall" },
+  more: { open: "more", title: "More of me · Blake Stall" },
   about: { open: "about", title: "About · Blake Stall" },
   contact: { open: "contact", title: "Contact · Blake Stall" },
 };
