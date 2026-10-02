@@ -577,5 +577,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 599px) { .intro-actions .contact-primary { font-size: 17px; min-height: 50px; padding: 12px 18px; gap: 20px; } }
 @media (prefers-reduced-motion: reduce) { .portfolio-dialog[open] .case-sheet, .video-dialog[open] > div, .portfolio-dialog[open]::backdrop, .video-dialog[open]::backdrop, .case-body { animation: none; } }
 
-.postcard-trifilm .postcard-art img { object-position: 50% 35%; }
+/* These subjects need the complete frame: a wide keyboard and a portrait. */
+.postcard-keyboard .postcard-art,
+.postcard-trifilm .postcard-art { background: #24282d; }
+.postcard-keyboard .postcard-art img,
+.postcard-trifilm .postcard-art img { object-fit: contain; object-position: center; min-height: 0; }
 .postcard-barbell .postcard-art img { object-position: 50% 60%; }
