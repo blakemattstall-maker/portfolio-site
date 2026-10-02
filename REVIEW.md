@@ -54,3 +54,21 @@ facts and explicitly mark forthcoming material. These are for content review,
 not finished recaps. The keyboard shortcut opens its story expanded; contact
 copy is shorter and all three contact methods have large labeled links.
 Keyboard expansion and collection filtering were checked in the browser.
+
+## Context grid refinement
+
+Context grid is now the selected direction; the comparison bar is removed.
+A narrower desktop intro and independent paper project cards give the work more
+space. Category badges, redundant format labels, the grid's keyboard shortcut,
+and the duplicated sidebar event note are removed. Descriptions explain the
+actual products. About me is now a large yellow action.
+
+More of me is a horizontal postcard shelf, using the real keyboard image and
+original SVG illustrations. It supports touch/trackpad scrolling, keyboard focus,
+and previous/next controls. Each moment opens its matching note; the keyboard
+still opens expanded. No uncleared production photography was introduced.
+
+Lint and production build pass. Checked 320, 390, 600, 768, 1024, 1100, and
+1440px widths: no page overflow or clipped card text. The shelf intentionally
+scrolls within its own boundary. Verified next-arrow movement and the Adobe
+postcard's destination. Production remains unchanged.

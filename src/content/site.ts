@@ -457,18 +457,18 @@ export const notFoundCopy = {
 
 // Homepage summaries stay short; full case-study copy above retains Blake's voice.
 export const projectCards = [
-  { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "I built a meal planner for my university's dining halls.", action: "View project" },
-  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "Three years behind a camera, from the first idea to the final cut.", action: "Watch the work" },
-  { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An AI assistant I built to keep up with everything I'm doing.", action: "View project" },
-  { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "I made custom keyboard cables and ran the business around them.", action: "View project" },
+  { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "A meal planner built around Illinois State's daily menus, nutrition goals, and allergies. I launched it with my club. 42 students set it up in the first week.", action: "View project" },
+  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "Commercials, event films, and personal work. I handle the concept, camera, lighting, sound, and edit.", action: "Watch the work" },
+  { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An assistant I use every day. It turns voice notes into tasks, connects my calendar and other data, and writes my morning brief.", action: "View project" },
+  { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "Custom cables, made to match each customer's keyboard. I handled the product, the marketing, and every order before I could drive.", action: "View project" },
 ];
 
 
 export const projectContext: Record<string, string> = {
-  redbirdfuel: "Building something people actually use",
-  videography: "From the first idea to the final cut",
-  almanac: "Making AI part of my everyday life",
-  qscables: "Learning to run a business",
+  redbirdfuel: "Built for Illinois State",
+  videography: "Shot and edited by me",
+  almanac: "Built around my own life",
+  qscables: "My first business",
 };
 
 export const moments = [

@@ -93,3 +93,7 @@ collection also has the shareable `/more` route. Edit its starter entries in
 `moments` and project framing in `projectContext`, both in `src/content/site.ts`.
 The earlier one-screen desktop observation describes the first redesign pass;
 this exploration intentionally adds a short scroll for the growing collection.
+
+The latest refinement selects Context grid and removes the option selector.
+`src/components/MomentShelf.tsx` renders the new photo/illustration postcard
+scroller. The keyboard entry lives there rather than beneath the main grid.

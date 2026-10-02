@@ -5,6 +5,7 @@ import { deskId, site, work, projectCards, projectContext } from "@/content/site
 import { AboutBody, CaseBody, ContactBody } from "./CaseContent";
 import { SocialIcons, StaggerHeadline } from "./ui";
 import { Moments } from "./Moments";
+import { MomentShelf } from "./MomentShelf";
 
 type OverlayKey = string | null;
 const pathFor = (key: string) => key === "videography" ? "/video" : `/${key}`;
@@ -14,40 +15,6 @@ function validKey(key: string | null): OverlayKey {
 function locationKey() {
   const path = window.location.pathname.replace(/^\/|\/$/g, "");
   return validKey(new URLSearchParams(window.location.search).get("open") || (path === "video" ? "videography" : path));
-}
-
-function KeyboardCap({ x, y, w = 9, fill }: { x: number; y: number; w?: number; fill: string }) {
-  return <rect x={x} y={y} width={w} height={9} rx={2} fill={fill} stroke="#2E3E40" strokeWidth={1.3} />;
-}
-
-/* A little mechanical keyboard, drawn in Blake's palette (peach/sun caps on an
-   ink plate, coral esc key as a wink). Pokes out from behind the work grid and
-   links to the keyboard build in the About overlay. */
-function KeyboardDoodle({ className }: { className?: string }) {
-  const cols = [12, 23.5, 35, 46.5, 58];
-  const rows = [16, 27, 38];
-  const caps = ["#F9A66C", "#FFC94B"];
-  return (
-    <svg viewBox="0 0 118 72" fill="none" className={className} aria-hidden>
-      <rect x={2} y={7} width={114} height={60} rx={10} fill="#F9FAF4" stroke="#2E3E40" strokeWidth={3.4} />
-      <rect x={8} y={13} width={102} height={48} rx={6} fill="#2E3E40" />
-      {/* main cluster */}
-      {rows.map((y, r) =>
-        cols.map((x, c) => (
-          <KeyboardCap key={`${r}-${c}`} x={x} y={y} fill={r === 0 && c === 0 ? "#F17A7E" : caps[(r + c) % 2]} />
-        ))
-      )}
-      <KeyboardCap x={12} y={49} fill="#F9A66C" />
-      <KeyboardCap x={23.5} y={49} w={32} fill="#FFC94B" />
-      <KeyboardCap x={58} y={49} fill="#F9A66C" />
-      {/* right cluster */}
-      {rows.map((y, r) =>
-        [82, 94].map((x, c) => <KeyboardCap key={`r${r}-${c}`} x={x} y={y} fill={caps[(r + c + 1) % 2]} />)
-      )}
-      <KeyboardCap x={82} y={49} fill="#FFC94B" />
-      <KeyboardCap x={94} y={49} fill="#F9A66C" />
-    </svg>
-  );
 }
 
 function Ticker() {
@@ -128,12 +95,6 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const [overlay, setOverlay] = useState<OverlayKey>(() => validKey(initialOpen ?? null));
   const hasPushed = useRef(false);
   const [keyboard, setKeyboard] = useState(false);
-  const [view, setView] = useState("grid");
-  const [review, setReview] = useState(false);
-  useEffect(() => {
-    const timer = window.setTimeout(() => setReview(["localhost", "127.0.0.1"].includes(window.location.hostname)), 0);
-    return () => clearTimeout(timer);
-  }, []);
   useEffect(() => {
     const sync = () => { setOverlay(locationKey()); hasPushed.current = false; };
     // Query links from the previous portfolio remain supported.
@@ -169,8 +130,8 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   };
 
   return (
-    <div className={`portfolio view-${view}`}>
-      {review && <div className="design-options"><span>Design preview</span><div role="group" aria-label="Compare navigation options">{[["grid", "01 · Context grid"], ["stories", "02 · Story cards"], ["index", "03 · Project index"]].map(([id, label]) => <button key={id} aria-pressed={view === id} onClick={() => setView(id)}>{label}</button>)}</div></div>}
+    <div className="portfolio">
+
       <a className="skip-link" href="#selected-work">Skip to projects</a>
       <header className="desk-header">
         <span className="eyebrow">{site.home.location}</span>
@@ -185,7 +146,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             <p className="intro-line">{site.oneLiner}</p>
             <p className="intro-story">{site.home.intro}</p>
             <nav className="intro-actions" aria-label="About and contact">
-              <button type="button" onClick={() => open("about")}>More about me <span aria-hidden>→</span></button>
+              <button type="button" className="about-primary" onClick={() => open("about")}>About me <span aria-hidden>→</span></button>
               <button type="button" onClick={() => open("contact")}>Get in touch <span aria-hidden>↗</span></button>
             </nav>
           </div>
@@ -200,7 +161,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         </section>
         <section className="work-area" id="selected-work" tabIndex={-1} aria-labelledby="work-heading">
           <div className="work-heading"><div><span className="eyebrow">{site.home.workEyebrow}</span><h2 id="work-heading" className="display">Selected projects</h2></div><span className="work-hint">Open a project <span aria-hidden>↘</span></span></div>
-          <div className="project-sheet sheet">
+          <div className="project-sheet">
             <div className="project-grid">
               {projectCards.map((card, index) => {
                 const item = work.find((w) => w.slug === card.slug)!;
@@ -209,28 +170,22 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                   <div className="project-image">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
-                    <span className="project-category">{card.category}</span>
                     {card.slug === "videography" && <span className="project-play" aria-hidden>▶</span>}
                   </div>
-                  <div className="project-caption"><span className="project-context">{projectContext[card.slug]}</span><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-format">{card.slug === "videography" ? "Video collection" : "Project story"}</span><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
+                  <div className="project-caption"><span className="project-context">{projectContext[card.slug]}</span><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
                 </a>;
               })}
             </div>
-            <div className="desk-footnote"><button type="button" onClick={openDesk}><KeyboardDoodle className="keyboard-icon" /><span>{site.home.keyboard}<span className="footnote-link">The keyboard I built in 2022 →</span></span></button></div>
+
           </div>
         </section>
-        <aside className="current-note" aria-label="Currently">
-          <span className="current-star" aria-hidden>✳</span>
-          <div><span className="eyebrow">{site.home.current.label}</span><p>{site.home.current.text}</p></div>
-        </aside>
       </main>
       <section className="moments-home" id="more-of-me" aria-labelledby="moments-heading">
-        <div className="moments-intro"><div><span className="eyebrow">Beyond the four projects</span><h2 id="moments-heading" className="display">More of me</h2><p>Smaller builds, experiences, and life around campus.</p></div><button onClick={() => open("more")}>Explore everything →</button></div>
-        <div className="moment-teasers">
-          <button onClick={openDesk}><span className="eyebrow">Where it started · 2022</span><h3 className="display">A keyboard from scratch</h3><p>The layout, the PCB, the case. My first steps into making something of my own.</p><span className="moment-read">See the build →</span></button>
-          <button onClick={() => open("more")}><span className="eyebrow">On set · On campus</span><h3 className="display">Learning as I go</h3><p>Trifilm, Redbird Creative, and Redbird Barbell. The experiences alongside the projects.</p><span className="moment-read">Explore the collection →</span></button>
-          <button onClick={() => open("more")}><span className="eyebrow">Then & next</span><h3 className="display">Still trying things</h3><p>An FPS game at 13. Adobe MAX this November. More of the things that keep me curious.</p><span className="moment-read">Explore the collection →</span></button>
-        </div>
+        <div className="moments-intro"><div><span className="eyebrow">A few other parts of my life</span><h2 id="moments-heading" className="display">More of me</h2><p>Things I’ve made, places I’ve been, and what’s next.</p></div><button onClick={() => open("more")}>Explore everything →</button></div>
+        <MomentShelf onKeyboard={openDesk} onMoment={(id) => {
+          open("more");
+          window.setTimeout(() => document.getElementById(`moment-${id}`)?.scrollIntoView({ block: "start" }), 80);
+        }} />
       </section>
       <Ticker />
       {overlay && <Overlay overlay={overlay} onClose={close} onOpen={open} keyboard={keyboard} onKeyboard={openDesk} />}
