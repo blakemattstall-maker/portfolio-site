@@ -507,7 +507,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .intro-actions { gap: 12px; align-items: center; }
 .intro-actions .about-primary { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 54px; background: var(--color-sun); color: var(--color-ink); text-decoration: none; padding: 14px 22px; font-size: 18px; font-weight: 700; box-shadow: 3px 3px 0 #2e3e4080; }
 .intro-actions .about-primary:hover { background: var(--color-peach); }
-.intro-actions > button:last-child { padding: 8px 0; }
+
 .moments-home { margin-top: 46px; padding-top: 38px; border-top: 1px solid #f9faf44d; }
 .moments-intro > button { background: transparent; color: var(--color-paper); border: 1px solid #f9faf455; }
 .shelf-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 12px; }
@@ -539,7 +539,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .intro-line { font-size: 21px; }
   .intro-story { font-size: 14px; }
   .intro-actions { flex-direction: column; align-items: stretch; margin-top: 24px; }
-  .intro-actions > button:last-child { align-self: start; }
+
   .portrait-area { gap: 18px; margin-top: 22px; }
   .portrait { height: 200px; }
   .portrait-button { width: 195px; flex-basis: 195px; }
@@ -563,3 +563,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   .moment-postcard:hover { transform: none; }
 }
+
+/* Matching introduction actions and restrained dialog entrances. */
+.intro-actions .contact-primary { display: flex; align-items: center; justify-content: space-between; align-self: stretch; gap: 30px; min-height: 54px; background: var(--color-peach); color: var(--color-ink); text-decoration: none; padding: 14px 22px; font-size: 18px; font-weight: 700; box-shadow: 3px 3px 0 #2e3e4080; }
+.intro-actions .contact-primary:hover { background: #f8b889; }
+.shelf-controls { justify-content: flex-end; }
+.work-heading h2 { margin-top: 0; }
+@keyframes popup-enter { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes popup-fade { from { opacity: 0; } to { opacity: 1; } }
+.portfolio-dialog[open] .case-sheet, .video-dialog[open] > div { animation: popup-enter 260ms cubic-bezier(.2,.7,.2,1) both; }
+.portfolio-dialog[open]::backdrop, .video-dialog[open]::backdrop { animation: popup-fade 260ms ease both; }
+.case-body { animation: popup-fade 220ms ease both; }
+@media (max-width: 599px) { .intro-actions .contact-primary { font-size: 17px; min-height: 50px; padding: 12px 18px; gap: 20px; } }
+@media (prefers-reduced-motion: reduce) { .portfolio-dialog[open] .case-sheet, .video-dialog[open] > div, .portfolio-dialog[open]::backdrop, .video-dialog[open]::backdrop, .case-body { animation: none; } }

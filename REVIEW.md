@@ -72,3 +72,12 @@ Lint and production build pass. Checked 320, 390, 600, 768, 1024, 1100, and
 1440px widths: no page overflow or clipped card text. The shelf intentionally
 scrolls within its own boundary. Verified next-arrow movement and the Adobe
 postcard's destination. Production remains unchanged.
+
+## October 2: quieter navigation and individual stories
+
+- Removed the top section navigation, redundant project/context labels, portrait caption, collection filler, and Explore everything button.
+- Contact now matches About as a prominent button in the existing peach-orange palette.
+- Keyboard has its own `/keyboard` page with all six build steps expanded, removed from About.
+- Shelf entries open individual routes. `/more` remains available for existing links. Removed the obsolete Trifilm redirect so its new note survives direct navigation.
+- Added subtle fade/rise entrances for project and video dialogs, with reduced-motion support.
+- Validation: lint, content check, TypeScript, and static build pass. Browser checked at 320, 390, 600, 768, 1024, 1100, and 1440px without horizontal page overflow or clipped card copy. Verified keyboard build, About separation, Escape/focus restoration, and direct keyboard/Trifilm links. Production unchanged.

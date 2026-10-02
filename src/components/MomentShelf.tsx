@@ -21,7 +21,7 @@ export function MomentShelf({ onKeyboard, onMoment }: { onKeyboard: () => void; 
   const rail = useRef<HTMLDivElement>(null);
   const move = (direction: number) => rail.current?.scrollBy({ left: direction * rail.current.clientWidth * .8, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   return <div className="moment-shelf">
-    <div className="shelf-controls"><span>A little collection, still growing</span><div><button type="button" onClick={() => move(-1)} aria-label="Previous moments">←</button><button type="button" onClick={() => move(1)} aria-label="Next moments">→</button></div></div>
+    <div className="shelf-controls"><div><button type="button" onClick={() => move(-1)} aria-label="Previous moments">←</button><button type="button" onClick={() => move(1)} aria-label="Next moments">→</button></div></div>
     <div className="moment-rail" ref={rail} aria-label="Smaller projects and experiences" tabIndex={0}>
       {cards.map((card) => <button type="button" key={card.id} className={`moment-postcard postcard-${card.kind}`} onClick={() => card.id === "keyboard" ? onKeyboard() : onMoment(card.id)}>
         <span className="postcard-art">{card.kind === "keyboard" ?

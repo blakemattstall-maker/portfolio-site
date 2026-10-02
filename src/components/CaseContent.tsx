@@ -1,10 +1,10 @@
 "use client";
 
-import { deskId, site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
+import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
 import { Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
-import { RichBlocks, CollapsibleStory } from "./RichBlocks";
+import { RichBlocks } from "./RichBlocks";
 
 export const ACCENT_BG: Record<Accent, string> = {
   peach: "bg-peach",
@@ -213,11 +213,10 @@ export function CaseBody({ item }: { item: WorkItem }) {
   );
 }
 
-export function AboutBody({ expandKeyboard = false }: { expandKeyboard?: boolean }) {
+export function AboutBody() {
   const about = site.about;
   return (
     <div className="text-ink">
-      <span className="eyebrow bg-sun px-2 py-1">ABOUT</span>
       <h2 className="display mt-4 text-3xl font-bold sm:text-4xl">{about.heading}</h2>
       <div className="mt-5 space-y-4 leading-relaxed opacity-85">
         {about.body.map((p, i) => (
@@ -245,39 +244,7 @@ export function AboutBody({ expandKeyboard = false }: { expandKeyboard?: boolean
         </figure>
       )}
 
-      <h3 className="eyebrow mt-10 opacity-60">On the desk: things I&apos;ve built</h3>
-      <div className="mt-4 space-y-8">
-        {about.desk.map((item) => (
-          <section key={item.title} id={deskId(item.title)} className="border-t-2 border-ink/10 pt-5">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="eyebrow flex items-center gap-1.5 opacity-50">
-                {item.status === "RUNNING" && <span className="live-dot" aria-hidden />}
-                {item.status}
-              </span>
-              {/* status and date read together as facts; the ★ chip carries the
-                  narrative and goes last so it wraps cleanly on narrow screens */}
-              {"date" in item && item.date && (
-                <span className="eyebrow border-2 border-ink/20 px-2 py-1 opacity-70">{item.date}</span>
-              )}
-              {"label" in item && item.label && (
-                <span className="eyebrow bg-peach px-2 py-1 text-ink">★ {item.label}</span>
-              )}
-            </div>
-            <h4 className="display mt-1.5 text-2xl font-semibold">{item.title}</h4>
-            <p className="mt-2 leading-relaxed opacity-80">{item.blurb}</p>
-            {"blocks" in item && item.blocks && (
-              <div className="mt-5">
-                <CollapsibleStory
-                  defaultOpen={expandKeyboard && item.title === "The Keyboard"}
-                  blocks={item.blocks}
-                  teaserAspect="1500 / 649"
-                  label={`See how I built it (${item.blocks.filter((b) => b.kind === "photo").length} steps)`}
-                />
-              </div>
-            )}
-          </section>
-        ))}
-      </div>
+
     </div>
   );
 }
@@ -285,7 +252,6 @@ export function AboutBody({ expandKeyboard = false }: { expandKeyboard?: boolean
 export function ContactBody() {
   return (
     <div className="text-ink">
-      <span className="eyebrow bg-coral px-2 py-1">CONTACT</span>
       <h2 className="display mt-4 text-3xl font-bold sm:text-4xl">{site.contact.heading}</h2>
       <p className="mt-4 max-w-md leading-relaxed opacity-85">{site.contact.sub}</p>
       <div className="contact-links">
@@ -294,4 +260,13 @@ export function ContactBody() {
       </div>
     </div>
   );
+}
+
+export function KeyboardBody() {
+  const keyboard = site.about.desk[0];
+  return <article className="text-ink">
+    <h2 className="display text-3xl font-bold sm:text-4xl">My own keyboard</h2>
+    <p className="mt-5 leading-relaxed">{keyboard.blurb}</p>
+    <div className="mt-8">{"blocks" in keyboard && keyboard.blocks && <RichBlocks blocks={keyboard.blocks} />}</div>
+  </article>;
 }

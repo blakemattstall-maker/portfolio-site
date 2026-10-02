@@ -16,3 +16,13 @@ export function Moments({ onKeyboard }: { onKeyboard: () => void }) {
     </div>
   </div>;
 }
+
+export function MomentBody({ id }: { id: string }) {
+  const moment = moments.find((entry) => entry.id === id);
+  if (!moment) return null;
+  return <article className="text-ink">
+    <h2 className="display text-3xl font-bold sm:text-4xl">{moment.title}</h2>
+    <p className="mt-5 leading-relaxed">{moment.body}</p>
+    <p className="mt-6 text-sm opacity-60">{moment.note}</p>
+  </article>;
+}

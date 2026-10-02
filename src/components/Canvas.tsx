@@ -1,16 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
-import { deskId, site, work, projectCards, projectContext } from "@/content/site";
-import { AboutBody, CaseBody, ContactBody } from "./CaseContent";
+import { site, work, projectCards, moments } from "@/content/site";
+import { AboutBody, CaseBody, ContactBody, KeyboardBody } from "./CaseContent";
 import { SocialIcons, StaggerHeadline } from "./ui";
-import { Moments } from "./Moments";
+import { Moments, MomentBody } from "./Moments";
 import { MomentShelf } from "./MomentShelf";
 
 type OverlayKey = string | null;
 const pathFor = (key: string) => key === "videography" ? "/video" : `/${key}`;
 function validKey(key: string | null): OverlayKey {
-  return key === "about" || key === "contact" || key === "more" || work.some((w) => w.slug === key) ? key : null;
+  return key === "about" || key === "contact" || key === "more" || key === "keyboard" || moments.some((m) => m.id === key) || work.some((w) => w.slug === key) ? key : null;
 }
 function locationKey() {
   const path = window.location.pathname.replace(/^\/|\/$/g, "");
@@ -20,7 +20,7 @@ function locationKey() {
 function Ticker() {
   const row = (
     <div className="flex shrink-0 items-center">
-      {[...site.ticker, site.credit].map((item, i) => (
+      {site.ticker.map((item, i) => (
         <span key={i} className="eyebrow flex items-center whitespace-nowrap px-5 py-2.5 text-ink">
           {item}
           <span className="ml-10 inline-block h-1.5 w-1.5 rotate-45 bg-ink/70" aria-hidden />
@@ -39,8 +39,7 @@ function Ticker() {
 }
 
 
-function Overlay({ overlay, onClose, onOpen, keyboard, onKeyboard }: {
-  keyboard: boolean;
+function Overlay({ overlay, onClose, onOpen, onKeyboard }: {
   onKeyboard: () => void;
   overlay: string;
   onClose: () => void;
@@ -49,6 +48,7 @@ function Overlay({ overlay, onClose, onOpen, keyboard, onKeyboard }: {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const moment = moments.find((m) => m.id === overlay);
   const item = work.find((w) => w.slug === overlay);
   const next = item && projectCards[(projectCards.findIndex((c) => c.slug === item.slug) + 1) % projectCards.length];
 
@@ -71,7 +71,7 @@ function Overlay({ overlay, onClose, onOpen, keyboard, onKeyboard }: {
   }, [overlay]);
 
   return (
-    <dialog ref={dialogRef} className="portfolio-dialog" aria-label={item?.title ?? (overlay === "about" ? "About me" : overlay === "more" ? "More of me" : "Contact")}
+    <dialog ref={dialogRef} className="portfolio-dialog" aria-label={item?.title ?? moment?.title ?? (overlay === "keyboard" ? "My own keyboard" : overlay === "about" ? "About me" : overlay === "more" ? "More of me" : "Contact")}
       onCancel={(event) => { event.preventDefault(); onClose(); }}
       onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <div ref={sheetRef} className="sheet overlay-scroll case-sheet">
@@ -80,9 +80,9 @@ function Overlay({ overlay, onClose, onOpen, keyboard, onKeyboard }: {
           <button ref={closeRef} type="button" onClick={onClose} className="case-close">Back to the desk <span aria-hidden>×</span></button>
         </div>
         <div className="case-body" key={overlay}>
-          {item ? <CaseBody item={item} /> : overlay === "about" ? <AboutBody expandKeyboard={keyboard} /> : overlay === "more" ? <Moments onKeyboard={onKeyboard} /> : <ContactBody />}
+          {item ? <CaseBody item={item} /> : overlay === "about" ? <AboutBody /> : overlay === "keyboard" ? <KeyboardBody /> : moment ? <MomentBody id={moment.id} /> : overlay === "more" ? <Moments onKeyboard={onKeyboard} /> : <ContactBody />}
           {next && <nav className="case-next" aria-label="More projects">
-            <div><span className="eyebrow">Keep exploring</span><p className="mt-2 text-sm">A little more of what I do.</p></div>
+            <div><span className="eyebrow">Keep exploring</span></div>
             <button type="button" onClick={() => onOpen(next.slug)}>{next.title} <span aria-hidden>→</span></button>
           </nav>}
         </div>
@@ -94,7 +94,6 @@ function Overlay({ overlay, onClose, onOpen, keyboard, onKeyboard }: {
 export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const [overlay, setOverlay] = useState<OverlayKey>(() => validKey(initialOpen ?? null));
   const hasPushed = useRef(false);
-  const [keyboard, setKeyboard] = useState(false);
   useEffect(() => {
     const sync = () => { setOverlay(locationKey()); hasPushed.current = false; };
     // Query links from the previous portfolio remain supported.
@@ -105,7 +104,6 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
 
   const open = useCallback((key: string) => {
     if (!validKey(key)) return;
-    setKeyboard(false);
     if (overlay) {
       window.history.replaceState(null, "", pathFor(key));
     } else {
@@ -123,11 +121,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
       setOverlay(null);
     }
   }, []);
-  const openDesk = () => {
-    open("about");
-    setKeyboard(true);
-    window.setTimeout(() => document.getElementById(deskId("The Keyboard"))?.scrollIntoView({ block: "start" }), 80);
-  };
+  const openDesk = () => open("keyboard");
 
   return (
     <div className="portfolio">
@@ -137,7 +131,6 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         <span className="eyebrow">{site.home.location}</span>
         <button type="button" onClick={() => open("contact")} className="availability"><span className="live-dot" aria-hidden /><span>{site.status}</span><span className="availability-arrow" aria-hidden> ↗</span></button>
       </header>
-      <nav className="section-navigation" aria-label="Portfolio sections"><a href="#selected-work">Selected work ↓</a><a href="#more-of-me">More of me ↓</a><button onClick={() => open("about")}>About</button><button onClick={() => open("contact")}>Contact</button></nav>
       <main className="desk-layout">
         <section className="intro" aria-label="Meet Blake">
           <div className="intro-copy">
@@ -147,20 +140,19 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
             <p className="intro-story">{site.home.intro}</p>
             <nav className="intro-actions" aria-label="About and contact">
               <button type="button" className="about-primary" onClick={() => open("about")}>About me <span aria-hidden>→</span></button>
-              <button type="button" onClick={() => open("contact")}>Get in touch <span aria-hidden>↗</span></button>
+              <button type="button" className="contact-primary" onClick={() => open("contact")}>Get in touch <span aria-hidden>↗</span></button>
             </nav>
           </div>
           <div className="portrait-area">
             <button className="portrait-button" type="button" onClick={() => open("about")} aria-label="More about Blake">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/cutout-web.png" alt="Blake Stall, smiling" className="portrait" />
-              <span className="portrait-label">Hi, I’m Blake.</span>
             </button>
             <div className="portrait-socials"><SocialIcons links={[{ label: "Email", href: `mailto:${site.email}` }, ...site.socials]} /></div>
           </div>
         </section>
         <section className="work-area" id="selected-work" tabIndex={-1} aria-labelledby="work-heading">
-          <div className="work-heading"><div><span className="eyebrow">{site.home.workEyebrow}</span><h2 id="work-heading" className="display">Selected projects</h2></div><span className="work-hint">Open a project <span aria-hidden>↘</span></span></div>
+          <div className="work-heading"><div><h2 id="work-heading" className="display">Selected projects</h2></div></div>
           <div className="project-sheet">
             <div className="project-grid">
               {projectCards.map((card, index) => {
@@ -172,7 +164,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                     <img src={item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
                     {card.slug === "videography" && <span className="project-play" aria-hidden>▶</span>}
                   </div>
-                  <div className="project-caption"><span className="project-context">{projectContext[card.slug]}</span><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
+                  <div className="project-caption"><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>
                 </a>;
               })}
             </div>
@@ -181,14 +173,11 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
         </section>
       </main>
       <section className="moments-home" id="more-of-me" aria-labelledby="moments-heading">
-        <div className="moments-intro"><div><span className="eyebrow">A few other parts of my life</span><h2 id="moments-heading" className="display">More of me</h2><p>Things I’ve made, places I’ve been, and what’s next.</p></div><button onClick={() => open("more")}>Explore everything →</button></div>
-        <MomentShelf onKeyboard={openDesk} onMoment={(id) => {
-          open("more");
-          window.setTimeout(() => document.getElementById(`moment-${id}`)?.scrollIntoView({ block: "start" }), 80);
-        }} />
+        <div className="moments-intro"><div><h2 id="moments-heading" className="display">More of me</h2><p>Things I’ve made, places I’ve been, and what’s next.</p></div></div>
+        <MomentShelf onKeyboard={openDesk} onMoment={open} />
       </section>
       <Ticker />
-      {overlay && <Overlay overlay={overlay} onClose={close} onOpen={open} keyboard={keyboard} onKeyboard={openDesk} />}
+      {overlay && <Overlay overlay={overlay} onClose={close} onOpen={open} onKeyboard={openDesk} />}
     </div>
   );
 }
