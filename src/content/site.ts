@@ -364,7 +364,7 @@ export const work: WorkItem[] = [
     title: "QsCables",
     tileHint: "",
     accent: "sun",
-    thumb: "/images/proj/qs-4.jpg",
+    thumb: "/images/proj/qs-keyboard.jpg",
     outcome: "A real business: custom keyboard cables I designed, built, photographed, and sold on my own Shopify store, shipped worldwide.",
     meta: { role: "Founder / Maker / Marketer", timeline: "2021 – 2024", status: "Closed in 2024" },
     trailer: {
