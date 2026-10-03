@@ -1,10 +1,10 @@
 "use client";
 
-import { deskId, site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
-import { Burst, Copy, SocialIcons } from "./ui";
+import { site, videos, type Accent, type PhotoSlot, type WorkItem } from "@/content/site";
+import { Copy } from "./ui";
 import { VideoGrid } from "./VideoGrid";
 import { ScrollGallery } from "./ScrollGallery";
-import { RichBlocks, CollapsibleStory } from "./RichBlocks";
+import { RichBlocks } from "./RichBlocks";
 
 export const ACCENT_BG: Record<Accent, string> = {
   peach: "bg-peach",
@@ -63,7 +63,7 @@ export function PhotoSlotEl({ slot, dark = true }: { slot: PhotoSlot; dark?: boo
 export function CaseBody({ item }: { item: WorkItem }) {
   return (
     <div className="text-ink">
-      <div className="flex flex-wrap items-center gap-3 pr-16 sm:pr-0">
+      <div className="flex flex-wrap items-center gap-3">
         <span className={`eyebrow px-2 py-1 text-ink ${ACCENT_BG[item.accent]}`}>
           {item.index} · {item.kind}
         </span>
@@ -217,7 +217,6 @@ export function AboutBody() {
   const about = site.about;
   return (
     <div className="text-ink">
-      <span className="eyebrow bg-sun px-2 py-1">ABOUT</span>
       <h2 className="display mt-4 text-3xl font-bold sm:text-4xl">{about.heading}</h2>
       <div className="mt-5 space-y-4 leading-relaxed opacity-85">
         {about.body.map((p, i) => (
@@ -245,38 +244,7 @@ export function AboutBody() {
         </figure>
       )}
 
-      <h3 className="eyebrow mt-10 opacity-60">On the desk: things I&apos;ve built</h3>
-      <div className="mt-4 space-y-8">
-        {about.desk.map((item) => (
-          <section key={item.title} id={deskId(item.title)} className="border-t-2 border-ink/10 pt-5">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="eyebrow flex items-center gap-1.5 opacity-50">
-                {item.status === "RUNNING" && <span className="live-dot" aria-hidden />}
-                {item.status}
-              </span>
-              {/* status and date read together as facts; the ★ chip carries the
-                  narrative and goes last so it wraps cleanly on narrow screens */}
-              {"date" in item && item.date && (
-                <span className="eyebrow border-2 border-ink/20 px-2 py-1 opacity-70">{item.date}</span>
-              )}
-              {"label" in item && item.label && (
-                <span className="eyebrow bg-peach px-2 py-1 text-ink">★ {item.label}</span>
-              )}
-            </div>
-            <h4 className="display mt-1.5 text-2xl font-semibold">{item.title}</h4>
-            <p className="mt-2 leading-relaxed opacity-80">{item.blurb}</p>
-            {"blocks" in item && item.blocks && (
-              <div className="mt-5">
-                <CollapsibleStory
-                  blocks={item.blocks}
-                  teaserAspect="1500 / 649"
-                  label={`See how I built it (${item.blocks.filter((b) => b.kind === "photo").length} steps)`}
-                />
-              </div>
-            )}
-          </section>
-        ))}
-      </div>
+
     </div>
   );
 }
@@ -284,22 +252,21 @@ export function AboutBody() {
 export function ContactBody() {
   return (
     <div className="text-ink">
-      <span className="eyebrow bg-coral px-2 py-1">CONTACT</span>
       <h2 className="display mt-4 text-3xl font-bold sm:text-4xl">{site.contact.heading}</h2>
       <p className="mt-4 max-w-md leading-relaxed opacity-85">{site.contact.sub}</p>
-      <div className="mt-7 flex flex-wrap items-center gap-4">
-        <Burst>
-          <a
-            href={`mailto:${site.email}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block bg-coral px-6 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
-          >
-            {site.email}
-          </a>
-        </Burst>
+      <div className="contact-links">
+        <a href={`mailto:${site.email}`} className="contact-link contact-email"><span><small>Email</small>{site.email}</span><span aria-hidden>↗</span></a>
+        {site.socials.map((link) => <a key={link.label} className="contact-link" href={link.href} target="_blank" rel="noreferrer"><span>{link.label}</span><span aria-hidden>↗</span></a>)}
       </div>
-      <SocialIcons className="mt-6" tone="dark" links={site.socials} />
     </div>
   );
+}
+
+export function KeyboardBody() {
+  const keyboard = site.about.desk[0];
+  return <article className="text-ink keyboard-story">
+    <h2 className="display text-3xl font-bold sm:text-4xl">My own keyboard</h2>
+    <p className="mt-5 leading-relaxed">{keyboard.blurb}</p>
+    <div className="mt-8">{"blocks" in keyboard && keyboard.blocks && <RichBlocks blocks={keyboard.blocks} />}</div>
+  </article>;
 }

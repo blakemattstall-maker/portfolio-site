@@ -112,7 +112,7 @@ function TerminalReveal({ heading, body, prompt = "~/almanac" }: { heading: stri
           <span className="h-2.5 w-2.5 rounded-full bg-sun" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#6fae7e]" />
         </span>
-        <span className="ml-1 min-w-0 whitespace-nowrap">
+        <span className="ml-1 min-w-0 break-words">
           <span className="text-sun">{prompt}</span>
           <span className="text-paper/50"> $ </span>
           <span>./{cmd}</span>
@@ -136,13 +136,15 @@ export function CollapsibleStory({
   label,
   teaserSrc,
   teaserAspect = "16/9",
+  defaultOpen = false,
 }: {
   blocks: Block[];
   label: string;
   teaserSrc?: string;
   teaserAspect?: string;
+  defaultOpen?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const teaser =
     teaserSrc ??
     ([...blocks].reverse().find((b) => b.kind === "photo") as { src?: string } | undefined)?.src;
@@ -282,7 +284,7 @@ export function RichBlocks({ blocks, accent = "peach" }: { blocks: Block[]; acce
               href={b.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex flex-col items-center gap-3 border-2 border-coral bg-coral/10 p-6 text-center transition-colors hover:bg-coral/20 sm:flex-row sm:justify-between sm:text-left"
+              className="group flex flex-col items-center gap-3 border-2 border-coral bg-coral/10 p-6 text-center transition-colors hover:bg-coral/20 sm:flex-row sm:flex-wrap sm:justify-between sm:text-left"
             >
               <span>
                 <span className="display block text-xl font-semibold sm:text-2xl">{b.heading}</span>

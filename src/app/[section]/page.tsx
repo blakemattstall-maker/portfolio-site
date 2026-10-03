@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { moments } from "@/content/site";
 import { Canvas } from "@/components/Canvas";
 
 // Clean, shareable path URLs that open a specific overlay on the one-page
 // canvas. Path segments survive link handling (LinkedIn, etc.) far better than
 // a ?query, so these are the links to paste into a profile.
 const SECTIONS: Record<string, { open: string; title: string }> = {
+  ...Object.fromEntries(moments.map((m) => [m.id, { open: m.id, title: `${m.title} · Blake Stall` }])),
+  keyboard: { open: "keyboard", title: "My own keyboard · Blake Stall" },
   video: { open: "videography", title: "Video Portfolio · Blake Stall" },
   redbirdfuel: { open: "redbirdfuel", title: "Redbird Fuel · Blake Stall" },
   almanac: { open: "almanac", title: "Almanac · Blake Stall" },
   qscables: { open: "qscables", title: "QsCables · Blake Stall" },
+  more: { open: "more", title: "More of me · Blake Stall" },
   about: { open: "about", title: "About · Blake Stall" },
   contact: { open: "contact", title: "Contact · Blake Stall" },
 };

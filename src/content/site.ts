@@ -41,6 +41,16 @@ export const deskId = (title: string) =>
 
 export const site = {
   name: "Blake Stall",
+  home: {
+    location: "Illinois State · Class of 2029",
+    intro: "I make videos, build things I want to use, and learn a lot by putting them out into the world.",
+    workEyebrow: "A few things I've put into the world",
+    keyboard: "Before the apps and the camera…",
+    current: {
+      label: "Next up · November 2026",
+      text: "I'm heading to Adobe MAX this November! More from the trip soon.",
+    },
+  },
   email: "blake@blakestall.com",
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/blakestall" },
@@ -81,17 +91,17 @@ export const site = {
         label: "Where it started",
         date: "2022",
         status: "SHIPPED",
-        blurb: "A 40% mechanical keyboard I designed and built from nothing: the key layout, the switch plate, the PCB, and the case, all of it. I finished it in October 2022, a month before ChatGPT launched.",
+        blurb: "This started with a keyboard layout I wanted to try. Then I needed a case to fit it, a board to connect the switches, and firmware to make it all work. Six months later, I had a keyboard I had designed from the ground up, and a lot of hours in programs I had never opened before.",
         blocks: [
-          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "1. Started with the layout, a 40% with a few keys moved to where I actually reach for them." },
-          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "2. Modeled the whole case from scratch in Fusion 360, learning as I went: tight tolerances, sizing the screw holes so the screws actually fit, and when to fillet an edge versus chamfer it." },
-          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "3. Designed the board by hand in KiCad, powered by a microcontroller I soldered on and flashed with custom firmware." },
-          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "4. Resin printed the case, dialing in the fit until it was right. I went resin for the accuracy, the smooth finish, and the low cost, all at once." },
-          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "5. A faux-brass weight in the base, purely cosmetic. It's actually resin too, painted to look the part." },
-          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6. Hand-painted, finished, and screwed shut. It's the one I type on every day." },
+          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "I started small: a 40% layout, with a few keys moved to where I actually reach for them. That layout became the starting point for everything else." },
+          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "Making the case meant learning Fusion 360 from scratch. A shape on a screen is one thing. Getting the screw holes, clearances, and edges right so it can actually go together is another." },
+          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "Next came the electronics. I designed the PCB in KiCad, soldered on the microcontroller, and flashed it with custom firmware. The layout finally had a way to talk to my computer." },
+          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "I resin printed the case and kept working on the fit until it was right. Resin gave me the accuracy and smooth finish I wanted without making the build too expensive." },
+          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "The brass-looking detail in the base is a little trick. It's resin too, painted to look like metal. It doesn't need to be there, but I liked having a part of the build that was just for looks." },
+          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "After painting and finishing the case by hand, I could finally screw it shut. I finished it in October 2022. It's still the keyboard I type on every day." },
           {
             kind: "text",
-            body: "There was no model to ask. The layout, the CAD, the board, and the firmware were six months and hundreds of hours in programs I had never opened.",
+            body: "I finished a month before ChatGPT launched, so there was no model to ask when I got stuck. Hundreds of hours went into the layout, switch plate, case, board, and firmware. Now all of that learning sits on my desk as something I use every day.",
           },
         ] as Block[],
       },
@@ -104,7 +114,7 @@ export const site = {
   },
   contact: {
     heading: "Reach out:",
-    sub: "If you need someone who can shoot the thing, cut the thing, build the thing, and read the dashboard after it ships, say hi.",
+    sub: "I'm always happy to connect.",
   },
 };
 
@@ -164,7 +174,7 @@ export const work: WorkItem[] = [
     outcome: "Three years behind a camera, 20+ projects, shot and edited. Here are my favorites.",
     meta: { role: "Videographer & Editor", timeline: "2023–Present", status: "Ongoing" },
     isReel: true,
-    thumb: "https://i.ytimg.com/vi/7n0jBKk99RI/maxresdefault.jpg",
+    thumb: "https://i.ytimg.com/vi/4B626q57J5c/maxresdefault.jpg",
     trailer: {
       outcome: "20+ video projects, shot and edited. Here are my favorites:",
       moves: [
@@ -443,3 +453,50 @@ export const notFoundCopy = {
   sub: "The page you're looking for isn't in the bin. Head back to the desk.",
   cta: "Back to the desk",
 };
+
+
+// Homepage summaries stay short; full case-study copy above retains Blake's voice.
+export const projectCards = [
+  { slug: "redbirdfuel", title: "Redbird Fuel", category: "Product · Live on campus", description: "An app I made to help students hit their fitness goals by creating & tracking meals across all of our campus dining halls. Currently serving 50+ users.", action: "View project" },
+  { slug: "almanac", title: "Almanac", category: "Build · Running daily", description: "An AI assistant that organizes my life and saves me 3+ hours per week. It connects my calendar, bank transactions, assignments, email, and messages, finding patterns across thousands of data points to suggest ways to improve my productivity.", action: "View project" },
+  { slug: "videography", title: "Video Portfolio", category: "Film · Selected work", description: "A collection of my favorite & best performing freelanced video projects.", action: "Watch the work" },
+  { slug: "qscables", title: "QsCables", category: "Business · Custom cables", description: "An ecommerce business I founded and operated selling artisan keyboard cables.", action: "View project" },
+];
+
+
+export const projectContext: Record<string, string> = {
+  redbirdfuel: "Built for Illinois State",
+  videography: "Shot and edited by me",
+  almanac: "Built around my own life",
+  qscables: "My first business",
+};
+
+export const moments = [
+  {
+    id: "trifilm", category: "Experiences", title: "Trifilm", label: "Summer 2026 Internship",
+    summary: "A summer in Seattle spent editing, shooting, and co-producing a podcast pilot.",
+    body: "At the start of the summer, I packed up in Chicago and moved to Seattle to join Trifilm. I had made plenty of videos on my own, but this was my first chance to spend a whole summer around a production team. Over 400 hours of shooting, editing, shadowing, and asking questions later, I came home with a much better sense of what goes into the work.",
+    paragraphs: [
+      "One of my favorite parts was making something with my fellow intern, Hannah Nieman. I brought in an idea for a video podcast about Trifilm. It took a few conversations with the leadership team to get it going, but we got to make the pilot together. Having an idea turn into a real production, with people trusting us to carry it through, meant a lot.",
+      "The smaller moments taught me just as much: working through revisions with senior editors, seeing how people solved problems on set, and figuring out where AI actually helped with an edit. I even built a little tool to keep track of clip lengths and runtime. I left thinking less about having all the answers and more about being someone a team can count on to figure things out. I'm grateful they let me learn by doing."
+    ],
+    cover: "/images/moments/trifilm-cover.webp", coverAlt: "Blake holding a clapperboard on the Trifilm podcast set",
+    image: "/images/moments/trifilm-body.webp", imageAlt: "Blake at the Trifilm office in Seattle",
+  },
+  {
+    id: "adobe-max", category: "Experiences", title: "Heading to Adobe MAX", label: "Up next · November",
+    summary: "Heading to Miami Beach with the Adobe Student Ambassador community.",
+    body: "I'm heading to Adobe MAX in Miami Beach with a small group of Adobe Student Ambassadors to represent the student community! I'm looking forward to learning from creative experts, meeting students from around the world, and taking a few Adobe Certification exams while I'm there.",
+    paragraphs: [],
+    cover: "/images/moments/adobe-max-cover.webp", coverAlt: "Miami Beach Convention Center",
+    image: "/images/moments/adobe-max-body.webp", imageAlt: "Adobe MAX conference graphic",
+  },
+  {
+    id: "barbell", category: "Campus", title: "Redbird Barbell", label: "Marketing chair",
+    summary: "Tabling, advertising, and helping bring 33 members to our first meeting.",
+    body: "I'm the marketing chair for Redbird Barbell at Illinois State. I've helped table and advertise the club, and our first meeting brought together 33 members. It's been a chance to put what I'm learning in marketing into practice around something I already love: lifting.",
+    paragraphs: [],
+    cover: "/images/moments/barbell.webp", coverAlt: "Redbird Barbell members together at a club meeting",
+    image: "/images/moments/barbell.webp", imageAlt: "Redbird Barbell members together at a club meeting",
+  },
+];

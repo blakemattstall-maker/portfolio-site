@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Video } from "@/content/site";
 
 // maxres is sharp but often missing (YouTube then serves a gray 120x90
@@ -53,16 +53,6 @@ function Thumb({ video, onOpen, eager }: { video: Video; onOpen: () => void; eag
 export function VideoGrid({ videos }: { videos: Video[] }) {
   const [open, setOpen] = useState<Video | null>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [open]);
 
   return (
     <>
@@ -72,35 +62,29 @@ export function VideoGrid({ videos }: { videos: Video[] }) {
         ))}
       </div>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/85 p-4 sm:p-10"
-          role="dialog"
-          aria-modal="true"
-          aria-label={open.title}
-          onClick={() => setOpen(null)}
-        >
-          <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <div className="mb-2 flex items-center justify-between">
-              <span className="eyebrow text-paper">{open.title}</span>
-              <button
-                type="button"
-                onClick={() => setOpen(null)}
-                className="eyebrow cursor-pointer text-paper transition-colors hover:text-sun"
-              >
-                Close ✕
-              </button>
-            </div>
-            <iframe
-              className="aspect-video w-full border-0"
-              src={`https://www.youtube-nocookie.com/embed/${open.id}?autoplay=1&rel=0`}
-              title={open.title}
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      )}
+      {open && <VideoLightbox video={open} onClose={() => setOpen(null)} />}
     </>
   );
+}
+
+function VideoLightbox({ video, onClose }: { video: Video; onClose: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const dialog = ref.current;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    dialog?.showModal();
+    return () => { dialog?.close(); previousFocus?.focus({ preventScroll: true }); };
+  }, []);
+  return <dialog ref={ref} className="video-dialog" aria-label={video.title}
+    onCancel={(event) => { event.preventDefault(); event.stopPropagation(); onClose(); }}
+    onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+    <div className="w-full max-w-4xl">
+      <div className="mb-3 flex items-center justify-between gap-4 text-paper">
+        <span className="eyebrow min-w-0">{video.title}</span>
+        <button type="button" onClick={onClose} className="min-h-11 shrink-0 px-3 text-sm">Close video ×</button>
+      </div>
+      <iframe className="aspect-video w-full border-0" src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+        title={video.title} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+    </div>
+  </dialog>;
 }
