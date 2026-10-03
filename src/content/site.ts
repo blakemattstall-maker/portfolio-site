@@ -91,17 +91,17 @@ export const site = {
         label: "Where it started",
         date: "2022",
         status: "SHIPPED",
-        blurb: "A 40% mechanical keyboard I designed and built from nothing: the key layout, the switch plate, the PCB, and the case, all of it. I finished it in October 2022, a month before ChatGPT launched.",
+        blurb: "This started with a keyboard layout I wanted to try. Then I needed a case to fit it, a board to connect the switches, and firmware to make it all work. Six months later, I had a keyboard I had designed from the ground up, and a lot of hours in programs I had never opened before.",
         blocks: [
-          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "1. Started with the layout, a 40% with a few keys moved to where I actually reach for them." },
-          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "2. Modeled the whole case from scratch in Fusion 360, learning as I went: tight tolerances, sizing the screw holes so the screws actually fit, and when to fillet an edge versus chamfer it." },
-          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "3. Designed the board by hand in KiCad, powered by a microcontroller I soldered on and flashed with custom firmware." },
-          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "4. Resin printed the case, dialing in the fit until it was right. I went resin for the accuracy, the smooth finish, and the low cost, all at once." },
-          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "5. A faux-brass weight in the base, purely cosmetic. It's actually resin too, painted to look the part." },
-          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "6. Hand-painted, finished, and screwed shut. It's the one I type on every day." },
+          { kind: "photo", src: "/images/proj/kb-layout.png", caption: "I started small: a 40% layout, with a few keys moved to where I actually reach for them. That layout became the starting point for everything else." },
+          { kind: "photo", src: "/images/proj/kb-cad.png", caption: "Making the case meant learning Fusion 360 from scratch. A shape on a screen is one thing. Getting the screw holes, clearances, and edges right so it can actually go together is another." },
+          { kind: "photo", src: "/images/proj/kb-pcb.jpg", caption: "Next came the electronics. I designed the PCB in KiCad, soldered on the microcontroller, and flashed it with custom firmware. The layout finally had a way to talk to my computer." },
+          { kind: "photo", src: "/images/proj/kb-case.jpg", caption: "I resin printed the case and kept working on the fit until it was right. Resin gave me the accuracy and smooth finish I wanted without making the build too expensive." },
+          { kind: "photo", src: "/images/proj/kb-weight.jpg", caption: "The brass-looking detail in the base is a little trick. It's resin too, painted to look like metal. It doesn't need to be there, but I liked having a part of the build that was just for looks." },
+          { kind: "photo", src: "/images/proj/kb-final.jpg", caption: "After painting and finishing the case by hand, I could finally screw it shut. I finished it in October 2022. It's still the keyboard I type on every day." },
           {
             kind: "text",
-            body: "There was no model to ask. The layout, the CAD, the board, and the firmware were six months and hundreds of hours in programs I had never opened.",
+            body: "I finished a month before ChatGPT launched, so there was no model to ask when I got stuck. Hundreds of hours went into the layout, switch plate, case, board, and firmware. Now all of that learning sits on my desk as something I use every day.",
           },
         ] as Block[],
       },
@@ -475,10 +475,10 @@ export const moments = [
   {
     id: "trifilm", category: "Experiences", title: "Trifilm", label: "Summer 2026 Internship",
     summary: "A summer in Seattle spent editing, shooting, and co-producing a podcast pilot.",
-    body: "I moved from Chicago to Seattle for a summer as a Production Associate Intern at Trifilm. Over 400 hours of editing, shooting, and shadowing gave me my first real look at the production world.",
+    body: "At the start of the summer, I packed up in Chicago and moved to Seattle to join Trifilm. I had made plenty of videos on my own, but this was my first chance to spend a whole summer around a production team. Over 400 hours of shooting, editing, shadowing, and asking questions later, I came home with a much better sense of what goes into the work.",
     paragraphs: [
-      "I pitched an internal video podcast series across three leadership meetings, then co-produced the pilot with my fellow intern, Hannah Nieman. I also worked with senior editors on short-form social videos for a nonprofit, from organizing footage to revisions and final deliverables.",
-      "Along the way, I tested Higgsfield, Claude, and Midjourney on real production tasks and built a web tool to track runtime and clip lengths during editing. My biggest takeaway: solving the problem matters more than having every answer, and AI still needs someone with good taste behind it."
+      "One of my favorite parts was making something with my fellow intern, Hannah Nieman. I brought in an idea for a video podcast about Trifilm. It took a few conversations with the leadership team to get it going, but we got to make the pilot together. Having an idea turn into a real production, with people trusting us to carry it through, meant a lot.",
+      "The smaller moments taught me just as much: working through revisions with senior editors, seeing how people solved problems on set, and figuring out where AI actually helped with an edit. I even built a little tool to keep track of clip lengths and runtime. I left thinking less about having all the answers and more about being someone a team can count on to figure things out. I'm grateful they let me learn by doing."
     ],
     cover: "/images/moments/trifilm-cover.webp", coverAlt: "Blake holding a clapperboard on the Trifilm podcast set",
     image: "/images/moments/trifilm-body.webp", imageAlt: "Blake at the Trifilm office in Seattle",

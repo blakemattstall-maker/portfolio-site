@@ -95,6 +95,12 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
   const [overlay, setOverlay] = useState<OverlayKey>(() => validKey(initialOpen ?? null));
   const hasPushed = useRef(false);
   useEffect(() => {
+    const title = work.find((item) => item.slug === overlay)?.title
+      ?? moments.find((item) => item.id === overlay)?.title
+      ?? ({ about: "About", contact: "Contact", keyboard: "My own keyboard", more: "More of me" } as Record<string, string>)[overlay ?? ""];
+    document.title = title ? `${title} · Blake Stall` : "Blake Stall · Marketing & Media";
+  }, [overlay]);
+  useEffect(() => {
     const sync = () => { setOverlay(locationKey()); hasPushed.current = false; };
     // Query links from the previous portfolio remain supported.
     const timer = window.setTimeout(sync, 0);
@@ -161,7 +167,7 @@ export function Canvas({ initialOpen }: { initialOpen?: string }) {
                   onClick={(event) => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) { event.preventDefault(); open(card.slug); } }}>
                   <div className={`project-image${card.slug === "almanac" ? " project-image-almanac" : card.slug === "redbirdfuel" ? " project-image-fuel" : ""}`}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={card.slug === "almanac" ? "/images/proj/almanac-phone.png" : card.slug === "redbirdfuel" ? "/images/proj/rf-phone.png" : item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
+                    <img src={card.slug === "almanac" ? "/images/proj/almanac-phone.webp" : card.slug === "redbirdfuel" ? "/images/proj/rf-phone.webp" : item.thumb} alt="" loading={index < 2 ? "eager" : "lazy"} />
                     {card.slug === "videography" && <span className="project-play" aria-hidden>▶</span>}
                   </div>
                   <div className="project-caption"><h3 className="display">{card.title}</h3><p>{card.description}</p><span className="project-action">{card.action}<span aria-hidden>→</span></span></div>

@@ -592,5 +592,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .project-image-almanac img { position: absolute; width: 68%; height: auto; aspect-ratio: auto; max-width: none; left: 16%; top: 0%; object-fit: contain; filter: drop-shadow(14px 16px 15px #10262270); }
 @media (max-width: 599px) { .moments-intro { gap: 12px; } .moments-intro h2 { font-size: 30px; } }
 
-.project-image-fuel { aspect-ratio: 16 / 10; margin: 10px 10px 0; padding: 0; background: radial-gradient(ellipse at 50% 100%, #f3bdba 0%, #eee4d8 55%, #faf5eb 100%); }
+.project-image-fuel { aspect-ratio: 16 / 10; margin: 10px 10px 0; padding: 0; background: radial-gradient(ellipse at 50% 100%, #bd4654 0%, #87303d 55%, #4d1c29 100%); }
 .project-image-fuel img { position: absolute; width: 48%; height: auto; aspect-ratio: auto; max-width: none; left: 26%; top: 4%; object-fit: contain; filter: drop-shadow(10px 12px 14px #4f29292e); }
+
+.keyboard-story figcaption { font-family: var(--font-body); font-size: 17px; line-height: 1.65; text-transform: none; letter-spacing: normal; opacity: .9; margin-top: 16px; }

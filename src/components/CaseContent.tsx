@@ -264,7 +264,7 @@ export function ContactBody() {
 
 export function KeyboardBody() {
   const keyboard = site.about.desk[0];
-  return <article className="text-ink">
+  return <article className="text-ink keyboard-story">
     <h2 className="display text-3xl font-bold sm:text-4xl">My own keyboard</h2>
     <p className="mt-5 leading-relaxed">{keyboard.blurb}</p>
     <div className="mt-8">{"blocks" in keyboard && keyboard.blocks && <RichBlocks blocks={keyboard.blocks} />}</div>

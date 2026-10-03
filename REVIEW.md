@@ -89,3 +89,19 @@ postcard's destination. Production remains unchanged.
 - Added Trifilm internship story, upcoming Adobe MAX blurb based on Blake's supplied LinkedIn post, and Redbird Barbell marketing-chair story.
 - Added five optimized WebP copies of the supplied photographs/graphics. Source originals remain untouched.
 - Validation: lint, content check, TypeScript, static build, and responsive wrapping at 320/390/768/1024/1440px passed. Opened all three updated stories in the preview and visually checked MAX/Barbell body images. No production deployment.
+
+## October 2: story polish and launch-readiness review
+
+Updated Fuel's cover to deep red, added the Adobe MAX LinkedIn announcement link, rewrote Trifilm as a summer reflection, and rewrote the keyboard build as a connected story. Keyboard photo captions now use 17px sentence-case body text. Converted the active phone covers from roughly 2.5 MB combined PNGs to roughly 177 KB combined WebPs. Fixed browser titles when opening/closing overlays and refreshed stale navigation documentation.
+
+Validation completed:
+- Lint, content guard, TypeScript, static export, and whitespace checks pass.
+- All 11 content routes opened in browser at desktop and 320px; no dialog horizontal overflow or observed broken images.
+- Homepage checked at 320, 390, 600, 768, 1024, 1100, and 1440px; no page overflow or clipped card copy.
+- Export scan: 14 HTML files, no missing local href/src/poster references.
+- Nested Zevia player opens; Escape closes only the video and restores focus to its trigger. This checks player integration, not full playback of every film.
+- Keyboard captions render at 17px. Optimized covers load. Closing a direct-link dialog restores the home title.
+- Fuel, Almanac (redirect to /welcome), Adobe LinkedIn post, and Instagram profile reachable. Reddit returns an automated-access 403; its two deep links need human confirmation. Other social destinations and every video have not been exhaustively played through.
+- Static export, robots, sitemap, 404 recovery link, and legacy /game redirect present.
+
+Assessment: local site is ready for final content approval and a Cloudflare preview release. Before production merge, verify Cloudflare production branch/build/output settings and smoke-test the hosted preview. Cloudflare dashboard settings were not inspected. The Almanac explainer remains a future content addition, not a broken placeholder. No production publish performed.

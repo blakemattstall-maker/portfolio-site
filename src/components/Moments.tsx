@@ -27,6 +27,7 @@ export function MomentBody({ id }: { id: string }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={moment.image} alt={moment.imageAlt} className="block h-auto w-full border-2 border-ink/15" />
     </figure>
+    {id === "adobe-max" && <a className="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold underline underline-offset-4" href="https://www.linkedin.com/feed/update/urn:li:activity:7511126653348179968/" target="_blank" rel="noreferrer">See my announcement on LinkedIn <span aria-hidden>↗</span></a>}
     {moment.paragraphs.map((paragraph) => <p key={paragraph} className="mt-5 leading-relaxed">{paragraph}</p>)}
   </article>;
 }

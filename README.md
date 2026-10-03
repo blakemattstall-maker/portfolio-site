@@ -84,16 +84,9 @@ placeholder-renderer regexes. Do not use fake metrics to pass it.
 `BRAND.md`, `CONTENT.md`, `GATHER.md`, and `TODO.md` retain historical decisions;
 this README and current source describe the current implementation.
 
-## Navigation options under review
+## Current navigation
 
-At the top of the localhost preview, compare **Context grid**, **Story cards**,
-and **Project index**. The selector is local-only. Context grid is the default.
-The homepage now continues below the selected work into **More of me**; the
-collection also has the shareable `/more` route. Edit its starter entries in
-`moments` and project framing in `projectContext`, both in `src/content/site.ts`.
-The earlier one-screen desktop observation describes the first redesign pass;
-this exploration intentionally adds a short scroll for the growing collection.
-
-The latest refinement selects Context grid and removes the option selector.
-`src/components/MomentShelf.tsx` renders the new photo/illustration postcard
-scroller. The keyboard entry lives there rather than beneath the main grid.
+The homepage uses the context grid, followed by the More of me postcard shelf.
+Each postcard opens its own shareable page, including `/keyboard`, `/trifilm`,
+`/barbell`, and `/adobe-max`. `/more` remains available for older links.
+The keyboard build is separate from About. Edit stories in `src/content/site.ts`.
