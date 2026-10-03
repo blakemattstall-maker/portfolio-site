@@ -498,6 +498,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .project-card:hover { box-shadow: 0 6px 0 var(--card-accent), 0 12px 24px #23343533; }
 .project-image { padding: 10px 10px 0; border: 0; }
 .project-image img { aspect-ratio: 16 / 10; height: auto; }
+.project-image-cables { aspect-ratio: 16 / 10; margin: 10px 10px 0; padding: 0; }
+.project-image-cables img { position: absolute; width: 135%; max-width: none; height: auto; left: -17.5%; top: 0; aspect-ratio: auto; transform-origin: 50% 0; }
 .project-caption { padding: 20px 22px 0; }
 .project-context { font-size: 11px; letter-spacing: .025em; padding-bottom: 10px; }
 .project-caption h3 { font-size: clamp(27px, 2.3vw, 34px); }
