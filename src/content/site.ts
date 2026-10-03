@@ -477,7 +477,7 @@ export const moments = [
     summary: "A summer in Seattle spent editing, shooting, and co-producing a podcast pilot.",
     body: "At the start of the summer, I packed up in Chicago and moved to Seattle to join Trifilm. I had made plenty of videos on my own, but this was my first chance to spend a whole summer around a production team. Over 400 hours of shooting, editing, shadowing, and asking questions later, I came home with a much better sense of what goes into the work.",
     paragraphs: [
-      "One of my favorite parts was making something with my fellow intern, Hannah Nieman. I brought in an idea for a video podcast about Trifilm. It took a few conversations with the leadership team to get it going, but we got to make the pilot together. Having an idea turn into a real production, with people trusting us to carry it through, meant a lot.",
+      "One of my favorite parts was making something with my fellow intern. I brought in an idea for a video podcast about Trifilm. It took a few conversations with the leadership team to get it going, but we got to make the pilot together. Having an idea turn into a real production, with people trusting us to carry it through, meant a lot.",
       "The smaller moments taught me just as much: working through revisions with senior editors, seeing how people solved problems on set, and figuring out where AI actually helped with an edit. I even built a little tool to keep track of clip lengths and runtime. I left thinking less about having all the answers and more about being someone a team can count on to figure things out. I'm grateful they let me learn by doing."
     ],
     cover: "/images/moments/trifilm-cover.webp", coverAlt: "Blake holding a clapperboard on the Trifilm podcast set",
