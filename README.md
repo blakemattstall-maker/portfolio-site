@@ -25,7 +25,7 @@ npm run preview
 ```
 
 Open http://localhost:4173. Preview handles clean project paths, the retired
-Trifilm redirect, 404s, and video byte ranges. It binds only to this computer and
+game redirect, 404s, and video byte ranges. It binds only to this computer and
 sends `noindex` headers. Rebuild after edits to refresh this exported preview.
 `next start` is not used for a static export.
 
@@ -90,3 +90,10 @@ The homepage uses the context grid, followed by the More of me postcard shelf.
 Each postcard opens its own shareable page, including `/keyboard`, `/trifilm`,
 `/barbell`, and `/adobe-max`. `/more` remains available for older links.
 The keyboard build is separate from About. Edit stories in `src/content/site.ts`.
+
+## Hosting integration
+
+Cloudflare Pages project `portfolio-site` serves `blakestall.com` and
+`www.blakestall.com`, with Git production deployments from `main`. Confirmed
+production deployment of merge `3999719` on October 2, 2026.
+`vercel.json` disables Git-triggered deployments of the retired Vercel copy.
