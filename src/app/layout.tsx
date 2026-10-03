@@ -40,11 +40,11 @@ export const metadata: Metadata = {
     url: "https://blakestall.com",
     siteName: "Blake Stall",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Blake Stall portfolio" }],
+    images: [{ url: "/og-2026-10.png", width: 1200, height: 630, alt: "Blake Stall portfolio" }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og.png"],
+    images: ["/og-2026-10.png"],
   },
 };
 
